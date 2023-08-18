@@ -1,10 +1,23 @@
-namespace Coleta_Copo_Oficial
+using Copo_Coleta.Data;
+using Microsoft.EntityFrameworkCore;
+
+namespace Copo_Coleta
 {
     public class Program
     {
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddDbContext<BancoContext>
+              (options => options.UseMySql(
+                  "server=novolab.c82dqw5tullb.sa-east-1.rds.amazonaws.com;user id=sistema;password=7847awse;database=labdados",
+                  Microsoft.EntityFrameworkCore.ServerVersion.Parse("13.2.0-mysql")));
+
+            builder.Services.AddDbContext<CoposContext>
+              (options => options.UseMySql(
+                  "server=novolab.c82dqw5tullb.sa-east-1.rds.amazonaws.com;user id=sistema;password=7847awse;database=copos",
+                  Microsoft.EntityFrameworkCore.ServerVersion.Parse("13.2.0-mysql")));
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

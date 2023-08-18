@@ -1,22 +1,80 @@
-﻿using Coleta_Copo_Oficial.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using Copo_Coleta.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Copo_Coleta.Data;
+using MySqlConnector;
+using System.Reflection.Metadata;
+using static Azure.Core.HttpHeader;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using static Copo_Coleta.Models.HomeModel;
 
-namespace Coleta_Copo_Oficial.Controllers
+namespace Copo_Coleta.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly BancoContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, BancoContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
+        //Meu index.
         public IActionResult Index()
         {
             return View();
         }
+
+
+
+
+        //Pesquisar orçamento...
+        [HttpPost]
+        public IActionResult BuscarOrcamento(string orcamento)
+        {
+            // exucutar query consulta;
+            try
+            {
+
+                var resultado = _context.ordemservico_copylab
+                  .Where(os => os.orcamento == orcamento)
+                  .OrderBy(os=>os.item)
+                  .Select(os => new OrdemServico // Substitua 'OrdemServico' pela classe correta
+                  {
+                      Rev = os.Rev,
+                      orcamento = os.orcamento,
+                      item = os.item,
+                      codigo = os.codigo,
+                      mes = os.mes,
+                      ano = os.ano
+                  })
+                  .ToList();
+
+                //verificar se tem algo preenchido..
+                if (resultado.Count > 0)
+                {
+                    return View("Index", resultado);
+                }
+                else
+                {
+                    TempData["Mensagem"] = "Orçamento não encontrado.";
+                    return View("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao buscar orçamento: {0}", ex.Message);
+                throw;
+            }
+        }
+
+
+
+
 
         public IActionResult Privacy()
         {

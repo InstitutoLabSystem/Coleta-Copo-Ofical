@@ -1,4 +1,4 @@
-namespace Coleta_Copo_Oficial.Models
+namespace Copo_Coleta.Models
 {
     public class ErrorViewModel
     {
