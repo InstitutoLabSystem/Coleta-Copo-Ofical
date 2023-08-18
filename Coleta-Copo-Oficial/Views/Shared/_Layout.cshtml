@@ -10,6 +10,26 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Copo_Coleta.styles.css" asp-append-version="true" />
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 92vh;
+        }
+
+        .footer {
+            flex: 1;
+
+        }
+
+        .absolute-footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 10px 0;
+        }
+
+    </style>
 </head>
 <body>
     <header>
@@ -36,9 +56,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted absolute-footer footer">
         <div class="container">
-            &copy; @dataAtual.Year - Coleta de copo - Labsystem
+            &copy; @DateTime.Now.Year - Coleta de copo - Labsystem
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
