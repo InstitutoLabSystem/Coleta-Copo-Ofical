@@ -601,10 +601,11 @@ namespace Copo_Coleta.Controllers
         }
 
 
+
         [HttpPost]
-        public async Task<IActionResult> SalvarMassa(int os, int osDescricao, string rsi, string rci, string massamin, int rev, string orcamento,
-             List<string> massa, List<string> peso,
-             ColetaModel.Descricao descricaocopos, [Bind("fatcorrelacao,incerteza")] ColetaModel.Tablemassa tablemassa)
+        public async Task<IActionResult> SalvarMassa(int os, int osDescricao, string rsi, string rci, string massamin, string fatcorrelacao, int rev, string orcamento,
+          List<string> massa, List<string> peso,
+          ColetaModel.Descricao descricaocopos, [Bind("incerteza")] ColetaModel.Tablemassa tablemassa)
         {
             try
             {
@@ -639,63 +640,140 @@ namespace Copo_Coleta.Controllers
                         double mediaAritmetica = soma / numeros.Count;
                         double Resultfinal = mediaAritmetica / 10;
 
+                        double capacidadeCopo;
+                        capacidadeCopo = Double.Parse(pegarValoresDescricao.capacidade_copo);
 
+                        if (capacidadeCopo == 1 && capacidadeCopo < 50)
+                        {
+                            fatcorrelacao = "0,00150";
+
+                            double correlacao;
+                            correlacao = Double.Parse(fatcorrelacao);
+                            double resultado = capacidadeCopo * correlacao;
+                            massamin = resultado.ToString("0.000");
+
+                        }
                         if (pegarValoresDescricao.capacidade_copo == "50")
                         {
                             massamin = "0,75";
+                            fatcorrelacao = "0,0150";
+                        }
+                        if (capacidadeCopo >= 51 && capacidadeCopo <= 149 && capacidadeCopo != 80 && capacidadeCopo != 110)
+                        {
+                            fatcorrelacao = "0,00175";
+
+                            double correlacao;
+                            correlacao = Double.Parse(fatcorrelacao);
+                            double resultado = capacidadeCopo * correlacao;
+                            massamin = resultado.ToString("0.000");
+
                         }
                         if (pegarValoresDescricao.capacidade_copo == "80")
                         {
                             massamin = "1,40";
+                            fatcorrelacao = "0,0175";
                         }
                         if (pegarValoresDescricao.capacidade_copo == "110")
                         {
                             massamin = "1,90";
+                            fatcorrelacao = "0,0175";
                         }
                         if (pegarValoresDescricao.capacidade_copo == "150")
                         {
                             massamin = "1,35";
+                            fatcorrelacao = "0,0090";
+                        }
+                        if (capacidadeCopo >= 151 && capacidadeCopo <= 299 && capacidadeCopo != 180 && capacidadeCopo != 200 && capacidadeCopo != 250)
+                        {
+                            fatcorrelacao = "0,0090";
+
+                            double correlacao;
+                            correlacao = Double.Parse(fatcorrelacao);
+                            double resultado = capacidadeCopo * correlacao;
+                            massamin = resultado.ToString("0.000");
+
                         }
                         if (pegarValoresDescricao.capacidade_copo == "180")
                         {
                             massamin = "1,62";
+                            fatcorrelacao = "0,0090";
                         }
                         if (pegarValoresDescricao.capacidade_copo == "200")
                         {
                             massamin = "1,80";
+                            fatcorrelacao = "0,0090";
                         }
                         if (pegarValoresDescricao.capacidade_copo == "250")
                         {
                             massamin = "2,25";
+                            fatcorrelacao = "0,0090";
                         }
                         if (pegarValoresDescricao.capacidade_copo == "300")
                         {
                             massamin = "2,70";
+                            fatcorrelacao = "0,0090";
+                        }
+                        if (capacidadeCopo >= 301 && capacidadeCopo <= 329)
+                        {
+                            fatcorrelacao = "0,0110";
+
+                            double correlacao;
+                            correlacao = Double.Parse(fatcorrelacao);
+                            double resultado = capacidadeCopo * correlacao;
+                            massamin = resultado.ToString("0.000");
+
                         }
                         if (pegarValoresDescricao.capacidade_copo == "330")
                         {
                             massamin = "3,63";
+                            fatcorrelacao = "0,0110";
+                        }
+                        if (capacidadeCopo >= 331 && capacidadeCopo <= 549 && capacidadeCopo != 400 && capacidadeCopo != 440 &&
+                            capacidadeCopo != 500)
+                        {
+                            fatcorrelacao = "0,0126";
+
+                            double correlacao;
+                            correlacao = Double.Parse(fatcorrelacao);
+                            double resultado = capacidadeCopo * correlacao;
+                            massamin = resultado.ToString("0.000");
+
                         }
                         if (pegarValoresDescricao.capacidade_copo == "400")
                         {
                             massamin = "5,00";
+                            fatcorrelacao = "0,0126";
                         }
                         if (pegarValoresDescricao.capacidade_copo == "440")
                         {
                             massamin = "5,54";
+                            fatcorrelacao = "0,0126";
                         }
                         if (pegarValoresDescricao.capacidade_copo == "500")
                         {
                             massamin = "6,30";
+                            fatcorrelacao = "0,0126";
                         }
                         if (pegarValoresDescricao.capacidade_copo == "550")
                         {
                             massamin = "6,93";
+                            fatcorrelacao = "0,0126";
+                        }
+                        if (capacidadeCopo >= 551 && capacidadeCopo != 770)
+                        {
+                            fatcorrelacao = "0,0156";
+
+                            double correlacao;
+                            correlacao = Double.Parse(fatcorrelacao);
+                            double resultado = capacidadeCopo * correlacao;
+                            massamin = resultado.ToString("0.000");
                         }
                         if (pegarValoresDescricao.capacidade_copo == "770")
                         {
                             massamin = "12,00";
+                            fatcorrelacao = "0,0156";
                         }
+
 
                         //Fazendo a conta qdo RSI (se o obtida é >= ao Especificada,
                         //então o resultado é "CONFORME", se não é "NÃO CONFORME)".
@@ -713,8 +791,6 @@ namespace Copo_Coleta.Controllers
                         }
 
                         //pegando os valores enviados pelo html.
-
-                        var fatcorrelacao = tablemassa.fatcorrelacao;
                         var incerteza = tablemassa.incerteza;
 
                         //Fazendo a conta qdo RCI (Se o Obtida(Resultfinal) - a incerteza(verificarincerteza)
@@ -746,7 +822,7 @@ namespace Copo_Coleta.Controllers
                             quantmanga = pegarValoresDescricao.quant_manga,
                             capmanga = pegarValoresDescricao.capacidade_manga,
                             fatcorrelacao = fatcorrelacao,
-                            obtida = Resultfinal.ToString(),
+                            obtida = Resultfinal.ToString("0.000"),
                             especificada = massamin,
                             incerteza = incerteza,
                             rsi = rsi,
@@ -812,7 +888,7 @@ namespace Copo_Coleta.Controllers
                         }
                         //pegando os valores enviados pelo html.
 
-                        var fatcorrelacao = tablemassa.fatcorrelacao;
+
                         var incerteza = tablemassa.incerteza;
 
                         //Fazendo a conta qdo RCI (Se o Obtida(Resultfinal) - a incerteza(verificarincerteza)
@@ -834,8 +910,7 @@ namespace Copo_Coleta.Controllers
                         }
 
 
-                        EditarTable.obtida = Resultfinal.ToString();
-                        EditarTable.fatcorrelacao = fatcorrelacao;
+                        EditarTable.obtida = Resultfinal.ToString("0.000");
                         EditarTable.incerteza = incerteza;
                         EditarTable.rsi = rsi;
                         EditarTable.rci = rci;
@@ -847,10 +922,10 @@ namespace Copo_Coleta.Controllers
                     return RedirectToAction(nameof(Index), new { os, orcamento, rev });
                 }
                 else
-                    {
-                        TempData["Mensagem"] = "Não foi possível salvar os dados";
-                        return RedirectToAction(nameof(Index), new { os, orcamento, rev });
-                    }
+                {
+                    TempData["Mensagem"] = "Não foi possível salvar os dados";
+                    return RedirectToAction(nameof(Index), new { os, orcamento, rev });
+                }
 
             }
             catch (Exception ex)
