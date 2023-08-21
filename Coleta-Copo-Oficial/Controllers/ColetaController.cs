@@ -281,7 +281,7 @@ namespace Copo_Coleta.Controllers
                 if (ModelState.IsValid)
                 {
                     //verificando se os campos estao vazios.
-                    
+
                     // verificando se existe dados para editar, 
                     if (Editardados != null)
                     {
@@ -291,6 +291,7 @@ namespace Copo_Coleta.Controllers
                         Editardados.quatro_dois_dois_Atende = salvar.quatro_dois_dois_Atende;
                         Editardados.quatro_dois_dois_Resul = salvar.quatro_dois_dois_Resul;
                         Editardados.quatro_dois_tres_Atende = salvar.quatro_dois_tres_Atende;
+                        Editardados.quatro_dois_tres_Resul = salvar.quatro_dois_tres_Resul;
 
                         await _context.SaveChangesAsync();
                         TempData["Mensagem"] = "Dados Editado com Sucesso";
@@ -298,7 +299,7 @@ namespace Copo_Coleta.Controllers
                     }
                     else
                     {
-                      
+
                         // salvando valores caso nao exista para editar
                         var quatro_dois_um_Atende = salvar.quatro_dois_um_Atende;
                         var quatro_dois_um_Resul = salvar.quatro_dois_um_Resul;
@@ -387,8 +388,7 @@ namespace Copo_Coleta.Controllers
                         EditarMarcacao.c_resultados = salvar.c_resultados;
 
                         await _context.SaveChangesAsync();
-                        TempData["Mensagem"] = "Dados Editado Com Sucesso";
-                        return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+                        TempData["Mensagem"] = "Dados Editado Com Sucesso!";
 
                     }
                     else
@@ -425,7 +425,7 @@ namespace Copo_Coleta.Controllers
                             return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
                         }
                         else
-                        { 
+                        {
 
                             var SalvarMarcacao = new ColetaModel.Marcacao
                             {
@@ -454,7 +454,7 @@ namespace Copo_Coleta.Controllers
                             _context.Add(SalvarMarcacao);
                             await _context.SaveChangesAsync();
                         }
-                       
+
                     }
 
                     //verificar se existe materiais.
@@ -467,10 +467,11 @@ namespace Copo_Coleta.Controllers
 
                         await _context.SaveChangesAsync();
                         TempData["Mensagem"] = "Dados Editado Com Sucesso";
+                        return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
                     }
                     else
                     {
-                        if (info == null || lote == null || validade == null || 
+                        if (info == null || lote == null || validade == null ||
                             observacoes == null)
                         {
                             TempData["Mensagem"] = "Preencha todos os campos para salvar";
@@ -494,7 +495,7 @@ namespace Copo_Coleta.Controllers
                             return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
                         }
                     }
-                    
+
                 }
                 else
                 {
@@ -847,10 +848,10 @@ namespace Copo_Coleta.Controllers
                     return RedirectToAction(nameof(Index), new { os, orcamento, rev });
                 }
                 else
-                    {
-                        TempData["Mensagem"] = "Não foi possível salvar os dados";
-                        return RedirectToAction(nameof(Index), new { os, orcamento, rev });
-                    }
+                {
+                    TempData["Mensagem"] = "Não foi possível salvar os dados";
+                    return RedirectToAction(nameof(Index), new { os, orcamento, rev });
+                }
 
             }
             catch (Exception ex)
@@ -1086,7 +1087,7 @@ namespace Copo_Coleta.Controllers
                         for (int i = 0; i < editarAmostraExistente.Count; i++)
                         {
 
-                            var Rsi = double.Parse(resistencia[editarAmostraExistente[i].amostra - 1 ]);
+                            var Rsi = double.Parse(resistencia[editarAmostraExistente[i].amostra - 1]);
                             double Valor_min_especificado = double.Parse(editarCompressaoExistente.Valor_min_especificado);
                             double editarIncerteza = double.Parse(incerteza);
 
@@ -1146,7 +1147,7 @@ namespace Copo_Coleta.Controllers
                                 }
                             }
                         }
-                            await _context.SaveChangesAsync();
+                        await _context.SaveChangesAsync();
 
                         TempData["Mensagem"] = "Dados Editado com Sucesso";
                         return RedirectToAction(nameof(Index), new { os, orcamento, rev });
@@ -1233,7 +1234,7 @@ namespace Copo_Coleta.Controllers
             {
                 //VERIFICANDO O ULTIMO DADO NA TABELA E PASSANDO O ATIVO PARA 0.
                 var apagarInstrumento = _context.copos_instrumentos
-                                        .Where(x => x.os == os && x.rev == Rev &&  x.ativo == 1)
+                                        .Where(x => x.os == os && x.rev == Rev && x.ativo == 1)
                                         .OrderByDescending(x => x.Id)
                                         .FirstOrDefault();
 

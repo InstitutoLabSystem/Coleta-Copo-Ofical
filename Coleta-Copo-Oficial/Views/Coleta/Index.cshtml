@@ -13,18 +13,18 @@
             background-color: #800000;
             color: white;
         }
-        .botao{
-           
-        
+
+        .botao {
         }
+
         .Tabela {
-            
             width: 90%;
             margin: 0 auto;
         }
 
-        input{
-            text-align:center;
+        input {
+            text-align: center;
+            border: none;
         }
     </style>
 </head>
@@ -58,8 +58,6 @@
                         </tr>
                     </tbody>
                 </table>
-
-
 
                 <table class="table table-bordered border-secondary  ">
                     <thead class="tablestyle">
@@ -132,9 +130,24 @@
                     </thead>
                     <tbody>
                         <tr>
-
-                            <td><input type="text" name="quatro_dois_um_Atende" class="form-control" style="border: none" /></td>
-                            <td><input type="text" name="quatro_dois_um_Resul" class="form-control" style="border: none" /></td>
+                            @* <td><input type="text" name="quatro_dois_um_Atende" class="form-control" style="border: none" /></td> *@
+                            <td>
+                                <select class="form-control" name="quatro_dois_um_Atende">
+                                    <option></option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                    <option value="---">---</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" name="quatro_dois_um_Resul">
+                                    <option></option>
+                                    <option value="C">C</option>
+                                    <option value="NC">NC</option>
+                                    <option value="NA">NA</option>
+                                </select>
+                            </td>
+                            @* <td><input type="text" name="quatro_dois_um_Resul" class="form-control" style="border: none" /></td> *@
                         </tr>
                     </tbody>
                 </table>
@@ -152,8 +165,23 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="text" name="quatro_dois_dois_Atende" class="form-control" style="border: none" /></td>
-                            <td><input type="text" name="quatro_dois_dois_Resul" class="form-control" style="border: none" /></td>
+                            <td>
+                                <select class="form-control" name="quatro_dois_dois_Atende">
+                                    <option></option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                    <option value="Na">---</option>
+                                </select>
+                            </td>
+
+                            <td>
+                                <select class="form-control" name="quatro_dois_dois_Resul">
+                                    <option></option>
+                                    <option value="C">C</option>
+                                    <option value="NC">NC</option>
+                                    <option value="NA">NA</option>
+                                </select>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -172,8 +200,22 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="text" name="quatro_dois_tres_Atende" class="form-control" style="border: none" /></td>
-                            <td><input type="text" name="quatro_dois_tres_Resul" class="form-control" style="border: none" /></td>
+                            <td>
+                                <select class="form-control" name="quatro_dois_tres_Atende">
+                                    <option></option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                    <option value="Na">---</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" name="quatro_dois_tres_Resul">
+                                    <option></option>
+                                    <option value="C">C</option>
+                                    <option value="NC">NC</option>
+                                    <option value="NA">NA</option>
+                                </select>
+                            </td>
                         </tr>
 
                     </tbody>
@@ -196,9 +238,22 @@
                     </thead>
                     <tbody>
                         <tr>
-
-                            <td><input type="text" name="quatro_dois_um_Atende" value="@Model.oAspectosvisuais.quatro_dois_um_Atende" class="form-control" style="border: none" /></td>
-                            <td><input type="text" name="quatro_dois_um_Resul" value="@Model.oAspectosvisuais.quatro_dois_um_Resul" class="form-control" style="border: none" /></td>
+                            <td>
+                                <select class="form-control" name="quatro_dois_um_Atende">
+                                    <option>@Model.oAspectosvisuais.quatro_dois_um_Atende</option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                    <option value="---">---</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" name="quatro_dois_um_Resul">
+                                    <option>@Model.oAspectosvisuais.quatro_dois_um_Resul</option>
+                                    <option value="C">C</option>
+                                    <option value="NC">NC</option>
+                                    <option value="NA">NA</option>
+                                </select>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -216,8 +271,22 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="text" name="quatro_dois_dois_Atende" value="@Model.oAspectosvisuais.quatro_dois_dois_Atende" class="form-control" style="border: none" /></td>
-                            <td><input type="text" name="quatro_dois_dois_Resul" value="@Model.oAspectosvisuais.quatro_dois_dois_Resul" class="form-control" style="border: none" /></td>
+                            <td>
+                                <select class="form-control" name="quatro_dois_dois_Atende">
+                                    <option>@Model.oAspectosvisuais.quatro_dois_dois_Atende</option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                    <option value="---">---</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" name="quatro_dois_dois_Resul">
+                                    <option>@Model.oAspectosvisuais.quatro_dois_dois_Resul</option>
+                                    <option value="C">C</option>
+                                    <option value="NC">NC</option>
+                                    <option value="NA">NA</option>
+                                </select>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -236,8 +305,23 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="text" name="quatro_dois_tres_Atende" class="form-control" value="@Model.oAspectosvisuais.quatro_dois_tres_Atende" style="border: none" /></td>
-                            <td><input type="text" name="quatro_dois_tres_Resul" class="form-control" value="@Model.oAspectosvisuais.quatro_dois_tres_Atende" style="border: none" /></td>
+                            <td>
+                                <select class="form-control" name="quatro_dois_tres_Atende">
+                                    <option>@Model.oAspectosvisuais.quatro_dois_tres_Atende</option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                    <option value="---">---</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" name="quatro_dois_tres_Resul">
+                                    <option>@Model.oAspectosvisuais.quatro_dois_tres_Resul</option>
+                                    <option value="C">C</option>
+                                    <option value="NC">NC</option>
+                                    <option value="NA">NA</option>
+                                </select>
+                            </td>
+
                         </tr>
 
                     </tbody>
@@ -248,8 +332,8 @@
             }
 
         </form>
-    <!-- Final 4.2 Aspectos Visuais -->
-    <!-- Inicio 4.3 Massa -->
+        <!-- Final 4.2 Aspectos Visuais -->
+        <!-- Inicio 4.3 Massa -->
 
         <form asp-controller="Coleta" asp-action="SalvarMassa" method="post" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
             <hr style="color:darkred" />
@@ -974,7 +1058,7 @@
 
         </form>
 
-  
+
 
         <!-- Final 4.3 Massa -->
         <!-- Inicio coleta 4.4 Resistência à compressão lateral-->
@@ -1076,9 +1160,9 @@
                         }
                     }
                 </tbody>
-                
+
             </table>
-            @if(Model.oAmostra == null || Model.oAmostra.Count == 0)
+            @if (Model.oAmostra == null || Model.oAmostra.Count == 0)
             {
                 <div class="d-grid gap-2">
                     <button type="submit" value="EnsaioDeCompressaoAndAmostras" class="btn btn-outline-success">salvar</button>
@@ -1086,11 +1170,11 @@
             }
             else
             {
-                 <div class="d-grid gap-2">
+                <div class="d-grid gap-2">
                     <button type="submit" value="EnsaioDeCompressaoAndAmostras" class="btn btn-outline-success">Editar</button>
                 </div>
             }
-            
+
         </form>
 
         <!-- Final coleta 4.4 Resistência à compressão lateral-->
@@ -1119,12 +1203,38 @@
                 @if (Model.oEmbalagem == null)
                 {
                     <tr>
-                        <td rowspan="2"><input type="text" name="As_Mangas_estão_invioláveis" class="form-control" style="border: none; width: 200px; height: 100px;" /></td>
-                        <td rowspan="2"><input type="text" name="Estão_protegidos_saco_plástico" class="form-control" style="border: none;  width: 200px; height: 100px;" /></td>
+                        <td rowspan="2">
+                            <select name="As_Mangas_estão_invioláveis" class=" form-control" style="width: 200px; height: 100px; text-align:center;">
+                                <option></option>
+                                <option value="Sim">Sim</option>
+                                <option value="Não">Não</option>
+                            </select>
+                            @* <input type="text" name="As_Mangas_estão_invioláveis" class="form-control" style="border: none; width: 200px; height: 100px;" /> *@
+                        </td>
+                        <td rowspan="2">
+                            <select name="Estão_protegidos_saco_plástico" class=" form-control" style="width: 200px; height: 100px; text-align:center;">
+                                <option></option>
+                                <option value="Sim">Sim</option>
+                                <option value="Não">Não</option>
+                            </select>
+                        </td>
                         <td><input type="text" name="Capacidade_total" class="form-control" style="border: none" /></td>
                         <td><input type="text" name="Quantidade_de_copos" class="form-control" style="border: none" /></td>
-                        <td rowspan="2" style="border: 1px solid ;width: 200px; height: 100px; "><input type="text" name="Rastreabilidade" class="form-control" style="border: none" /></td>
-                        <td rowspan="2"><input type="text" name="Resultados" class="form-control" style="border: none; width: 200px; height: 100px;" /></td>
+                        <td rowspan="2" style="border: 1px solid ;width: 200px; height: 100px; ">
+                            <select name="Rastreabilidade" class=" form-control" style="width: 200px; height: 100px; text-align:center;">
+                                <option></option>
+                                <option value="Sim">Sim</option>
+                                <option value="Não">Não</option>
+                            </select>
+                        </td>
+                        <td rowspan="2">
+                            <select name="Resultados" class=" form-control" style="width: 200px; height: 100px; text-align:center;">
+                                <option></option>
+                                <option value="C">C</option>
+                                <option value="NC">NC</option>
+                                <option value="NA">NA</option>
+                            </select>
+                        </td>
                     </tr>
 
                     <tr>
@@ -1136,12 +1246,37 @@
                 else
                 {
                     <tr>
-                        <td rowspan="2"><input type="text" name="As_Mangas_estão_invioláveis" class="form-control" style="border: none; height:100px" value="@Model.oEmbalagem.As_mangas_estão_invioláveis" /></td>
-                        <td rowspan="2"><input type="text" name="Estão_protegidos_saco_plástico" class="form-control" style="border: none; height: 100px;" value="@Model.oEmbalagem.Estão_protegidos_saco_plástico" /></td>
+                        <td rowspan="2">
+                            <select name="As_Mangas_estão_invioláveis" class=" form-control" style="width: 200px; height: 100px; text-align:center;">
+                                <option>@Model.oEmbalagem.As_mangas_estão_invioláveis</option>
+                                <option value="Sim">Sim</option>
+                                <option value="Não">Não</option>
+                            </select>
+                        </td>
+                        <td rowspan="2">
+                            <select name="Estão_protegidos_saco_plástico" class=" form-control" style="width: 200px; height: 100px; text-align:center;">
+                                <option>@Model.oEmbalagem.Estão_protegidos_saco_plástico</option>
+                                <option value="Sim">Sim</option>
+                                <option value="Não">Não</option>
+                            </select>
+                        </td>
                         <td><input type="text" name="Capacidade_total" class="form-control" style="border: none" value="@Model.oEmbalagem.Capacidade_total" /></td>
                         <td><input type="text" name="Quantidade_de_copos" class="form-control" style="border: none" value="@Model.oEmbalagem.Quantidade_de_copos" /></td>
-                        <td rowspan="2" style="border: 1px solid; "><input style="border: none; height: 100px;" type="text" name="Rastreabilidade" class="form-control" style="border: none" value="@Model.oEmbalagem.Rastreabilidade" /></td>
-                        <td rowspan="2"><input type="text" name="Resultados" class="form-control" style="border: none; height: 100px;" value="@Model.oEmbalagem.Resultados" /></td>
+                        <td rowspan="2" style="border: 1px solid; ">
+                            <select name="Rastreabilidade" class=" form-control" style="width: 200px; height: 100px; text-align:center;">
+                                <option>@Model.oEmbalagem.Rastreabilidade</option>
+                                <option value="Sim">Sim</option>
+                                <option value="Não">Não</option>
+                            </select>
+                        </td>
+                        <td rowspan="2">
+                            <select name="Resultados" class=" form-control" style="width: 200px; height: 100px; text-align:center;">
+                                <option>@Model.oEmbalagem.Resultados</option>
+                                <option value="C">C</option>
+                                <option value="NC">NC</option>
+                                <option value="NA">NA</option>
+                            </select>
+                        </td>
                     </tr>
 
                     <tr>
@@ -1190,71 +1325,318 @@
                     {
                         <tr>
                             <td colspan="2"> a) Marca ou identificação do fabricante </td>
-                            <td><input type="text" name="a_Contem_informacao" class="form-control" style="border: none;" /></td>
-                            <td><input type="text" name="a_Estão_relevo" class="form-control" style="border: none" /></td>
-                            <td><input type="text" name="a_Caracteres_visiveis" class="form-control" style="border: none" /></td>
-                            <td><input type="text" name="a_forma_indelevel" class="form-control" style="border: none" /></td>
-                            <td><input type="text" name="a_Evidencia" class="form-control" style="border: none" /></td>
-                            <td><input type="text" name="a_resultados" class="form-control" style="border: none" /></td>
+                            <td>
+                                <select name="a_Contem_informacao" class="form-control" style=" height:50px;">
+                                    <option></option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                    <option value="Na">---</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="a_Estão_relevo" class="form-control" style=" height:50px;">
+                                    <option></option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                    <option value="Na">---</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="a_Caracteres_visiveis" class="form-control" style=" height:50px;">
+                                    <option></option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                    <option value="Na">---</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="a_forma_indelevel" class="form-control" style=" height:50px;">
+                                    <option></option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                    <option value="Na">---</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="a_Evidencia" class="form-control" style=" height:50px;">
+                                    <option></option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                    <option value="Na">---</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="a_resultados" class="form-control" style=" height:50px;">
+                                    <option></option>
+                                    <option value="C">C</option>
+                                    <option value="NC">NC</option>
+                                    <option value="NA">NA</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td colspan="2"> b) Capacidade do copo</td>
-                            <td><input type="text" name="b_Contem_informacao" class="form-control" style="border: none" /></td>
-                            <td><input type="text" name="b_Estao_relevo" class="form-control" style="border: none" /></td>
-                            <td><input type="text" name="b_Caracteres_visiveis" class="form-control" style="border: none" /></td>
-                            <td><input type="text" name="b_forma_indelevel" class="form-control" style="border: none" /></td>
-                            <td><input type="text" name="b_Evidencia" class="form-control" style="border: none" /></td>
-                            <td><input type="text" name="b_resultados" class="form-control" style="border: none" /></td>
+                            <td>
+                                <select name="b_Contem_informacao" class="form-control" style=" height:50px;">
+                                    <option></option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                    <option value="Na">---</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="b_Estao_relevo" class="form-control" style=" height:50px;">
+                                    <option></option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                    <option value="Na">---</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="b_Caracteres_visiveis" class="form-control" style=" height:50px;">
+                                    <option></option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                    <option value="Na">---</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="b_forma_indelevel" class="form-control" style=" height:50px;">
+                                    <option></option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                    <option value="Na">---</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="b_Evidencia" class="form-control" style=" height:50px;">
+                                    <option></option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                    <option value="Na">---</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="b_resultados" class="form-control" style=" height:50px;">
+                                    <option></option>
+                                    <option value="C">C</option>
+                                    <option value="NC">NC</option>
+                                    <option value="NA">NA</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td colspan="2"> c) Símbolo para identificação do material para reciclagem </td>
-                            <td><input type="text" name="c_Contem_informacao" class="form-control" style="border: none" /></td>
-                            <td><input type="text" name="c_Estao_relevo" class="form-control" style="border: none" /></td>
-                            <td><input type="text" name="c_Caracteres_visiveis" class="form-control" style="border: none" /></td>
-                            <td><input type="text" name="c_forma_indelevel" class="form-control" style="border: none" /></td>
-                            <td><input type="text" name="c_Evidencia" class="form-control" style="border: none" /></td>
-                            <td><input type="text" name="c_resultados" class="form-control" style="border: none" /></td>
-
+                            <td>
+                                <select name="c_Contem_informacao" class="form-control" style=" height:50px;">
+                                    <option></option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                    <option value="Na">---</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="c_Estao_relevo" class="form-control" style=" height:50px;">
+                                    <option></option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                    <option value="Na">---</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="c_Caracteres_visiveis" class="form-control" style=" height:50px;">
+                                    <option></option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                    <option value="Na">---</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="c_forma_indelevel" class="form-control" style=" height:50px;">
+                                    <option></option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                    <option value="Na">---</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="c_Evidencia" class="form-control" style=" height:50px;">
+                                    <option></option>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                                    <option value="Na">---</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="c_resultados" class="form-control" style=" height:50px;">
+                                    <option></option>
+                                    <option value="C">C</option>
+                                    <option value="NC">NC</option>
+                                    <option value="NA">NA</option>
+                                </select>
+                            </td>
                         </tr>
                     }
                     else
                     {
                         @foreach (var marcacao in Model.oMarcacao)
                         {
-
                             <tr>
                                 <td colspan="2"> a) Marca ou identificação do fabricante </td>
-                                <td><input type="text" name="a_Contem_informacao" class="form-control" style="border: none" value="@marcacao.a_Contem_informacao" /></td>
-                                <td><input type="text" name="a_Estão_relevo" class="form-control" style="border: none" value="@marcacao.a_Estão_relevo" /></td>
-                                <td><input type="text" name="a_Caracteres_visiveis" class="form-control" style="border: none" value="@marcacao.a_Caracteres_visiveis" /></td>
-                                <td><input type="text" name="a_forma_indelevel" class="form-control" style="border: none" value="@marcacao.a_forma_indelevel" /></td>
-                                <td><input type="text" name="a_Evidencia" class="form-control" style="border: none" value="@marcacao.a_Evidencia" /></td>
-                                <td><input type="text" name="a_resultados" class="form-control" style="border: none" value="@marcacao.a_resultados"></td>
+                                <td>
+                                    <select name="a_Contem_informacao" class="form-control" style=" height:50px;">
+                                        <option>@marcacao.a_Contem_informacao</option>
+                                        <option value="Sim">Sim</option>
+                                        <option value="Não">Não</option>
+                                        <option value="Na">---</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="a_Estão_relevo" class="form-control" style=" height:50px;">
+                                        <option>@marcacao.a_Estão_relevo</option>
+                                        <option value="Sim">Sim</option>
+                                        <option value="Não">Não</option>
+                                        <option value="Na">---</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="a_Caracteres_visiveis" class="form-control" style=" height:50px;">
+                                        <option>@marcacao.a_Caracteres_visiveis</option>
+                                        <option value="Sim">Sim</option>
+                                        <option value="Não">Não</option>
+                                        <option value="Na">---</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="a_forma_indelevel" class="form-control" style=" height:50px;">
+                                        <option>@marcacao.a_forma_indelevel</option>
+                                        <option value="Sim">Sim</option>
+                                        <option value="Não">Não</option>
+                                        <option value="Na">---</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="a_Evidencia" class="form-control" style=" height:50px;">
+                                        <option>@marcacao.a_Evidencia</option>
+                                        <option value="Sim">Sim</option>
+                                        <option value="Não">Não</option>
+                                        <option value="Na">---</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="a_resultados" class="form-control" style=" height:50px;">
+                                        <option>@marcacao.a_resultados</option>
+                                        <option value="C">C</option>
+                                        <option value="NC">NC</option>
+                                        <option value="NA">NA</option>
+                                    </select>
+                                </td>
                             </tr>
-
                             <tr>
                                 <td colspan="2"> b) Capacidade do copo</td>
-                                <td><input type="text" name="b_Contem_informacao" class="form-control" style="border: none" value="@marcacao.b_Contem_informacao" /></td>
-                                <td><input type="text" name="b_Estao_relevo" class="form-control" style="border: none" value="@marcacao.b_Estao_relevo" /></td>
-                                <td><input type="text" name="b_Caracteres_visiveis" class="form-control" style="border: none" value="@marcacao.b_Caracteres_visiveis" /></td>
-                                <td><input type="text" name="b_forma_indelevel" class="form-control" style="border: none" value="@marcacao.b_forma_indelevel" /></td>
-                                <td><input type="text" name="b_Evidencia" class="form-control" style="border: none" value="@marcacao.b_Evidencia" /></td>
-                                <td><input type="text" name="b_resultados" class="form-control" style="border: none" value="@marcacao.b_resultados" /></td>
+                                <td>
+                                    <select name="b_Contem_informacao" class="form-control" style=" height:50px;">
+                                        <option>@marcacao.b_Contem_informacao</option>
+                                        <option value="Sim">Sim</option>
+                                        <option value="Não">Não</option>
+                                        <option value="Na">---</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="b_Estao_relevo" class="form-control" style=" height:50px;">
+                                        <option>@marcacao.b_Estao_relevo</option>
+                                        <option value="Sim">Sim</option>
+                                        <option value="Não">Não</option>
+                                        <option value="Na">---</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="b_Caracteres_visiveis" class="form-control" style=" height:50px;">
+                                        <option>@marcacao.b_Caracteres_visiveis</option>
+                                        <option value="Sim">Sim</option>
+                                        <option value="Não">Não</option>
+                                        <option value="Na">---</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="b_forma_indelevel" class="form-control" style=" height:50px;">
+                                        <option>@marcacao.b_forma_indelevel</option>
+                                        <option value="Sim">Sim</option>
+                                        <option value="Não">Não</option>
+                                        <option value="Na">---</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="b_Evidencia" class="form-control" style=" height:50px;">
+                                        <option>@marcacao.b_Evidencia</option>
+                                        <option value="Sim">Sim</option>
+                                        <option value="Não">Não</option>
+                                        <option value="Na">---</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="b_resultados" class="form-control" style=" height:50px;">
+                                        <option>@marcacao.b_resultados</option>
+                                        <option value="C">C</option>
+                                        <option value="NC">NC</option>
+                                        <option value="NA">NA</option>
+                                    </select>
+                                </td>
                             </tr>
                             <tr>
                                 <td colspan="2"> c) Símbolo para identificação do material para reciclagem </td>
-                                <td><input type="text" name="c_Contem_informacao" class="form-control" style="border: none" value="@marcacao.c_Contem_informacao" /></td>
-                                <td><input type="text" name="c_Estao_relevo" class="form-control" style="border: none" value="@marcacao.c_Estao_relevo" /></td>
-                                <td><input type="text" name="c_Caracteres_visiveis" class="form-control" style="border: none" value="@marcacao.c_Caracteres_visiveis" /></td>
-                                <td><input type="text" name="c_forma_indelevel" class="form-control" style="border: none" value="@marcacao.c_forma_indelevel" /></td>
-                                <td><input type="text" name="c_Evidencia" class="form-control" style="border: none" value="@marcacao.c_Evidencia" /></td>
-                                <td><input type="text" name="c_resultados" class="form-control" style="border: none" value="@marcacao.c_resultados" /></td>
+                                <td>
+                                    <select name="c_Contem_informacao" class="form-control" style=" height:50px;">
+                                        <option>@marcacao.c_Contem_informacao</option>
+                                        <option value="Sim">Sim</option>
+                                        <option value="Não">Não</option>
+                                        <option value="Na">---</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="c_Estao_relevo" class="form-control" style=" height:50px;">
+                                        <option>@marcacao.c_Estao_relevo</option>
+                                        <option value="Sim">Sim</option>
+                                        <option value="Não">Não</option>
+                                        <option value="Na">---</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="c_Caracteres_visiveis" class="form-control" style=" height:50px;">
+                                        <option>@marcacao.c_Caracteres_visiveis</option>
+                                        <option value="Sim">Sim</option>
+                                        <option value="Não">Não</option>
+                                        <option value="Na">---</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="c_forma_indelevel" class="form-control" style=" height:50px;">
+                                        <option>@marcacao.c_forma_indelevel</option>
+                                        <option value="Sim">Sim</option>
+                                        <option value="Não">Não</option>
+                                        <option value="Na">---</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="c_Evidencia" class="form-control" style=" height:50px;">
+                                        <option>@marcacao.c_Evidencia</option>
+                                        <option value="Sim">Sim</option>
+                                        <option value="Não">Não</option>
+                                        <option value="Na">---</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="c_resultados" class="form-control" style=" height:50px;">
+                                        <option>@marcacao.c_resultados</option>
+                                        <option value="C">C</option>
+                                        <option value="NC">NC</option>
+                                        <option value="NA">NA</option>
+                                    </select>
+                                </td>
                             </tr>
 
                         }
                     }
-
-
                 </tbody>
             </table>
             @if (Model.oMateriais == null)
@@ -1274,9 +1656,9 @@
                     <tbody>
 
                         <tr>
-                            <td colspan="3"> <input type="text" name="info" class="form-control" style="border: none" /> </td>
-                            <td><input type="text" name="lote" class="form-control" style="border: none" /></td>
-                            <td><input type="text" name="validade" class="form-control" style="border: none" /></td>
+                            <td colspan="3"> <input type="text" value="---" name="info" class="form-control" style="border: none" /> </td>
+                            <td><input type="text" name="lote" value= "---" class="form-control" style="border: none" /></td>
+                            <td><input type="text" name="validade"  value="---"class="form-control" style="border: none" /></td>
                         </tr>
                     </tbody>
                 </table>
@@ -1412,7 +1794,7 @@
         }
 
     </div>
-   
+
     <!--Final de instrumentos utilizados -->
 </body>
 </html>
