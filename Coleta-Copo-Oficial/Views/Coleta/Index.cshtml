@@ -13,8 +13,10 @@
             background-color: #800000;
             color: white;
         }
+        .Tabelad{
 
-        .botao {
+             width: 90%;
+            margin: 0 auto;
         }
 
         .Tabela {
@@ -25,6 +27,11 @@
         input {
             text-align: center;
             border: none;
+        }
+        .custom-table{
+
+           justify-content: center; align-items: center;
+
         }
     </style>
 </head>
@@ -305,9 +312,35 @@
         <p style="text-align : center"> <strong> 4.2 Aspectos Visuais </strong></p>
         <hr style="color:darkred" />
 
-        <p> <strong> 4.2.1 Os copos Devem estar isentos de rachaduras e furos que sejam perceptíveis a olho nu A amostragem deve atender a 5.3.1 da Norma.</strong></p>
+
 
         <form asp-controller="Coleta" asp-action="SalvarAspectosVisuais" method="post" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
+
+        <table class="table table-bordered border-secondary">
+            <thead class="tablestyle">
+                <tr>
+                    <th scope="col"> Data de Início</th>
+                    <th scope="col">Data de Término</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    @if (Model.oDatas == null)
+                    {
+                        <td style="text-align:center;"><input type="datetime-local" name="data_de_início" class="form-control" style="border: none" readonly /></td>
+                        <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none" readonly /></td>
+                    }
+                    else
+                    {
+                        <td><input type="text" value="@Model.oDatas.data_de_início" name="data_de_início" class="form-control" style="border: none" readonly /> </td>
+                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oDatas.data_de_termino" style="border: none" readonly /></td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+
+        <p> <strong> 4.2.1 Os copos Devem estar isentos de rachaduras e furos que sejam perceptíveis a olho nu A amostragem deve atender a 5.3.1 da Norma.</strong></p>
+
             @if (Model.oAspectosvisuais == null)
             {
                 <table class="table table-bordered border-secondary">
@@ -524,18 +557,45 @@
             }
 
         </form>
-        <!-- Final 4.2 Aspectos Visuais -->
-        <!-- Inicio 4.3 Massa -->
+    <!-- Final 4.2 Aspectos Visuais -->
+    <!-- Inicio 4.3 Massa -->
+    
 
         <form asp-controller="Coleta" asp-action="SalvarMassa" method="post" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
             <hr style="color:darkred" />
             <p style="text-align : center"> <strong> 4.3 Massa </strong></p>
             <hr style="color:darkred" />
 
+            <table class="table table-bordered border-secondary">
+                <thead class="tablestyle">
+                    <tr>
+                        <th scope="col"> Data de Início</th>
+                        <th scope="col">Data de Término</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        @if (Model.oDatas == null)
+                        {
+                            <td style="text-align:center;"><input type="datetime-local" name="data_de_início" class="form-control" style="border: none" readonly  /></td>
+                            <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none" readonly  /></td>
+                        }
+                        else
+                        {
+                            <td><input type="text" value="@Model.oDatas.data_de_início" name="data_de_início" class="form-control" style="border: none" readonly /> </td>
+                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oDatas.data_de_termino" style="border: none" readonly /></td>
+                        }
+                    </tr>
+                </tbody>
+            </table>
+
+
+
             <p> <strong> 4.3.1 A massa média mínima dos copos deve respeitar a Tabela 1 da Norma.  </strong> </p>
             <p> <strong> 4.3.2 Para o cálculo da massa média mínima de copos com capacidades diferentes das especificadas na Tabela 1 da Norma, utilizar a fórmula de correlação (ver 3.9 da Norma), bem como os fatores de correlação apresentados na Tabela 2 da Norma. </strong> </p>
 
-            <table class="table table-bordered border-secondary">
+
+            <table class="table table-bordered border-secondary ">
                 <tr class="tablestyle">
                     <th rowspan="2">Capacicade do copo: </th>
                     <th rowspan="2">Quantidade de manga(s):</th>
@@ -560,36 +620,39 @@
                     }
                     else
                     {
-                        <td><input type="text" value="@Model.oDescricao.capacidade_copo" readonly name="4.3_cap_copo" class="form-control" style="border: none" /></td>
-                        <td><input type="text" readonly name="4.3_qtd_manga" value="@Model.oDescricao.quant_manga" class="form-control" style="border: none" /></td>
-                        <td><input type="text" readonly name="4.3_cap_manga" value="@Model.oDescricao.capacidade_manga" class="form-control" style="border: none" /></td>
+                        <td><input type="text" value="@Model.oDescricao.capacidade_copo" readonly name="4.3_cap_copo" class="form-control" style="border: none; font-weight:bold" /></td>
+                        <td><input type="text" readonly name="4.3_qtd_manga" value="@Model.oDescricao.quant_manga" class="form-control" style="border: none; font-weight:bold" /></td>
+                        <td><input type="text" readonly name="4.3_cap_manga" value="@Model.oDescricao.capacidade_manga" class="form-control" style="border: none; font-weight:bold" /></td>
                     }
 
                     @if (Model.oTablemassa == null)
                     {
-                        <td><input type="text" name="fatcorrelacao" class="form-control" style="border: none" /></td>
-                        <td><input type="text" readonly name="4.3_media_obt" class="form-control" style="border: none" /></td>
-                        <td><input type="text" readonly name="especificada" class="form-control" style="border: none" /></td>
+                        <td><input type="text" name="fatcorrelacao" class="form-control" style="border: none" readonly /></td>
+                        <td><input type="text" readonly name="4.3_media_obt" class="form-control" style="border: none" readonly /></td>
+                        <td><input type="text" readonly name="especificada" class="form-control" style="border: none" readonly /></td>
                         <td><input type="text" name="incerteza" class="form-control" style="border: none" /></td>
                         <td><input type="text" readonly name="4.3_rsi" class="form-control" style="border: none" readonly /></td>
                         <td><input type="text" readonly name="4.3_qtd_rci" class="form-control" style="border: none" readonly /></td>
                     }
                     else
                     {
-                        <td><input type="text" name="fatcorrelacao" class="form-control" value="@Model.oTablemassa.fatcorrelacao" style="border: none" /></td>
-                        <td><input type="text" readonly name="4.3_media_obt" class="form-control" value="@Model.oTablemassa.obtida" style="border: none" /></td>
-                        <td><input type="text" readonly name="especificada" class="form-control" style="border: none" value="@Model.oTablemassa.especificada" /></td>
-                        <td><input type="text" name="incerteza" class="form-control" style="border: none" value="@Model.oTablemassa.incerteza" /></td>
-                        <td><input type="text" readonly name="4.3_rsi" class="form-control" style="border: none" readonly value="@Model.oTablemassa.rsi" /></td>
-                        <td><input type="text" readonly name="4.3_qtd_rci" class="form-control" style="border: none" readonly value="@Model.oTablemassa.rci" /></td>
+                        <td><input type="text" name="fatcorrelacao" class="form-control" value="@Model.oTablemassa.fatcorrelacao" style="border: none; font-weight:bold"  readonly/></td>
+                        <td><input type="text" readonly name="4.3_media_obt" class="form-control" value="@Model.oTablemassa.obtida" style="border: none; font-weight:bold" /></td>
+                        <td><input type="text" readonly name="especificada" class="form-control" style="border: none; font-weight:bold" value="@Model.oTablemassa.especificada" /></td>
+                        <td><input type="text" name="incerteza" class="form-control" style="border: none;" value="@Model.oTablemassa.incerteza" /></td>
+                        <td><input type="text" readonly name="4.3_rsi" class="form-control" style="border: none; font-weight:bold" readonly value="@Model.oTablemassa.rsi" /></td>
+                        <td><input type="text" readonly name="4.3_qtd_rci" class="form-control" style="border: none; font-weight:bold" readonly value="@Model.oTablemassa.rci" /></td>
 
                     }
                 </tr>
             </table>
 
+
+            <div style="display: flex; justify-content: center; align-items: center" class="Tabelad">
+     
             @if (Model.oMassa.Count == 0 || Model.oMassa == null)
             {
-                <table class="table table-bordered border-secondary">
+                    <table class="table table-bordered border-secondary custom-table">
                     <thead class="tablestyle">
                         <tr>
                             <th colspan="20"> Massa encontrada dos copos (g) </th>
@@ -602,65 +665,65 @@
                                 <label id="botão"> 10 </label>
                                 <input type="text" name="massa[]" value="1 a 10" readonly class="form-control" style="border: none; background-color:white; display:none" />
                             </th>
-                            <td><input type="text" name="peso[]" class="form-control" style="border: none" /></td>
+                            <td><input type="text" name="peso[]" class="form-control" style="border: none; width:70px" /></td>
 
 
                             <th scope="row" style="text-align: center">
                                 <label id="botão"> 60 </label>
                                 <input type="text" name="massa[]" value="51 a 60" readonly class="form-control" style="border: none; background-color:white; display:none" />
                             </th>
-                            <td><input type="text" name="peso[]" class="form-control" style="border: none" /></td>
+                            <td><input type="text" name="peso[]" class="form-control" style="border: none; width:70px" /></td>
 
 
                             <th scope="row" style="text-align: center">
                                 <label id="botão"> 110 </label>
                                 <input type="text" name="massa[]" value="101 a 110" readonly class="form-control" style="border: none; background-color:white; display:none" />
                             </th>
-                            <td><input type="text" name="peso[]" class="form-control" style="border: none" /></td>
+                            <td><input type="text" name="peso[]" class="form-control" style="border: none; width:70px" /></td>
 
 
                             <th scope="row" style="text-align: center">
                                 <label id="botão"> 160 </label>
                                 <input type="text" name="massa[]" value="151 a 160" readonly class="form-control" style="border: none; background-color:white; display:none" />
                             </th>
-                            <td><input type="text" name="peso[]" class="form-control" style="border: none" /></td>
+                            <td><input type="text" name="peso[]" class="form-control" style="border: none; width:70px" /></td>
 
                             <th scope="row" style="text-align: center">
                                 <label id="botão"> 210 </label>
                                 <input type="text" name="massa[]" value="201 a 210" readonly class="form-control" style="border: none; background-color:white; display:none" />
                             </th>
-                            <td><input type="text" name="peso[]" class="form-control" style="border: none" /></td>
+                            <td><input type="text" name="peso[]" class="form-control" style="border: none; width:70px" /></td>
 
                             <th scope="row" style="text-align: center">
                                 <label id="botão"> 260 </label>
                                 <input type="text" name="massa[]" value="251 a 260" readonly class="form-control" style="border: none; background-color:white; display:none" />
                             </th>
-                            <td><input type="text" name="peso[]" class="form-control" style="border: none" /></td>
+                            <td><input type="text" name="peso[]" class="form-control" style="border: none; width:70px" /></td>
 
                             <th scope="row" style="text-align: center">
                                 <label id="botão"> 310 </label>
                                 <input type="text" name="massa[]" value="301 a 310" readonly class="form-control" style="border: none; background-color:white; display:none" />
                             </th>
-                            <td><input type="text" name="peso[]" class="form-control" style="border: none" /></td>
+                            <td><input type="text" name="peso[]" class="form-control" style="border: none; width:70px" /></td>
 
                             <th scope="row" style="text-align: center">
                                 <label id="botão"> 360 </label>
                                 <input type="text" name="massa[]" value="351 a 360" readonly class="form-control" style="border: none; background-color:white; display:none" />
                             </th>
-                            <td><input type="text" name="peso[]" class="form-control" style="border: none" /></td>
+                            <td><input type="text" name="peso[]" class="form-control" style="border: none; width:70px" /></td>
 
                             <th scope="row" style="text-align: center">
                                 <label id="botão"> 410 </label>
                                 <input type="text" name="massa[]" value="401 a 410" readonly class="form-control" style="border: none; background-color:white; display:none" />
                             </th>
-                            <td><input type="text" name="peso[]" class="form-control" style="border: none" /></td>
+                            <td><input type="text" name="peso[]" class="form-control" style="border: none; width:70px" /></td>
 
 
                             <th scope="row" style="text-align: center">
                                 <label id="botão"> 460 </label>
                                 <input type="text" name="massa[]" value="451 a 460" readonly class="form-control" style="border: none; background-color:white; display:none" />
                             </th>
-                            <td><input type="text" name="peso[]" class="form-control" style="border: none" /></td>
+                            <td><input type="text" name="peso[]" class="form-control" style="border: none; width:70px" /></td>
                         </tr>
                         <tr>
                             <th scope="row" style="text-align: center">
@@ -911,15 +974,12 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="d-grid gap-2">
-                    <button type="submit" value="SalvarMassa" class="btn btn-outline-danger"> Salvar </button>
-                </div>
 
             }
             else
             {
 
-                <table class="table table-bordered border-secondary">
+                    <table class="table table-bordered border-secondary custom-table">
                     <thead class="tablestyle">
                         <tr>
                             <th colspan="20"> Massa encontrada dos copos (g) </th>
@@ -932,65 +992,65 @@
                                 <label id="botão"> 10 </label>
                                 <input type="text" name="massa[]" value="1 a 10" readonly class="form-control" style="border: none; background-color:white; display:none" />
                             </th>
-                            <td><input type="text" name="peso[]" class="form-control" style="border: none" value="@Model.oMassa[0].peso" /></td>
+                            <td><input type="text" name="peso[]" class="form-control" style="border: none; width:70px" value="@Model.oMassa[0].peso"/></td>
 
 
                             <th scope="row" style="text-align: center">
                                 <label id="botão"> 60 </label>
-                                <input type="text" name="massa[]" value="51 a 60" readonly class="form-control" style="border: none; background-color:white; display:none" />
+                                <input type="text" name="massa[]" value="51 a 60" readonly class="form-control" style="border: none; background-color:white; display:none " />
                             </th>
-                            <td><input type="text" name="peso[]" class="form-control" style="border: none" value="@Model.oMassa[1].peso" /></td>
+                            <td><input type="text" name="peso[]" class="form-control" style="border: none; width:70px" value="@Model.oMassa[1].peso" /></td>
 
 
                             <th scope="row" style="text-align: center">
                                 <label id="botão"> 110 </label>
                                 <input type="text" name="massa[]" value="101 a 110" readonly class="form-control" style="border: none; background-color:white; display:none" />
                             </th>
-                            <td><input type="text" name="peso[]" class="form-control" style="border: none" value="@Model.oMassa[2].peso" /></td>
+                            <td><input type="text" name="peso[]" class="form-control" style="border: none; width:70px" value="@Model.oMassa[2].peso" /></td>
 
 
                             <th scope="row" style="text-align: center">
                                 <label id="botão"> 160 </label>
                                 <input type="text" name="massa[]" value="151 a 160" readonly class="form-control" style="border: none; background-color:white; display:none" />
                             </th>
-                            <td><input type="text" name="peso[]" class="form-control" style="border: none" value="@Model.oMassa[3].peso" /></td>
+                            <td><input type="text" name="peso[]" class="form-control" style="border: none; width:70px" value="@Model.oMassa[3].peso" /></td>
 
                             <th scope="row" style="text-align: center">
                                 <label id="botão"> 210 </label>
                                 <input type="text" name="massa[]" value="201 a 210" readonly class="form-control" style="border: none; background-color:white; display:none" />
                             </th>
-                            <td><input type="text" name="peso[]" class="form-control" style="border: none" value="@Model.oMassa[4].peso" /></td>
+                        <td><input type="text" name="peso[]" class="form-control" style="border: none; width:70px" value="@Model.oMassa[4].peso" /></td>
 
                             <th scope="row" style="text-align: center">
                                 <label id="botão"> 260 </label>
                                 <input type="text" name="massa[]" value="251 a 260" readonly class="form-control" style="border: none; background-color:white; display:none" />
                             </th>
-                            <td><input type="text" name="peso[]" class="form-control" style="border: none" value="@Model.oMassa[5].peso" /></td>
+                        <td><input type="text" name="peso[]" class="form-control" style="border: none; width:70px" value="@Model.oMassa[5].peso" /></td>
 
                             <th scope="row" style="text-align: center">
                                 <label id="botão"> 310 </label>
                                 <input type="text" name="massa[]" value="301 a 310" readonly class="form-control" style="border: none; background-color:white; display:none" />
                             </th>
-                            <td><input type="text" name="peso[]" class="form-control" style="border: none" value="@Model.oMassa[6].peso" /></td>
+                        <td><input type="text" name="peso[]" class="form-control" style="border: none; width:70px" value="@Model.oMassa[6].peso" /></td>
 
                             <th scope="row" style="text-align: center">
                                 <label id="botão"> 360 </label>
                                 <input type="text" name="massa[]" value="351 a 360" readonly class="form-control" style="border: none; background-color:white; display:none" />
                             </th>
-                            <td><input type="text" name="peso[]" class="form-control" style="border: none" value="@Model.oMassa[7].peso" /></td>
+                        <td><input type="text" name="peso[]" class="form-control" style="border: none; width:70px" value="@Model.oMassa[7].peso" /></td>
 
                             <th scope="row" style="text-align: center">
                                 <label id="botão"> 410 </label>
                                 <input type="text" name="massa[]" value="401 a 410" readonly class="form-control" style="border: none; background-color:white; display:none" />
                             </th>
-                            <td><input type="text" name="peso[]" class="form-control" style="border: none" value="@Model.oMassa[8].peso" /></td>
+                        <td><input type="text" name="peso[]" class="form-control" style="border: none; width:70px" value="@Model.oMassa[8].peso" /></td>
 
 
                             <th scope="row" style="text-align: center">
                                 <label id="botão"> 460 </label>
                                 <input type="text" name="massa[]" value="451 a 460" readonly class="form-control" style="border: none; background-color:white; display:none" />
                             </th>
-                            <td><input type="text" name="peso[]" class="form-control" style="border: none" value="@Model.oMassa[9].peso" /></td>
+                        <td><input type="text" name="peso[]" class="form-control" style="border: none; width:70px" value="@Model.oMassa[9].peso" /></td>
                         </tr>
                         <tr>
                             <th scope="row" style="text-align: center">
@@ -1059,7 +1119,7 @@
                                 <label id="botão"> 30 </label>
                                 <input type="text" name="massa[]" value="21 a 30" readonly class="form-control" style="border: none; background-color:white; display:none" />
                             </th>
-                            <td><input type="text" name="peso[]" class="form-control" style="border: none" value="@Model.oMassa[20].peso" /></td>
+                        <td><input type="text" name="peso[]" class="form-control" style="border: none" value="@Model.oMassa[20].peso" /></td>
 
                             <th scope="row" style="text-align: center">
                                 <label id="botão"> 80 </label>
@@ -1241,23 +1301,57 @@
                         </tr>
                     </tbody>
                 </table>
+          
+
+            }
+            </div>
+
+            @if (Model.oMassa.Count == 0 || Model.oMassa == null)
+            {
+                  <div class="d-grid gap-2">
+                    <button type="submit" value="SalvarMassa" class="btn btn-outline-danger"> Salvar </button>
+                </div>
+            }else{
 
                 <div class="d-grid gap-2">
                     <button type="submit" value="SalvarMassa" class="btn btn-outline-success"> Editar </button>
                 </div>
 
             }
-
+          
         </form>
+  
 
-
-
+  
         <!-- Final 4.3 Massa -->
         <!-- Inicio coleta 4.4 Resistência à compressão lateral-->
         <form method="post" asp-controller="Coleta" asp-action="EnsaioDeCompressaoAndAmostras" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
             <hr style="color:darkred" />
             <p style="text-align : center"> <strong> 4.4 Resistência à compressão lateral </strong></p>
             <hr style="color:darkred" />
+
+            <table class="table table-bordered border-secondary">
+                <thead class="tablestyle">
+                    <tr>
+                        <th scope="col"> Data de Início</th>
+                        <th scope="col">Data de Término</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        @if (Model.oDatas == null)
+                        {
+                            <td style="text-align:center;"><input type="datetime-local" name="data_de_início" class="form-control" style="border: none" readonly  /></td>
+                            <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none" readonly  /></td>
+                        }
+                        else
+                        {
+                            <td><input type="text" value="@Model.oDatas.data_de_início" name="data_de_início" class="form-control" style="border: none" readonly  /> </td>
+                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oDatas.data_de_termino" style="border: none" readonly /></td>
+                        }
+                    </tr>
+                </tbody>
+            </table>
 
             <p> <strong> 4.4.1 Quando os copos forem ensaiados conforme 5.3 da Norma, o valor mínimo de resistência à compressão lateral deve estar de acordo com a Tabela 3 da Norma.  </strong> </p>
             <p> <strong> 4.4.1  O critério de aceitação para 4.4.1 da Norma deve ser de acordo com a ABNT NBR 5426, com nível de inspeção I e nível de qualidade aceitável (NQA) igual a 2,5. </strong> </p>
@@ -1374,6 +1468,29 @@
         <hr style="color:darkred" />
         <p style="text-align : center"> <strong> 6 - Embalagem </strong></p>
         <hr style="color:darkred" />
+
+        <table class="table table-bordered border-secondary">
+            <thead class="tablestyle">
+                <tr>
+                    <th scope="col"> Data de Início</th>
+                    <th scope="col">Data de Término</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    @if (Model.oDatas == null)
+                    {
+                        <td style="text-align:center;"><input type="datetime-local" name="data_de_início" class="form-control" style="border: none" readonly /></td>
+                        <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none" readonly /></td>
+                    }
+                    else
+                    {
+                        <td><input type="text" value="@Model.oDatas.data_de_início" name="data_de_início" class="form-control" style="border: none" readonly /> </td>
+                        <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oDatas.data_de_termino" style="border: none" readonly /></td>
+                    }
+                </tr>
+            </tbody>
+        </table>
 
         <p> <strong> Os copos devem ser comercializados em mangas invioláveis, ou ainda a granel, protegidos com sacos plásticos. Na embalagem devem ser identificadas a capacidade total e a quantidade de copos e informação(ões) para rastreabilidade.  </strong> </p>
 
@@ -1497,9 +1614,34 @@
         <p style="text-align : center"> <strong> 7 - Marcação e identificação</strong></p>
         <hr style="color:darkred" />
 
-        <p> <strong> Os copos devem trazer gravados em relevo, com caracteres visíveis e de forma indelével, pelo menos o seguinte:  </strong> </p>
 
         <form method="post" asp-controller="Coleta" asp-action="SalvarMarcacao" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
+
+        <table class="table table-bordered border-secondary">
+            <thead class="tablestyle">
+                <tr>
+                    <th scope="col"> Data de Início</th>
+                    <th scope="col">Data de Término</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    @if (Model.oDatas == null)
+                    {
+                        <td style="text-align:center;"><input type="datetime-local" name="data_de_início" class="form-control" style="border: none" readonly  /></td>
+                        <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none" readonly /></td>
+                    }
+                    else
+                    {
+                        <td><input type="text" value="@Model.oDatas.data_de_início" name="data_de_início" class="form-control" style="border: none" readonly  /> </td>
+                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oDatas.data_de_termino" style="border: none" readonly /></td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+
+        <p> <strong> Os copos devem trazer gravados em relevo, com caracteres visíveis e de forma indelével, pelo menos o seguinte:  </strong> </p>
+
             <table class="table table-bordered border-secondary table table-sm">
                 <thead class="tablestyle">
                     <tr>

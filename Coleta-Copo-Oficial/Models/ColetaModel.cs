@@ -57,6 +57,11 @@ namespace Copo_Coleta.Models
             public string? quatro_dois_tres_Atende { get; set; }
             public string? quatro_dois_tres_Resul { get; set; }
 
+            [Required(ErrorMessage = "Campo Obrigatorio.")]
+            public DateTime data_de_inicio { get; set; }
+            [Required(ErrorMessage = "Campo Obrigatorio.")]
+            public DateTime data_de_termino { get; set; }
+
 
         }
 
@@ -68,6 +73,7 @@ namespace Copo_Coleta.Models
             public int rev { get; set; }
             public string? massa { get; set; }
             public string? peso { get; set; }
+        
 
         }
 
@@ -96,6 +102,10 @@ namespace Copo_Coleta.Models
             public string? Incerteza { get; set; }
             public string? rsi { get; set; }
             public string? rci { get; set; }
+            [Required(ErrorMessage = "Campo Obrigatorio.")]
+            public DateTime data_de_inicio { get; set; }
+            [Required(ErrorMessage = "Campo Obrigatorio.")]
+            public DateTime data_de_termino { get; set; }
         }
 
         public class Tablemassa
@@ -115,6 +125,11 @@ namespace Copo_Coleta.Models
             public string incerteza { get; set; }
             public string rsi { get; set; }
             public string rci { get; set; }
+
+            [Required(ErrorMessage = "Campo Obrigatorio.")]
+            public DateTime data_de_inicio { get; set; }
+            [Required(ErrorMessage = "Campo Obrigatorio.")]
+            public DateTime data_de_termino { get; set; }
 
         }
 
@@ -143,6 +158,10 @@ namespace Copo_Coleta.Models
             public string? a_resultados { get; set; }
             public string? b_resultados { get; set; }
             public string? c_resultados { get; set; }
+            [Required(ErrorMessage = "Campo Obrigatorio.")]
+            public DateTime data_de_inicio { get; set; }
+            [Required(ErrorMessage = "Campo Obrigatorio.")]
+            public DateTime data_de_termino { get; set; }
 
         }
 
@@ -187,6 +206,11 @@ namespace Copo_Coleta.Models
             public string Rastreabilidade { get; set; }
      
             public string Resultados { get; set; }
+
+            [Required(ErrorMessage = "Campo Obrigatorio.")]
+            public DateTime data_de_inicio { get; set; }
+            [Required(ErrorMessage = "Campo Obrigatorio.")]
+            public DateTime data_de_termino { get; set; }
         }
 
         public class Instrumentos
