@@ -1,33 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "C:\\xampp\\htdocs\\Coleta-Copo-Ofical\\Coleta-Copo-Oficial\\Coleta-Copo-Oficial.csproj": {}
+    "C:\\Users\\gerso\\source\\repos\\InstitutoLabSystem\\Coleta-Copo-Ofical\\Coleta-Copo-Oficial\\Coleta-Copo-Oficial.csproj": {}
   },
   "projects": {
-    "C:\\xampp\\htdocs\\Coleta-Copo-Ofical\\Coleta-Copo-Oficial\\Coleta-Copo-Oficial.csproj": {
+    "C:\\Users\\gerso\\source\\repos\\InstitutoLabSystem\\Coleta-Copo-Ofical\\Coleta-Copo-Oficial\\Coleta-Copo-Oficial.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\xampp\\htdocs\\Coleta-Copo-Ofical\\Coleta-Copo-Oficial\\Coleta-Copo-Oficial.csproj",
+        "projectUniqueName": "C:\\Users\\gerso\\source\\repos\\InstitutoLabSystem\\Coleta-Copo-Ofical\\Coleta-Copo-Oficial\\Coleta-Copo-Oficial.csproj",
         "projectName": "Coleta-Copo-Oficial",
-        "projectPath": "C:\\xampp\\htdocs\\Coleta-Copo-Ofical\\Coleta-Copo-Oficial\\Coleta-Copo-Oficial.csproj",
-        "packagesPath": "C:\\Users\\Molina\\.nuget\\packages\\",
-        "outputPath": "C:\\xampp\\htdocs\\Coleta-Copo-Ofical\\Coleta-Copo-Oficial\\obj\\",
+        "projectPath": "C:\\Users\\gerso\\source\\repos\\InstitutoLabSystem\\Coleta-Copo-Ofical\\Coleta-Copo-Oficial\\Coleta-Copo-Oficial.csproj",
+        "packagesPath": "C:\\Users\\gerso\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\gerso\\source\\repos\\InstitutoLabSystem\\Coleta-Copo-Ofical\\Coleta-Copo-Oficial\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Molina\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\gerso\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://packagesource": {}
         },
         "frameworks": {
           "net7.0": {
