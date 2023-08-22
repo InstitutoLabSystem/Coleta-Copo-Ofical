@@ -29,8 +29,8 @@ namespace Copo_Coleta.Data
 
         public DbSet<ColetaModel.Embalagem> copos_embalagem { get; set; }
         public DbSet<ColetaModel.Instrumentos> copos_instrumentos { get; set; }
-
-
+        public DbSet<ColetaModel.CondicionamentoMinimo> copos_codicionamento_minimo { get; set; }
+        public DbSet<ColetaModel.CondicMaximo> copos_codicionamento_maximo { get; set; }
     }
 }
 

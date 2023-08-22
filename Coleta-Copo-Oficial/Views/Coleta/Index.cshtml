@@ -29,7 +29,6 @@
     </style>
 </head>
 <body>
-
     <h5 style="text-align : center"> <strong> Os :  @ViewBag.OS </strong></h5>
     <hr style="color:darkred; border:20px; " />
 
@@ -102,18 +101,211 @@
                     }
 
                 </div>
-
         </form>
 
+        <!-- Inicio Condicionamento das amostras  -->
+        <hr style="color:darkred" />
+        <p style="text-align : center"> <strong> Condicionamento das amostras </strong></p>
+        <hr style="color:darkred" />
+
+        <form method="post" asp-controller="Coleta" asp-action="condicionamentoAmostra" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
+            @if (Model.oCondicionamento == null)
+            {
+                <table class="table table-bordered border-secondary table table-sm">
+                    <thead class="tablestyle">
+                        <tr>
+                            <th colspan="8">
+                                Condicionamento da amostra antes do ensaio: especificado (23 ± 2)°C por no mínimo 4 h
+                            </th>
+                            <th >IM utilizado:</th>
+                            <th >Responsável pela análise:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="background-color:#800000; color:white;" colspan="2">Data do acondicionamento:</td>
+                            <td style="background-color:#800000; color:white;" colspan="2">hora do acondicionamento:</td>
+                            <td style="background-color:#800000; color:white;" colspan="2">Temperatura encontrada:</td>
+                            <td style="background-color:#800000; color:white;" colspan="2">Umidade encontrada:</td>
+                            <td rowspan="3"><input class="form-control" name="im_utilizado" style="height: 150px; border:none;" /></td>
+                            <td rowspan="3"><input class="form-control" name="responsavel" style="height: 150px; border:none;" /></td>
+                        </tr>
+                        <tr>
+                            <td>Inicio:</td>
+                            <td> <input class="form-control" type="date" name="ini_dat_acond" /></td>
+                            <td>Inicio:</td>
+                            <td> <input class="form-control" type="time" name="ini_hora_acond" /></td>
+                            <td>Mínimo:</td>
+                            <td> <input class="form-control" type="text" name="tem_min_encon" /> </td>
+                            <td>Mínimo:</td>
+                            <td> <input class="form-control" value="NA" name="umid_min_encon" disabled /></td>
+
+                        </tr>
+                        <tr>
+                            <td>Termino:</td>
+                            <td> <input class="form-control" type="date" name="ter_data_acond" /> </td>
+                            <td>Termino:</td>
+                            <td> <input class="form-control" type="time" name="term_hora_acond" /></td>
+                            <td>Máximo: </td>
+                            <td> <input class="form-control" type="text" name="temp_max_encont" /> </td>
+                            <td>Máximo: </td>
+                            <td> <input class="form-control" type="text" value="NA" name="umid_max_encon" disabled /> </td>
+                        </tr>
+                    </tbody>
+                </table>
+               
+            }
+            else
+            {
+                
+                <table class="table table-bordered border-secondary table table-sm">
+                    <thead class="tablestyle">
+                        <tr>
+                            <th colspan="8">
+                                Condicionamento da amostra antes do ensaio: especificado (23 ± 2)°C por no mínimo 4 h
+                            </th>
+                            <th >IM utilizado:aqui</th>
+                            <th >Responsável pela análise:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="background-color:#800000; color:white;" colspan="2" >Data do acondicionamento:</td>
+                            <td style="background-color:#800000; color:white;" colspan="2">hora do acondicionamento:</td>
+                            <td style="background-color:#800000; color:white;" colspan="2">Temperatura encontrada:</td>
+                            <td style="background-color:#800000; color:white;" colspan="2">Umidade encontrada:</td>
+                            <td rowspan="3"><input class="form-control" name="im_utilizado" value="@Model.oCondicionamento.im_utilizado" style="height: 150px; border:none;" /></td>
+                            <td rowspan="3"><input class="form-control" name="responsavel" value="@Model.oCondicionamento.responsavel" style="height: 150px; border:none;" /></td>
+                        </tr>
+                        <tr>
+                            <td>Inicio:</td>
+                            <td> <input class="form-control" type="text" name="ini_dat_acond" value="@Model.oCondicionamento.ini_dat_acond"  /></td>
+                            <td>Inicio:</td>
+                            <td> <input class="form-control" type="time" name="ini_hora_acond" value="@Model.oCondicionamento.ini_hora_acond" /></td>
+                            <td>Mínimo:</td>
+                            <td> <input class="form-control" type="text" name="tem_min_encon" value="@Model.oCondicionamento.tem_min_encon"  /> </td>
+                            <td>Mínimo:</td>
+                            <td> <input class="form-control" value="NA" type="text" name="umid_min_encon" disabled /></td>
+                        </tr>
+                        <tr>
+                            <td>Termino:</td>
+                            <td> <input class="form-control" type="text" name="ter_data_acond" value="@Model.oCondicionamento.ter_data_acond"  /> </td>
+                            <td>Termino:</td>
+                            <td> <input class="form-control" type="time" name="term_hora_acond" value="@Model.oCondicionamento.term_hora_acond" /></td>
+                            <td>Máximo: </td>
+                            <td> <input class="form-control" type="text" name="temp_max_encont" value="@Model.oCondicionamento.temp_max_encont"  /> </td>
+                            <td>Máximo: </td>
+                            <td> <input class="form-control" value="NA" name="umid_max_encon" disabled /> </td>
+                        </tr>
+                    </tbody>
+                </table>
+               
+            }
+            <br />
+            @if(Model.oCondicionamentoMaximo == null)
+            {
+                <table class="table table-bordered border-secondary table table-sm">
+                    <thead class="tablestyle">
+                        <tr>
+                            <th colspan="8">
+                                Condicionamento da amostra antes do ensaio: especificado (23 ± 2)°C 
+                            </th>
+                            <th>IM utilizado:</th>
+                            <th>Responsável pela análise:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="background-color:#800000; color:white;" colspan="2">Data do acondicionamento:</td>
+                            <td style="background-color:#800000; color:white;" colspan="2">hora do acondicionamento:</td>
+                            <td style="background-color:#800000; color:white;" colspan="2">Temperatura encontrada:</td>
+                            <td style="background-color:#800000; color:white;" colspan="2">Umidade encontrada:</td>
+                            <td rowspan="3"><input class="form-control" name="im_utilizado_max" style="height: 150px; border:none;" /></td>
+                            <td rowspan="3"><input class="form-control" name="responsavel_max" style="height: 150px; border:none;"/></td>
+                        </tr>
+                        <tr>
+                            <td>Inicio:</td>
+                            <td> <input class="form-control" type="date" name="ini_dat_acond_max" /></td>
+                            <td>Inicio:</td>
+                            <td> <input class="form-control" type="time" name="ini_hora_acond_max"/></td>
+                            <td>Mínimo:</td>
+                            <td> <input class="form-control" type="text" name="tem_min_encon_max" /> </td>
+                            <td>Mínimo:</td>
+                            <td> <input class="form-control" value="NA" name="umid_min_encon_max" disabled /></td>
+
+                        </tr>
+                        <tr>
+                            <td>Termino:</td>
+                            <td> <input class="form-control" type="date" name="ter_data_acond_max" /> </td>
+                            <td>Termino:</td>
+                            <td> <input class="form-control" type="time" name="term_hora_acond_max"/></td>
+                            <td>Máximo: </td>
+                            <td> <input class="form-control" type="text" name="temp_max_encont_max"/> </td>
+                            <td>Máximo: </td>
+                            <td> <input class="form-control" type="text" value="NA" name="umid_max_encon_max" disabled /> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <table class="table table-bordered border-secondary table table-sm">
+                    <thead class="tablestyle">
+                        <tr>
+                            <th colspan="8">
+                                Condicionamento da amostra antes do ensaio: especificado (23 ± 2)°C 
+                            </th>
+                            <th>IM utilizado:</th>
+                            <th>Responsável pela análise:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="background-color:#800000; color:white;" colspan="2">Data do acondicionamento:</td>
+                            <td style="background-color:#800000; color:white;" colspan="2">hora do acondicionamento:</td>
+                            <td style="background-color:#800000; color:white;" colspan="2">Temperatura encontrada:</td>
+                            <td style="background-color:#800000; color:white;" colspan="2">Umidade encontrada:</td>
+                            <td rowspan="3"><input class="form-control" name="im_utilizado_max" value="@Model.oCondicionamentoMaximo.im_utilizado_max" style="height: 150px; border:none;"/></td>
+                            <td rowspan="3"><input class="form-control" name="responsavel_max" value="@Model.oCondicionamentoMaximo.responsavel_max" style="height: 150px; border:none;"/></td>
+                        </tr>
+                        <tr>
+                            <td>Inicio:</td>
+                            <td> <input class="form-control" type="text" name="ini_dat_acond_max" value="@Model.oCondicionamentoMaximo.ini_dat_acond_max" /></td>
+                            <td>Inicio:</td>
+                            <td> <input class="form-control" type="time" name="ini_hora_acond_max" value="@Model.oCondicionamentoMaximo.ini_hora_acond_max" /></td>
+                            <td>Mínimo:</td>
+                            <td> <input class="form-control" type="text" name="tem_min_encon_max" value="@Model.oCondicionamentoMaximo.tem_min_encon_max" /> </td>
+                            <td>Mínimo:</td>
+                            <td> <input class="form-control" value="NA" type="text" name="umid_min_encon_max" disabled /></td>
+
+                        </tr>
+                        <tr>
+                            <td>Termino:</td>
+                            <td> <input class="form-control" type="text" name="ter_data_acond_max" value="@Model.oCondicionamentoMaximo.ter_data_acond_max" /> </td>
+                            <td>Termino:</td>
+                            <td> <input class="form-control" type="time" name="term_hora_acond_max" value="@Model.oCondicionamentoMaximo.term_hora_acond_max" /></td>
+                            <td>Máximo: </td>
+                            <td> <input class="form-control" type="text" name="temp_max_encont_max" value="@Model.oCondicionamentoMaximo.temp_max_encont_max" /> </td>
+                            <td>Máximo: </td>
+                            <td> <input class="form-control" value="NA" name="umid_max_encon_max" disabled /> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+            
+            <div class="d-grid gap-2">
+                <button type="submit" value="condicionamentoAmostra" class="btn btn-outline-success">Salvar</button>
+            </div>
+
+
+        </form>
+        <!-- Final Condicionamento das amostras  -->
         <!-- Inicio 4.2 Aspectos Visuais -->
         <hr style="color:darkred" />
         <p style="text-align : center"> <strong> 4.2 Aspectos Visuais </strong></p>
         <hr style="color:darkred" />
 
-
-
         <p> <strong> 4.2.1 Os copos Devem estar isentos de rachaduras e furos que sejam perceptíveis a olho nu A amostragem deve atender a 5.3.1 da Norma.</strong></p>
-
 
         <form asp-controller="Coleta" asp-action="SalvarAspectosVisuais" method="post" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
             @if (Model.oAspectosvisuais == null)
@@ -1657,8 +1849,8 @@
 
                         <tr>
                             <td colspan="3"> <input type="text" value="---" name="info" class="form-control" style="border: none" /> </td>
-                            <td><input type="text" name="lote" value= "---" class="form-control" style="border: none" /></td>
-                            <td><input type="text" name="validade"  value="---"class="form-control" style="border: none" /></td>
+                            <td><input type="text" name="lote" value="---" class="form-control" style="border: none" /></td>
+                            <td><input type="text" name="validade" value="---" class="form-control" style="border: none" /></td>
                         </tr>
                     </tbody>
                 </table>

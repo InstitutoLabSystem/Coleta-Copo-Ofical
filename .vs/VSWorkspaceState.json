@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Coleta-Copo-Oficial",
+    "\\Coleta-Copo-Oficial\\Views",
+    "\\Coleta-Copo-Oficial\\Views\\Coleta"
   ],
+  "SelectedNode": "\\Coleta-Copo-Oficial\\Views\\Coleta\\Index.cshtml",
   "PreviewInSolutionExplorer": false
 }

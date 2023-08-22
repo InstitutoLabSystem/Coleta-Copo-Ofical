@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Permissions;
+
 namespace Copo_Coleta.Models
 {
     public class ColetaModel
@@ -204,6 +206,47 @@ namespace Copo_Coleta.Models
             public DateTime? validade { get; set; }
   
             public int ativo { get; set; }
+        }
+
+        public class CondicionamentoMinimo
+        {
+            [Key]
+            public int Id { get; set; }
+
+            public int os { get; set; }
+            public int rev { get; set; }
+            public string orcamento { get; set; }
+            public DateTime ini_dat_acond { get; set; }
+            public DateTime ter_data_acond { get; set; }
+            public string tem_min_encon { get; set; }
+            public string temp_max_encont { get; set; }
+            public TimeSpan ini_hora_acond { get; set; }
+            public TimeSpan term_hora_acond { get; set; }
+            public string? umid_min_encon { get; set; }
+            public string? umid_max_encon { get; set; }
+            public string im_utilizado { get; set; }
+            public string responsavel { get; set; }
+
+        }
+        public class CondicMaximo
+        {
+            [Key]
+            public int Id { get; set; }
+
+            public int os { get; set; }
+            public int rev { get; set; }
+            public string orcamento { get; set; }
+            public DateTime ini_dat_acond_max { get; set; }
+            public DateTime ter_data_acond_max { get; set; }
+            public string tem_min_encon_max { get; set; }
+            public string temp_max_encont_max { get; set; }
+            public TimeSpan ini_hora_acond_max { get; set; }
+            public TimeSpan term_hora_acond_max { get; set; }
+            public string? umid_min_encon_max { get; set; }
+            public string? umid_max_encon_max { get; set; }
+            public string im_utilizado_max { get; set; }
+            public string responsavel_max { get; set; }
+
         }
     }
 }

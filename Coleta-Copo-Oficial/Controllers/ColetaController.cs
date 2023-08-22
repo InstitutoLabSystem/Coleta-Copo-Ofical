@@ -50,6 +50,8 @@ namespace Copo_Coleta.Controllers
             model.oInstrumentos = ObterInstrumentos(os, Rev);
             model.oMarcacao = ObterMarcacao(os, Rev);
             model.oMateriais = ObterMateriais(os, Rev);
+            model.oCondicionamento = ObterCondicionamento(os, Rev);
+            model.oCondicionamentoMaximo = ObterCondicionamentoMaximo(os, Rev);
 
             ViewBag.OS = os;
             ViewBag.Orcamento = orcamento;
@@ -157,6 +159,20 @@ namespace Copo_Coleta.Controllers
             return pesquisarInstrumentos;
         }
 
+        private CondicionamentoMinimo ObterCondicionamento(int os, int Rev)
+        {
+            var obterCond = _context.copos_codicionamento_minimo
+                            .Where(x => x.os == os && x.rev == Rev)
+                            .FirstOrDefault();
+            return obterCond;
+        }
+        private CondicMaximo ObterCondicionamentoMaximo(int os, int Rev)
+        {
+            var obterCondMaximo = _context.copos_codicionamento_maximo
+                            .Where(x => x.os == os && x.rev == Rev)
+                            .FirstOrDefault();
+            return obterCondMaximo;
+        }
 
         [HttpPost]
         public async Task<IActionResult> SalvarData(int os, string orcamento, int Rev, [Bind("data_de_início,data_de_termino")] ColetaModel.Datas salvar, [Bind("qtd_recebida,qtd_ensaiada,capacidade_copo,quant_manga,capacidade_manga")] ColetaModel.Descricao descricao)
@@ -1249,6 +1265,147 @@ namespace Copo_Coleta.Controllers
                 else
                 {
                     TempData["Mensagem"] = "Não foi possivel excluir codigo";
+                    return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error", ex.Message);
+                throw;
+            }
+        }
+
+        public async Task<IActionResult> condicionamentoAmostra(int os, string orcamento, int Rev, [Bind("ini_dat_acond,ter_data_acond,tem_min_encon,temp_max_encont,ini_hora_acond,term_hora_acond,umid_min_encon,umid_max_encon,im_utilizado,responsavel")] ColetaModel.CondicionamentoMinimo salvarCondMin, [Bind("ini_dat_acond_max,ter_data_acond_max,tem_min_encon_max,temp_max_encont_max,ini_hora_acond_max,term_hora_acond_max,umid_min_encon_max,umid_max_encon_max,im_utilizado_max,responsavel_max")] ColetaModel.CondicMaximo salvarCondMax)
+        {
+            try
+            {
+                if (orcamento != null)
+                {
+                    var editarDadosCondicionamentoMin = _context.copos_codicionamento_minimo
+                       .Where(x => x.os == os && x.rev == Rev)
+                       .FirstOrDefault();
+                    var editarDadosCondicionamentoMax = _context.copos_codicionamento_maximo
+                       .Where(x => x.os == os && x.rev == Rev)
+                       .FirstOrDefault();
+
+                    if (editarDadosCondicionamentoMin == null && editarDadosCondicionamentoMax == null)
+                    {
+                        //GUARDANDO OS VALORES NAS VARIAVEIS DA COND MINIMA 4HORAS
+                        var ini_dat_acond = salvarCondMin.ini_dat_acond;
+                        var ter_data_acond = salvarCondMin.ter_data_acond;
+                        var tem_min_encon = salvarCondMin.tem_min_encon;
+                        var temp_max_encont = salvarCondMin.temp_max_encont;
+                        var ini_hora_acond = salvarCondMin.ini_hora_acond;
+                        var term_hora_acond = salvarCondMin.term_hora_acond;
+                        var umid_min_encon = salvarCondMin.umid_min_encon;
+                        var umid_max_encon = salvarCondMin.umid_max_encon;
+                        var im_utilizado = salvarCondMin.im_utilizado;
+                        var responsavel = salvarCondMin.responsavel;
+                        
+                        //SALVAR DADOS NO BANCO DE DADOS. DA COND MINIMA 4HORAS
+                        var SalvarDadosMin = new CondicionamentoMinimo
+                        {
+                            os = os,
+                            rev = Rev,
+                            orcamento = orcamento,
+                            ini_dat_acond = ini_dat_acond,
+                            ter_data_acond = ter_data_acond,
+                            tem_min_encon = tem_min_encon,
+                            temp_max_encont = temp_max_encont,
+                            ini_hora_acond = ini_hora_acond,
+                            term_hora_acond = term_hora_acond,
+                            umid_min_encon = umid_min_encon,
+                            umid_max_encon = umid_max_encon,
+                            im_utilizado = im_utilizado,
+                            responsavel = responsavel
+                        };
+
+                       
+
+                        //GUARDADO OS VALORES NA TABELA CONDICIONAMENTO MAXIMO, QUE É DIA TODO.
+                        var ini_dat_acond_condMax = salvarCondMax.ini_dat_acond_max;
+                        var ter_data_acond_condMax = salvarCondMax.ter_data_acond_max;
+                        var tem_min_encon_condMax = salvarCondMax.tem_min_encon_max;
+                        var temp_max_encont_condMax = salvarCondMax.temp_max_encont_max;
+                        var ini_hora_acond_condMax = salvarCondMax.ini_hora_acond_max;
+                        var term_hora_acond_condMax = salvarCondMax.term_hora_acond_max;
+                        var umid_min_encon_condMax = salvarCondMax.umid_min_encon_max;
+                        var umid_max_encon_condMax = salvarCondMax.umid_max_encon_max;
+                        var im_utilizado_condMax = salvarCondMax.im_utilizado_max;
+                        var responsavel_condMax = salvarCondMax.responsavel_max; 
+                        //verificando se tem dados da primeira telava vazia
+
+                      
+                        var SalvarDadosMax = new CondicMaximo
+                        {
+                            os = os,
+                            rev = Rev,
+                            orcamento = orcamento,
+                            ini_dat_acond_max = ini_dat_acond_condMax,
+                            ter_data_acond_max = ter_data_acond_condMax,
+                            tem_min_encon_max = tem_min_encon_condMax,
+                            temp_max_encont_max = temp_max_encont_condMax,
+                            ini_hora_acond_max = ini_hora_acond_condMax,
+                            term_hora_acond_max = term_hora_acond_condMax,
+                            umid_min_encon_max = umid_min_encon_condMax,
+                            umid_max_encon_max = umid_max_encon_condMax,
+                            im_utilizado_max = im_utilizado_condMax,
+                            responsavel_max = responsavel_condMax
+                        };
+                        //verificando dados se estao vazios
+                        if (ini_dat_acond == null || ter_data_acond == null || tem_min_encon == null || temp_max_encont == null || ini_hora_acond == null || term_hora_acond == null || im_utilizado == null || responsavel == null || ini_dat_acond_condMax == null || ter_data_acond_condMax == null || tem_min_encon_condMax == null || temp_max_encont_condMax == null || ini_hora_acond_condMax == null || term_hora_acond_condMax == null || im_utilizado_condMax == null || responsavel_condMax == null)
+                        {
+                            TempData["Mensagem"] = "Campos vazios";
+                            return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+                        }
+
+                        //se ocorrer tudo bem, salvar dados
+                        _context.Add(SalvarDadosMin);
+                        await _context.SaveChangesAsync();
+
+                        _context.Add(SalvarDadosMax);
+                        await _context.SaveChangesAsync();
+
+                       
+
+                        TempData["Mensagem"] = "Dados Salvo Com Sucesso!";
+                        return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+                    }
+                    else
+                    {
+                        //guardado valor da tabela cond minima (4horas) se caso usuario editar 
+                        editarDadosCondicionamentoMin.ini_dat_acond = salvarCondMin.ini_dat_acond;
+                        editarDadosCondicionamentoMin.ter_data_acond = salvarCondMin.ter_data_acond;
+                        editarDadosCondicionamentoMin.tem_min_encon = salvarCondMin.tem_min_encon;
+                        editarDadosCondicionamentoMin.temp_max_encont = salvarCondMin.temp_max_encont;
+                        editarDadosCondicionamentoMin.ini_hora_acond = salvarCondMin.ini_hora_acond;
+                        editarDadosCondicionamentoMin.term_hora_acond = salvarCondMin.term_hora_acond;
+                        editarDadosCondicionamentoMin.umid_min_encon = salvarCondMin.umid_min_encon;
+                        editarDadosCondicionamentoMin.im_utilizado = salvarCondMin.im_utilizado;
+                        editarDadosCondicionamentoMin.responsavel = salvarCondMin.responsavel;
+
+                        //GUARDANDO VALOR DA TABE COND MAXIMA SE USUARIO EDITAR ALGUM VALOR..
+                        editarDadosCondicionamentoMax.ter_data_acond_max = salvarCondMax.ini_dat_acond_max;
+                        editarDadosCondicionamentoMax.ter_data_acond_max = salvarCondMax.ter_data_acond_max;
+                        editarDadosCondicionamentoMax.tem_min_encon_max = salvarCondMax.tem_min_encon_max;
+                        editarDadosCondicionamentoMax.temp_max_encont_max = salvarCondMax.temp_max_encont_max;
+                        editarDadosCondicionamentoMax.ini_hora_acond_max = salvarCondMax.ini_hora_acond_max;
+                        editarDadosCondicionamentoMax.term_hora_acond_max = salvarCondMax.term_hora_acond_max;
+                        editarDadosCondicionamentoMax.umid_min_encon_max = salvarCondMax.umid_min_encon_max;
+                        editarDadosCondicionamentoMax.umid_max_encon_max = salvarCondMax.umid_max_encon_max;
+                        editarDadosCondicionamentoMax.im_utilizado_max = salvarCondMax.im_utilizado_max;
+                        editarDadosCondicionamentoMax.responsavel_max = salvarCondMax.responsavel_max;
+
+                        //SALVANDO DADOS EDITADO..
+                        await _context.SaveChangesAsync();
+                        TempData["Mensagem"] = "Dados Editado Com Sucesso!";
+
+                        return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+                    }
+                }
+                else
+                {
+                    TempData["Mensagem"] = "Não foi possivel salvar os dados";
                     return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
                 }
             }
