@@ -17,6 +17,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Diagnostics.Metrics;
 using Microsoft.CodeAnalysis.Differencing;
+using System.Xml.Linq;
 
 namespace Copo_Coleta.Controllers
 {
@@ -271,8 +272,8 @@ namespace Copo_Coleta.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> SalvarAspectosVisuais(int os, int orcamento, int rev, [Bind("quatro_dois_um_Atende,quatro_dois_um_Resul," +
-            "quatro_dois_dois_Atende,quatro_dois_dois_Resul,quatro_dois_tres_Atende,quatro_dois_tres_Resul ")] ColetaModel.Aspectosvisuais salvar)
+        public async Task<IActionResult> SalvarAspectosVisuais(int os, int orcamento, int rev, int osData, [Bind("quatro_dois_um_Atende,quatro_dois_um_Resul," +
+            "quatro_dois_dois_Atende,quatro_dois_dois_Resul,quatro_dois_tres_Atende,quatro_dois_tres_Resul,data_de_início,data_de_termino")] ColetaModel.Aspectosvisuais salvar)
         {
             try
             {
@@ -291,6 +292,7 @@ namespace Copo_Coleta.Controllers
                         Editardados.quatro_dois_dois_Atende = salvar.quatro_dois_dois_Atende;
                         Editardados.quatro_dois_dois_Resul = salvar.quatro_dois_dois_Resul;
                         Editardados.quatro_dois_tres_Atende = salvar.quatro_dois_tres_Atende;
+                      
 
                         await _context.SaveChangesAsync();
                         TempData["Mensagem"] = "Dados Editado com Sucesso";
@@ -298,7 +300,18 @@ namespace Copo_Coleta.Controllers
                     }
                     else
                     {
-                      
+                        osData = os;
+
+                        var pegarValoresDatas = _context.copo_datas
+                     .Where(os => os.os == osData)
+                      .Select(os => new
+                      {
+                          os.data_de_início,
+                          os.data_de_termino,
+
+                      })
+                      .FirstOrDefault();
+
                         // salvando valores caso nao exista para editar
                         var quatro_dois_um_Atende = salvar.quatro_dois_um_Atende;
                         var quatro_dois_um_Resul = salvar.quatro_dois_um_Resul;
@@ -306,6 +319,7 @@ namespace Copo_Coleta.Controllers
                         var quatro_dois_dois_Resul = salvar.quatro_dois_dois_Resul;
                         var quatro_dois_tres_Atende = salvar.quatro_dois_tres_Resul;
                         var quatro_dois_tres_Resul = salvar.quatro_dois_tres_Resul;
+                       
 
                         if (quatro_dois_um_Atende == null || quatro_dois_um_Resul == null || quatro_dois_dois_Atende == null || quatro_dois_dois_Resul == null || quatro_dois_tres_Atende == null || quatro_dois_tres_Resul == null)
                         {
@@ -326,6 +340,8 @@ namespace Copo_Coleta.Controllers
                                 quatro_dois_dois_Resul = quatro_dois_dois_Resul,
                                 quatro_dois_tres_Atende = quatro_dois_tres_Atende,
                                 quatro_dois_tres_Resul = quatro_dois_tres_Resul,
+                                data_de_inicio = pegarValoresDatas.data_de_início,
+                                data_de_termino = pegarValoresDatas.data_de_termino
                             };
 
                             _context.Add(salvarDados);
@@ -352,8 +368,8 @@ namespace Copo_Coleta.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> SalvarMarcacao(int os, int Rev, string orcamento, [Bind("a_Contem_informacao, a_Estão_relevo, a_Caracteres_visiveis, " +
-            "a_forma_indelevel,a_Evidencia,b_Contem_informacao,b_Estao_relevo,b_Caracteres_visiveis,b_forma_indelevel,b_Evidencia, c_Contem_informacao,c_Estao_relevo, c_Caracteres_visiveis, c_forma_indelevel,c_Evidencia, a_resultados, b_resultados, c_resultados")] ColetaModel.Marcacao salvar, string info, string lote, string validade, string observacoes)
+        public async Task<IActionResult> SalvarMarcacao(int os, int Rev, string orcamento, int osData, [Bind("a_Contem_informacao, a_Estão_relevo, a_Caracteres_visiveis, " +
+            "a_forma_indelevel,a_Evidencia,b_Contem_informacao,b_Estao_relevo,b_Caracteres_visiveis,b_forma_indelevel,b_Evidencia, c_Contem_informacao,c_Estao_relevo, c_Caracteres_visiveis, c_forma_indelevel,c_Evidencia, a_resultados, b_resultados, c_resultados, data_de_início,data_de_termino")] ColetaModel.Marcacao salvar, string info, string lote, string validade, string observacoes)
         {
             try
             {
@@ -413,6 +429,18 @@ namespace Copo_Coleta.Controllers
                         var b_resultados = salvar.b_resultados;
                         var c_resultados = salvar.c_resultados;
 
+                        osData = os;
+
+                        var pegarValoresDatas = _context.copo_datas
+                       .Where(os => os.os == osData)
+                      .Select(os => new
+                      {
+                          os.data_de_início,
+                          os.data_de_termino,
+
+                      })
+                      .FirstOrDefault();
+
 
                         if (a_Contem_informacao == null || a_Estão_relevo == null ||
                             a_Caracteres_visiveis == null || a_forma_indelevel == null
@@ -448,7 +476,9 @@ namespace Copo_Coleta.Controllers
                                 c_Evidencia = c_Evidencia,
                                 a_resultados = a_resultados,
                                 b_resultados = b_resultados,
-                                c_resultados = c_resultados
+                                c_resultados = c_resultados,
+                                data_de_inicio = pegarValoresDatas.data_de_início,
+                                data_de_termino = pegarValoresDatas.data_de_termino
                             };
 
                             _context.Add(SalvarMarcacao);
@@ -513,8 +543,8 @@ namespace Copo_Coleta.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SalvarEmbalagem(int os, int rev, string orcamento, [Bind("As_mangas_estão_invioláveis, Estão_protegidos_saco_plástico, Capacidade_total, Capacidade_total_Evidencia," +
-            " Quantidade_de_copos, Quantidade_copos_Evidencia, Rastreabilidade, Resultados")] ColetaModel.Embalagem salvar)
+        public async Task<IActionResult> SalvarEmbalagem(int os, int rev, string orcamento, int osData, [Bind("As_mangas_estão_invioláveis, Estão_protegidos_saco_plástico, Capacidade_total, Capacidade_total_Evidencia," +
+            " Quantidade_de_copos, Quantidade_copos_Evidencia, Rastreabilidade, Resultados, data_de_início,data_de_termino")] ColetaModel.Embalagem salvar)
         {
             try
             {
@@ -552,6 +582,18 @@ namespace Copo_Coleta.Controllers
                         var Rastreabilidade = salvar.Rastreabilidade;
                         var Resultados = salvar.Resultados;
 
+                        osData = os;
+
+                        var pegarValoresDatas = _context.copo_datas
+                       .Where(os => os.os == osData)
+                      .Select(os => new
+                      {
+                          os.data_de_início,
+                          os.data_de_termino,
+
+                      })
+                      .FirstOrDefault();
+
                         if (As_mangas_estão_invioláveis == null || Estão_protegidos_saco_plástico == null ||
                             Capacidade_total == null || Capacidade_total_Evidencia == null || Quantidade_de_copos == null
                             || Quantidade_copos_Evidencia == null || Rastreabilidade == null || Resultados == null)
@@ -574,7 +616,9 @@ namespace Copo_Coleta.Controllers
                                 Quantidade_de_copos = Quantidade_de_copos,
                                 Quantidade_copos_Evidencia = Quantidade_copos_Evidencia,
                                 Rastreabilidade = Rastreabilidade,
-                                Resultados = Resultados
+                                Resultados = Resultados,
+                                data_de_inicio = pegarValoresDatas.data_de_início,
+                                data_de_termino = pegarValoresDatas.data_de_termino
 
 
                             };
@@ -603,14 +647,15 @@ namespace Copo_Coleta.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> SalvarMassa(int os, int osDescricao, string rsi, string rci, string massamin, string fatcorrelacao, int rev, string orcamento,
+        public async Task<IActionResult> SalvarMassa(int os, int osDescricao, int osData, string rsi, string rci, string massamin, string fatcorrelacao, int rev, string orcamento,
           List<string> massa, List<string> peso,
-          ColetaModel.Descricao descricaocopos, [Bind("incerteza")] ColetaModel.Tablemassa tablemassa)
+          ColetaModel.Descricao descricaocopos, [Bind("incerteza, data_de_início,data_de_termino")] ColetaModel.Tablemassa tablemassa)
         {
             try
             {
 
                 osDescricao = os;
+                osData = os;
 
                 if (orcamento != null)
                 {
@@ -629,6 +674,16 @@ namespace Copo_Coleta.Controllers
 
                         })
                         .FirstOrDefault();
+
+                        var pegarValoresDatas = _context.copo_datas
+                      .Where(os => os.os == osData)
+                       .Select(os => new
+                       {
+                           os.data_de_início,
+                           os.data_de_termino,
+
+                       })
+                       .FirstOrDefault();
 
                         // Converte os números em strings para valores numéricos
                         List<double> numeros = peso.Select(s => double.Parse(s)).ToList();
@@ -792,7 +847,8 @@ namespace Copo_Coleta.Controllers
 
                         //pegando os valores enviados pelo html.
                         var incerteza = tablemassa.incerteza;
-
+                        var data_de_inicio = tablemassa.data_de_inicio;
+                        var data_de_termino = tablemassa.data_de_termino;
                         //Fazendo a conta qdo RCI (Se o Obtida(Resultfinal) - a incerteza(verificarincerteza)
                         //é >= ao especificada, entao é "CONFORME", se não é "NÃO CONFORME".
 
@@ -826,7 +882,9 @@ namespace Copo_Coleta.Controllers
                             especificada = massamin,
                             incerteza = incerteza,
                             rsi = rsi,
-                            rci = rci
+                            rci = rci,
+                            data_de_inicio = pegarValoresDatas.data_de_início,
+                            data_de_termino = pegarValoresDatas.data_de_termino
 
                         };
                         _context.Add(compressaoDados);
@@ -940,7 +998,7 @@ namespace Copo_Coleta.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> EnsaioDeCompressaoAndAmostras(int osDescricao, int os, string orcamento, int rev, string rsi, string rci, string capacidade_especificada, string capacidadeCopo, string valor_min_especificado, List<int> amostra, List<string> resistencia, ColetaModel.Descricao descricaoCopos, [Bind("Incerteza")] ColetaModel.Compressao dadosCompressao)
+        public async Task<IActionResult> EnsaioDeCompressaoAndAmostras(int osDescricao, int os, string orcamento, int osData, int rev, string rsi, string rci, string capacidade_especificada, string capacidadeCopo, string valor_min_especificado, List<int> amostra, List<string> resistencia, ColetaModel.Descricao descricaoCopos, [Bind("Incerteza,data_de_início,data_de_termino")] ColetaModel.Compressao dadosCompressao)
         {
             try
             {
@@ -1020,6 +1078,20 @@ namespace Copo_Coleta.Controllers
                         }
 
                         var Incerteza = dadosCompressao.Incerteza;
+                       
+
+                        osData = os;
+
+                        var pegarValoresDatas = _context.copo_datas
+                     .Where(os => os.os == osData)
+                      .Select(os => new
+                      {
+                          os.data_de_início,
+                          os.data_de_termino,
+
+                      })
+                      .FirstOrDefault();
+
 
                         var compressaoDados = new Compressao
                         {
@@ -1030,6 +1102,8 @@ namespace Copo_Coleta.Controllers
                             Valor_min_especificado = valor_min_especificado,
                             Valor_min_obtido = menor_valor_resistencia.ToString(),
                             Incerteza = Incerteza,
+                            data_de_inicio = pegarValoresDatas.data_de_início,
+                            data_de_termino = pegarValoresDatas.data_de_termino
                         };
 
                         _context.Add(compressaoDados);
