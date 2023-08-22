@@ -324,7 +324,19 @@ namespace Copo_Coleta.Controllers
                         var quatro_dois_dois_Resul = salvar.quatro_dois_dois_Resul;
                         var quatro_dois_tres_Atende = salvar.quatro_dois_tres_Resul;
                         var quatro_dois_tres_Resul = salvar.quatro_dois_tres_Resul;
-                       
+
+                        osData = os;
+
+                        var pegarValoresDatas = _context.copo_datas
+                       .Where(os => os.os == osData)
+                        .Select(os => new
+                        {
+                          os.data_de_início,
+                          os.data_de_termino,
+
+                        })
+                      .FirstOrDefault();
+
 
                         if (quatro_dois_um_Atende == null || quatro_dois_um_Resul == null || quatro_dois_dois_Atende == null || quatro_dois_dois_Resul == null || quatro_dois_tres_Atende == null || quatro_dois_tres_Resul == null)
                         {
