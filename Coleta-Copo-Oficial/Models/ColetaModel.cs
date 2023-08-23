@@ -272,5 +272,22 @@ namespace Copo_Coleta.Models
             public string responsavel_max { get; set; }
 
         }
+
+
+        public class Finalizado
+        {
+            [Key]
+            public int Id { get; set; }
+            public int os { get; set; }
+            public int rev { get; set; }
+            public string orcamento { get; set; }
+
+            public DateTime data_de_fin { get; set; }
+            public string responsavel { get; set; }
+            public string revisao { get; set; }
+
+
+        }
+
     }
 }
