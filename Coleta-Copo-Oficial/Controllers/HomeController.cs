@@ -10,6 +10,7 @@ using static Azure.Core.HttpHeader;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using static Copo_Coleta.Models.HomeModel;
 
+
 namespace Copo_Coleta.Controllers
 {
     public class HomeController : Controller
@@ -28,7 +29,14 @@ namespace Copo_Coleta.Controllers
         {
             return View();
         }
-
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult Login()
+        {
+            return View();
+        }
 
 
 
@@ -72,14 +80,61 @@ namespace Copo_Coleta.Controllers
             }
         }
 
-
-
-
-
-        public IActionResult Privacy()
+        public async Task<IActionResult> LoginBuscar([Bind("Nome_Usuario, Senha_Usuario")] HomeModel.Usuario salvar)
         {
-            return View();
+            try
+            {
+                if (string.IsNullOrEmpty(salvar.Nome_Usuario) || string.IsNullOrEmpty(salvar.Senha_Usuario))
+                {
+                    TempData["Mensagem"] = "Por favor, preencha o nome de usuário e senha.";
+                    return View("Login");
+                }
+                else
+                {
+                    var Nome_Usuario = salvar.Nome_Usuario;
+                    var Senha_Usuario = salvar.Senha_Usuario;
+
+                    var pegarValores = await _context.usuario_copy
+                        .Where(u => u.Nome_Usuario == Nome_Usuario)
+                        .Select(u => new
+                        {
+                            u.Nome_Usuario,
+                            u.Senha_Usuario,
+                            u.cargo,
+                            u.setor,
+                            u.laboratorio
+                        })
+                        .FirstOrDefaultAsync();
+
+                    if (Nome_Usuario == pegarValores.Nome_Usuario && Senha_Usuario == pegarValores.Senha_Usuario)
+                    {
+                        if(pegarValores.setor == "Especial" && pegarValores.cargo == "Especial" || pegarValores.setor == "TI" && pegarValores.cargo == "TI")
+                        {
+                            TempData["Mensagem"] = "foi";
+                            return View("Index");
+                        }
+                        else
+                        {
+                            TempData["Mensagem"] = "Usuário não encontrado.";
+                            return View("Login");
+                        }
+
+                    }
+                    else
+                    {
+                        TempData["Mensagem"] = "Usuário não encontrado.";
+                        return View("Login");
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao buscar usuário", ex.Message);
+                throw;
+            }
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

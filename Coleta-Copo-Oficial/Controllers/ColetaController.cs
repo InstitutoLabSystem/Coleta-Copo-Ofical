@@ -1564,5 +1564,50 @@ namespace Copo_Coleta.Controllers
                 throw;
             }
         }
+
+
+        public async Task<IActionResult> FinalizarColeta(int os, string orcamento, int rev, [Bind("data_de_fin, responsavel,revisao")] ColetaModel.Finalizado salvar)
+        {
+            try
+            {
+                if (orcamento != null)
+                {
+                    var data_de_fin = salvar.data_de_fin;
+                    var responsavel = salvar.responsavel;
+                    var revisao = salvar.revisao;
+
+
+                    //guardando os valores
+                    var salvarDados = new Finalizado
+                    {
+                        os = os,
+                        orcamento = orcamento,
+                        rev = rev,
+                        data_de_fin = data_de_fin,
+                        responsavel = responsavel,
+                        revisao = revisao
+                    };
+                    _context.Add(salvarDados);
+                    await _context.SaveChangesAsync();
+                    TempData["Mensagem"] = "Coleta Finalizada!";
+                    return RedirectToAction(nameof(Index), new { os, orcamento, rev });
+
+                }
+                else
+                {
+                    TempData["Mensagem"] = "Não foi possivel Finalizar a Coleta";
+                    return RedirectToAction(nameof(Index), new { os, orcamento, rev });
+                }
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error", ex.Message);
+                throw;
+            }
+        }
+
+
+
     }
 }

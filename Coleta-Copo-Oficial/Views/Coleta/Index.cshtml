@@ -2129,6 +2129,47 @@
 
     </div>
 
+     <hr style="color:darkred" />
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Finalizar Coleta    
+        </button>
+
+<!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel"> Informações de Finalização</h1>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form asp-controller="Coleta" asp-action="FinalizarColeta" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
+                <div class="modal-body">
+
+                       <label> Data de finalização </label>
+                        <input type="text" name="data_de_fin" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" readonly />
+                        </br>
+
+                        <label> Nome do Responsável: </label>
+                        <input type="text" name="responsavel" class="form-control" />
+                          </br>
+
+                        <label> Revisão feita por: </label>
+                        <input type="text" name="revisao" class="form-control" />
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="submit" value="FinalizarColeta" class="btn btn-primary">Finalizar</button>
+                </div>
+                </form>
+
+            </div>
+          </div>
+    </div>
+
+
     <!--Final de instrumentos utilizados -->
 </body>
 </html>
