@@ -8,6 +8,6 @@
     "\\Coleta-Copo-Oficial\\Views\\Coleta",
     "\\Coleta-Copo-Oficial\\Views\\Home"
   ],
-  "SelectedNode": "\\Coleta-Copo-Oficial\\Data\\BancoContext.cs",
+  "SelectedNode": "\\Coleta-Copo-Oficial\\Controllers\\HomeController.cs",
   "PreviewInSolutionExplorer": false
 }
