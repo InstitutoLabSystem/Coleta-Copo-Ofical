@@ -1,6 +1,10 @@
 ﻿@{
     Layout = null;
 }
+@{
+    ViewData["Title"] = "Login";
+}
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -178,6 +182,14 @@
             </button>
         </form>
     </div>
+    @if (TempData.ContainsKey("Mensagem"))
+    {
+        <script>
+            
+            alert('@Html.Raw(TempData["Mensagem"])');
 
+        </script>
+    }
 </body>
 </html>
+
