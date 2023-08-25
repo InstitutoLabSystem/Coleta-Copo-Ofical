@@ -28,12 +28,15 @@ namespace Copo_Coleta.Controllers
         private readonly ILogger<ColetaController> _logger;
         private readonly CoposContext _context;
         private readonly BancoContext _bancocontext;
+        private readonly IHttpContextAccessor _contextAcessor;
 
-        public ColetaController(ILogger<ColetaController> logger, CoposContext context, BancoContext bccontext)
+
+        public ColetaController(ILogger<ColetaController> logger, CoposContext context, BancoContext bccontext, IHttpContextAccessor contextAcessor)
         {
             _logger = logger;
             _context = context;
             _bancocontext = bccontext;
+            _contextAcessor = contextAcessor;
 
         }
 
@@ -63,6 +66,7 @@ namespace Copo_Coleta.Controllers
 
         private Datas ObterDatas(int os, int Rev)
         {
+            _contextAcessor.HttpContext.Session.SetString("Nome", "Bianca");
             var datas = _context.copo_datas
                    .Where(x => x.os == os && x.Rev == Rev)
                    .FirstOrDefault();

@@ -17,16 +17,20 @@ namespace Copo_Coleta.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly BancoContext _context;
+        private readonly IHttpContextAccessor _contextAcessor;
 
-        public HomeController(ILogger<HomeController> logger, BancoContext context)
+        public HomeController(ILogger<HomeController> logger, BancoContext context, IHttpContextAccessor contextAcessor)
         {
             _logger = logger;
             _context = context;
+            _contextAcessor = contextAcessor;
         }
 
         //Meu index.
         public IActionResult Index()
         {
+            _contextAcessor.HttpContext.Session.SetString("Nome", "usuario");
+
             return View();
         }
         public IActionResult Privacy()
@@ -110,6 +114,7 @@ namespace Copo_Coleta.Controllers
                     {
                         if(pegarValores.setor == "Especial" && pegarValores.cargo == "Especial" || pegarValores.setor == "TI" && pegarValores.cargo == "TI")
                         {
+                           
                             TempData["Mensagem"] = "foi";
                             return View("Index");
                         }
