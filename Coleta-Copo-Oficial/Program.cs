@@ -1,3 +1,4 @@
+using Coleta_Copo_Oficial.Data;
 using Copo_Coleta.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,11 @@ namespace Copo_Coleta
               (options => options.UseMySql(
                   "server=novolab.c82dqw5tullb.sa-east-1.rds.amazonaws.com;user id=sistema;password=7847awse;database=copos",
                   Microsoft.EntityFrameworkCore.ServerVersion.Parse("13.2.0-mysql")));
+
+            builder.Services.AddDbContext<IncertezaContext>
+             (options => options.UseMySql(
+                 "server=novolab.c82dqw5tullb.sa-east-1.rds.amazonaws.com;user id=sistema;password=7847awse;database=incertezas",
+                 Microsoft.EntityFrameworkCore.ServerVersion.Parse("13.2.0-mysql")));
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

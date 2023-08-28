@@ -18,6 +18,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Diagnostics.Metrics;
 using Microsoft.CodeAnalysis.Differencing;
 using System.Xml.Linq;
+using Coleta_Copo_Oficial.Data;
 
 namespace Copo_Coleta.Controllers
 {
@@ -28,16 +29,14 @@ namespace Copo_Coleta.Controllers
         private readonly ILogger<ColetaController> _logger;
         private readonly CoposContext _context;
         private readonly BancoContext _bancocontext;
-        private readonly IHttpContextAccessor _contextAcessor;
+        private readonly IncertezaContext _incertezacontext;
 
-
-        public ColetaController(ILogger<ColetaController> logger, CoposContext context, BancoContext bccontext, IHttpContextAccessor contextAcessor)
+        public ColetaController(ILogger<ColetaController> logger, CoposContext context, BancoContext bccontext, IncertezaContext incertezacontext)
         {
             _logger = logger;
             _context = context;
             _bancocontext = bccontext;
-            _contextAcessor = contextAcessor;
-
+            _incertezacontext = incertezacontext;
         }
 
         public ActionResult Index(int os, string orcamento, int Rev)
@@ -178,6 +177,8 @@ namespace Copo_Coleta.Controllers
                             .FirstOrDefault();
             return obterCondMaximo;
         }
+
+
 
         [HttpPost]
         public async Task<IActionResult> SalvarData(int os, string orcamento, int Rev, [Bind("data_de_início,data_de_termino")] ColetaModel.Datas salvar, [Bind("qtd_recebida,qtd_ensaiada,capacidade_copo,quant_manga,capacidade_manga")] ColetaModel.Descricao descricao)
@@ -335,8 +336,8 @@ namespace Copo_Coleta.Controllers
                        .Where(os => os.os == osData)
                         .Select(os => new
                         {
-                          os.data_de_início,
-                          os.data_de_termino,
+                            os.data_de_início,
+                            os.data_de_termino,
 
                         })
                       .FirstOrDefault();
@@ -866,15 +867,20 @@ namespace Copo_Coleta.Controllers
                             rsi = "NC";
                         }
 
+                        //PEGAR VALOR DO BACNO DE DADOS REFERENTE A INCERTEZA. PARA SALVAR....
+                        var pegarValorIncerteza = _incertezacontext.copos_incertezas
+                                                  .Where(x => x.descricao == "Determinação da Massa do Copo")
+                                                  .OrderByDescending(x => x.data_cadastro)
+                                                  .FirstOrDefault();
                         //pegando os valores enviados pelo html.
-                        var incerteza = tablemassa.incerteza;
+                        //var incerteza = tablemassa.incerteza;
                         var data_de_inicio = tablemassa.data_de_inicio;
                         var data_de_termino = tablemassa.data_de_termino;
                         //Fazendo a conta qdo RCI (Se o Obtida(Resultfinal) - a incerteza(verificarincerteza)
                         //é >= ao especificada, entao é "CONFORME", se não é "NÃO CONFORME".
 
                         double verificarincerteza;
-                        verificarincerteza = Double.Parse(incerteza);
+                        verificarincerteza = Double.Parse(pegarValorIncerteza.valor);
 
                         double verificarRsi;
                         verificarRsi = Resultfinal - verificarincerteza;
@@ -901,7 +907,7 @@ namespace Copo_Coleta.Controllers
                             fatcorrelacao = fatcorrelacao,
                             obtida = Resultfinal.ToString("0.000"),
                             especificada = massamin,
-                            incerteza = incerteza,
+                            incerteza = pegarValorIncerteza.valor,
                             rsi = rsi,
                             rci = rci,
                             data_de_inicio = pegarValoresDatas.data_de_início,
@@ -1034,6 +1040,7 @@ namespace Copo_Coleta.Controllers
                     var editarAmostra = _context.copos_amostra.Where(x => x.os == os && x.rev == rev).ToList();
                     var editatDescricao = _context.copos_compressao.Where(x => x.os == os && x.rev == rev).FirstOrDefault();
 
+
                     if (editarAmostra == null || editarAmostra.Count == 0)
                     {
                         //conexao com a amostra.
@@ -1098,20 +1105,25 @@ namespace Copo_Coleta.Controllers
                             valor_min_especificado = "1,4";
                         }
 
-                        var Incerteza = dadosCompressao.Incerteza;
-                       
+
+
+                        //buscando o ultimo valor registrado na incerteza referente a esse item.
+                        var pegarValorIncerteza = _incertezacontext.copos_incertezas
+                                                  .Where(x => x.descricao == "Determinação da Resistência à Compressão Lateral do Copo")
+                                                  .OrderByDescending(x => x.data_cadastro)
+                                                  .FirstOrDefault();
+
 
                         osData = os;
-
                         var pegarValoresDatas = _context.copo_datas
-                     .Where(os => os.os == osData)
-                      .Select(os => new
-                      {
-                          os.data_de_início,
-                          os.data_de_termino,
+                                                  .Where(os => os.os == osData)
+                                                  .Select(os => new
+                                                  {
+                                                      os.data_de_início,
+                                                      os.data_de_termino,
 
-                      })
-                      .FirstOrDefault();
+                                                  })
+                                                  .FirstOrDefault();
 
 
                         var compressaoDados = new Compressao
@@ -1122,7 +1134,7 @@ namespace Copo_Coleta.Controllers
                             Capacidade_especificada = capacidade_especificada,
                             Valor_min_especificado = valor_min_especificado,
                             Valor_min_obtido = menor_valor_resistencia.ToString(),
-                            Incerteza = Incerteza,
+                            Incerteza = pegarValorIncerteza.valor,
                             data_de_inicio = pegarValoresDatas.data_de_início,
                             data_de_termino = pegarValoresDatas.data_de_termino
                         };
@@ -1147,7 +1159,7 @@ namespace Copo_Coleta.Controllers
                             var Rsi = double.Parse(resistencia[amostrasExistente[i].amostra - 1]);
                             double Valor_min_especificado = double.Parse(valor_min_especificado);
 
-                            double incerteza = double.Parse(Incerteza);
+                            double incerteza = double.Parse(pegarValorIncerteza.valor);
 
                             //verificando o rsi, para passar o valor.
                             if (Rsi <= Valor_min_especificado)
@@ -1405,7 +1417,7 @@ namespace Copo_Coleta.Controllers
                 var apagarInstrumento = _context.copos_instrumentos
                                         .Where(x => x.os == os && x.rev == Rev && x.ativo == 1)
                                         .OrderByDescending(x => x.Id)
-                                        .FirstOrDefault();
+                                        .LastOrDefault();
 
                 if (apagarInstrumento != null)
                 {
@@ -1454,7 +1466,7 @@ namespace Copo_Coleta.Controllers
                         var umid_max_encon = salvarCondMin.umid_max_encon;
                         var im_utilizado = salvarCondMin.im_utilizado;
                         var responsavel = salvarCondMin.responsavel;
-                        
+
                         //SALVAR DADOS NO BANCO DE DADOS. DA COND MINIMA 4HORAS
                         var SalvarDadosMin = new CondicionamentoMinimo
                         {
@@ -1473,7 +1485,7 @@ namespace Copo_Coleta.Controllers
                             responsavel = responsavel
                         };
 
-                       
+
 
                         //GUARDADO OS VALORES NA TABELA CONDICIONAMENTO MAXIMO, QUE É DIA TODO.
                         var ini_dat_acond_condMax = salvarCondMax.ini_dat_acond_max;
@@ -1485,10 +1497,10 @@ namespace Copo_Coleta.Controllers
                         var umid_min_encon_condMax = salvarCondMax.umid_min_encon_max;
                         var umid_max_encon_condMax = salvarCondMax.umid_max_encon_max;
                         var im_utilizado_condMax = salvarCondMax.im_utilizado_max;
-                        var responsavel_condMax = salvarCondMax.responsavel_max; 
+                        var responsavel_condMax = salvarCondMax.responsavel_max;
                         //verificando se tem dados da primeira telava vazia
 
-                      
+
                         var SalvarDadosMax = new CondicMaximo
                         {
                             os = os,
@@ -1519,7 +1531,7 @@ namespace Copo_Coleta.Controllers
                         _context.Add(SalvarDadosMax);
                         await _context.SaveChangesAsync();
 
-                       
+
 
                         TempData["Mensagem"] = "Dados Salvo Com Sucesso!";
                         return RedirectToAction(nameof(Index), new { os, orcamento, Rev });

@@ -16,6 +16,7 @@ namespace Copo_Coleta.Data
         public DbSet<HomeModel.TrazerInstrumentos> cad_instr { get; set; }
 
         public DbSet<HomeModel.Usuario> usuario_copy { get; set; }
+        
 
 
     }

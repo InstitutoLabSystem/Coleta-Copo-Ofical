@@ -42,7 +42,7 @@ namespace Copo_Coleta.Controllers
             return View();
         }
 
-
+       
 
         //Pesquisar orçamento...
         [HttpPost]
@@ -54,7 +54,7 @@ namespace Copo_Coleta.Controllers
 
                 var resultado = _context.ordemservico_copylab
                   .Where(os => os.orcamento == orcamento)
-                  .OrderBy(os=>os.item)
+                  .OrderBy(os => os.item)
                   .Select(os => new OrdemServico // Substitua 'OrdemServico' pela classe correta
                   {
                       Rev = os.Rev,
@@ -95,8 +95,8 @@ namespace Copo_Coleta.Controllers
                 }
                 else
                 {
-                    var Nome_Usuario = salvar.Nome_Usuario;
-                    var Senha_Usuario = salvar.Senha_Usuario;
+                    var Nome_Usuario = salvar.Nome_Usuario.ToUpper();
+                    var Senha_Usuario = salvar.Senha_Usuario.ToUpper();
 
                     var pegarValores = await _context.usuario_copy
                         .Where(u => u.Nome_Usuario == Nome_Usuario)
@@ -110,24 +110,31 @@ namespace Copo_Coleta.Controllers
                         })
                         .FirstOrDefaultAsync();
 
-                    if (Nome_Usuario == pegarValores.Nome_Usuario && Senha_Usuario == pegarValores.Senha_Usuario)
+                    if (pegarValores != null)
                     {
-                        if(pegarValores.setor == "Especial" && pegarValores.cargo == "Especial" || pegarValores.setor == "TI" && pegarValores.cargo == "TI")
+                        if (pegarValores.Nome_Usuario == Nome_Usuario && pegarValores.Senha_Usuario == Senha_Usuario)
                         {
-                           
-                            TempData["Mensagem"] = "foi";
-                            return View("Index");
+                            if (pegarValores.setor == "Especial" && pegarValores.cargo == "Especial" || pegarValores.setor == "TI" && pegarValores.cargo == "TI")
+                            {
+                                TempData["Mensagem"] = "Logado com sucesso";
+                                return View("Index");
+                            }
+                            else
+                            {
+                                TempData["Mensagem"] = "Usuário não tem permissão";
+                                return View("Login");
+                            }
+
                         }
                         else
                         {
                             TempData["Mensagem"] = "Usuário não encontrado.";
                             return View("Login");
                         }
-
                     }
                     else
                     {
-                        TempData["Mensagem"] = "Usuário não encontrado.";
+                        TempData["Mensagem"] = "Usuário Errado";
                         return View("Login");
                     }
 
@@ -138,13 +145,6 @@ namespace Copo_Coleta.Controllers
                 _logger.LogError(ex, "Erro ao buscar usuário", ex.Message);
                 throw;
             }
-        }
-
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
