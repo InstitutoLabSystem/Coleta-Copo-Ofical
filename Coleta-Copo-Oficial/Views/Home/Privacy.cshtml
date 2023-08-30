@@ -1,16 +1,58 @@
-﻿@{
+﻿@model List<ColetaModel.Finalizado>;
+@{
     ViewData["Title"] = "Coletas Finalizadas:";
 }
 
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  
     <link rel="stylesheet" href="~/css/estilos.css" />
+   <style>
+        .tablestyle {
+            text-align: center;
+            background-color: #800000;
+            color: white;
+        }
+   </style>
 </head>
 <body>
     <h1>@ViewData["Title"]</h1>
     <hr />
+    <table class="table table-bordered border-secondary tabela-estreita">
+       
+        <thead>
+            <tr class="tablestyle">
+                <th>OS</th>
+                <th>Orçamento</th>
+                <th>Data Finalização</th>
+                <th>Responsavel Finalizado</th>
+                <th>Responsavel Revisão</th>
+                <th><a></a>Visualizar coleta</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model != null || Model.Count > 0)
+            {
+                @foreach (var resistencia in Model)
+                {
+                    <tr>
+                        <td>
+                            @resistencia.os
+                        </td>
+                       <td>@resistencia.orcamento</td>
+                       <td>@resistencia.data_de_fin</td>
+                       <td>@resistencia.revisao</td>
+                       <td>@resistencia.responsavel</td>
+                        <td>
+                            <a>
+                                <a role="button" class="btn btn-success" asp-controller="Coleta" asp-action="Index" asp-route-os="@($"{resistencia.os}")" asp-route-orcamento="@($"{resistencia.orcamento}")" asp-route-rev="@($"{resistencia.rev}")">Visualizar Coleta</a>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
 </body>
 </html>
 

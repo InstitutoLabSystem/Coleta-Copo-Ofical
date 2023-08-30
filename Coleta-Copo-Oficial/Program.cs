@@ -1,6 +1,11 @@
 using Coleta_Copo_Oficial.Data;
 using Copo_Coleta.Data;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
+using Microsoft.Identity.Client;
 
 namespace Copo_Coleta
 {
@@ -38,11 +43,13 @@ namespace Copo_Coleta
                 app.UseHsts();
             }
 
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
