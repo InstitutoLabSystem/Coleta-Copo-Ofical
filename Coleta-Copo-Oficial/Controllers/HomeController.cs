@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Copo_Coleta.Controllers
 {
- 
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -27,6 +27,9 @@ namespace Copo_Coleta.Controllers
         //Meu index.
         public IActionResult Index()
         {
+            //PEGANDO O NOME DA SESSAO DO USUARIO. E MOSTRANDO NO INDEX.
+            var nomeUsuarioClaim = User.FindFirstValue(ClaimTypes.Name);
+            ViewBag.NomeUsuario = nomeUsuarioClaim;
             return View();
         }
         public IActionResult Privacy()
@@ -36,12 +39,13 @@ namespace Copo_Coleta.Controllers
 
             return View(retornarFinalizadas);
         }
-        public IActionResult Login()
+
+        public async Task<IActionResult> LogOut()
         {
-            return View();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Acess");
+
         }
-
-
 
         //Pesquisar orçamento...
         [HttpPost]
@@ -79,70 +83,6 @@ namespace Copo_Coleta.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao buscar orçamento: {}", ex.Message);
-                throw;
-            }
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> LoginBuscar(string ReturnUrl,[Bind("Nome_Usuario, Senha_Usuario")] HomeModel.Usuario salvar)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(salvar.Nome_Usuario) || string.IsNullOrEmpty(salvar.Senha_Usuario))
-                {
-                    TempData["Mensagem"] = "Por favor, preencha o nome de usuário e senha.";
-                    return View("Login");
-                }
-                else
-                {
-                    var Nome_Usuario = salvar.Nome_Usuario.ToUpper();
-                    var Senha_Usuario = salvar.Senha_Usuario.ToUpper();
-
-                    var pegarValores = await _context.usuario_copy
-                        .Where(u => u.Nome_Usuario == Nome_Usuario)
-                        .Select(u => new
-                        {
-                            u.Nome_Usuario,
-                            u.Senha_Usuario,
-                            u.cargo,
-                            u.setor,
-                            u.laboratorio
-                        })
-                        .FirstOrDefaultAsync();
-
-                    if (pegarValores != null)
-                    {
-                        if (pegarValores.Nome_Usuario == Nome_Usuario && pegarValores.Senha_Usuario == Senha_Usuario)
-                        {
-                            if (pegarValores.setor == "Especial" && pegarValores.cargo == "Especial" || pegarValores.setor == "TI" && pegarValores.cargo == "TI")
-                            {
-                                TempData["Mensagem"] = "Logado com sucesso";
-                                return View("Index");
-                            }
-                            else
-                            {
-                                TempData["Mensagem"] = "Usuário não tem permissão";
-                                return View("Login");
-                            }
-
-                        }
-                        else
-                        {
-                            TempData["Mensagem"] = "Usuário não encontrado.";
-                            return View("Login");
-                        }
-                    }
-                    else
-                    {
-                        TempData["Mensagem"] = "Usuário Errado";
-                        return View("Login");
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erro ao buscar usuário", ex.Message);
                 throw;
             }
         }
