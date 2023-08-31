@@ -968,7 +968,7 @@ namespace Copo_Coleta.Controllers
                                 {
                                     pesoatual.peso = peso[j];
                                 }
-                                else if(peso[j] == "---")
+                                else if (peso[j] == "---")
                                 {
                                     pesoatual.peso = peso[j];
                                 }
