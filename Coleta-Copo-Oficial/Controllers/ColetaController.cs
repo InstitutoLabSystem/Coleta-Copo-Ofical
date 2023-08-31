@@ -19,9 +19,11 @@ using System.Diagnostics.Metrics;
 using Microsoft.CodeAnalysis.Differencing;
 using System.Xml.Linq;
 using Coleta_Copo_Oficial.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Copo_Coleta.Controllers
 {
+    [Authorize]
     public class ColetaController : Controller
 
     {
