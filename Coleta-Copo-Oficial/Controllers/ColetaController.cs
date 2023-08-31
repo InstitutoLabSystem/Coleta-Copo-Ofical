@@ -649,7 +649,7 @@ namespace Copo_Coleta.Controllers
         [HttpPost]
         public async Task<IActionResult> SalvarMassa(int os, int osDescricao, int osData, string rsi, string rci, string massamin, string fatcorrelacao, int rev, string orcamento,
           List<string> massa, List<string> peso,
-          ColetaModel.Descricao descricaocopos, [Bind("incerteza, data_de_início,data_de_termino")] ColetaModel.Tablemassa tablemassa)
+          ColetaModel.Descricao descricaocopos, [Bind("incerteza, data_de_inicio, data_de_termino")] ColetaModel.Tablemassa tablemassa)
         {
             try
             {
@@ -1251,6 +1251,7 @@ namespace Copo_Coleta.Controllers
                         editatDescricao.Valor_min_obtido = menor_valor_resistencia.ToString();
                         var incerteza = editatDescricao.Incerteza;
                         editatDescricao.Incerteza = incerteza;
+                        
                       
 
 
