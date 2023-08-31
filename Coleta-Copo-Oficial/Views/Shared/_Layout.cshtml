@@ -1,9 +1,6 @@
-﻿@inject  IHttpContextAccessor _contextAcessor;
-@{
+﻿@{
     DateTime dataAtual = DateTime.Now;
 }
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -43,7 +40,7 @@
                 </div>
             }
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Olá, @_contextAcessor.HttpContext.Session.GetString("Nome")</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Coletas De Copo.</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

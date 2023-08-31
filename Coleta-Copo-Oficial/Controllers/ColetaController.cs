@@ -66,7 +66,6 @@ namespace Copo_Coleta.Controllers
 
         private Datas ObterDatas(int os, int Rev)
         {
-            _contextAcessor.HttpContext.Session.SetString("Nome", "Bianca");
             var datas = _context.copo_datas
                    .Where(x => x.os == os && x.Rev == Rev)
                    .FirstOrDefault();
