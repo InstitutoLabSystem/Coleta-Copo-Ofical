@@ -16,29 +16,29 @@
     <style>
         .header {
             background-color: #800000;
-            color:white;
-            text-align:center;
-            font-style:Arial;
+            color: white;
+            text-align: center;
+            font-style: Arial;
             font-size: 20px;
         }
-        .conteudo{
+
+        .conteudo {
             text-align: center;
             font-style: Arial;
             text-align: center;
-            font-weight:bold;
-
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
- 
+
     <div class="text-center">
         <h1>Buscar orçamento</h1>
     </div>
     <form class="form-inline" asp-controller="Home" asp-action="BuscarOrcamento" method="post">
         <div class="container mt-4">
             <div class="row">
-                <label  name="Orcamento" id="Orcamento" class="col-sm-1 col-form-label"><strong>Orcamento</strong></label>
+                <label name="Orcamento" id="Orcamento" class="col-sm-1 col-form-label"><strong>Orcamento</strong></label>
                 <div class="col-md-8">
                     <input type="text" name="Orcamento" id="Orcamento" class="form-control" placeholder="Digite sua pesquisa aqui">
                 </div>
@@ -49,11 +49,12 @@
         </div>
     </form>
     <br />
-    
+
     <table class="table table-bordered border-secondary tabela-estreita">
         <tbody>
-            
-            @if (Model != null) {
+
+            @if (Model != null)
+            {
                 //verificando se existe algo no banco
             <thead>
                 <tr class="header">
@@ -68,7 +69,7 @@
                 {
                     //int teste = i + 1;
                     var resultado = Model[i];
-                    
+
                 <tr class="conteudo">
                     <td class="col">@($"{resultado.codigo}{resultado.mes}{resultado.ano}")</td>
                     <td class="col">@resultado.orcamento</td>
@@ -79,10 +80,10 @@
                     </td>
                 </tr>
                 }
-             }
+            }
         </tbody>
     </table>
-    
+
 </body>
 </html>
 @section Scripts {

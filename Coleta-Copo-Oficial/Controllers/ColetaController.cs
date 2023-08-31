@@ -56,6 +56,7 @@ namespace Copo_Coleta.Controllers
             model.oCondicionamento = ObterCondicionamento(os, Rev);
             model.oCondicionamentoMaximo = ObterCondicionamentoMaximo(os, Rev);
 
+
             ViewBag.OS = os;
             ViewBag.Orcamento = orcamento;
             ViewBag.Rev = Rev;
@@ -177,7 +178,6 @@ namespace Copo_Coleta.Controllers
                             .FirstOrDefault();
             return obterCondMaximo;
         }
-
 
 
         [HttpPost]
@@ -1126,7 +1126,7 @@ namespace Copo_Coleta.Controllers
                                                   .FirstOrDefault();
 
 
-                        var compressaoDados = new Compressao
+                        var compressaoDados = new ColetaModel.Compressao
                         {
                             os = os,
                             rev = rev,

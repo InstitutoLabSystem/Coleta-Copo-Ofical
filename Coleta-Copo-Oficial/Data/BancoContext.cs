@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Copo_Coleta.Models;
 using System.Linq;
-
+using Coleta_Copo_Oficial.Models;
 
 namespace Copo_Coleta.Data
 {
@@ -14,11 +14,7 @@ namespace Copo_Coleta.Data
 
         public DbSet<HomeModel.OrdemServico> ordemservico_copylab { get; set; }
         public DbSet<HomeModel.TrazerInstrumentos> cad_instr { get; set; }
-
-        public DbSet<HomeModel.Usuario> usuario_copy { get; set; }
-        
-
-
+        public DbSet<AcessModel.Usuario> usuario_copy { get; set; }
     }
 }
 

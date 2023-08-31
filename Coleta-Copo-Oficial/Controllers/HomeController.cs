@@ -1,48 +1,51 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Copo_Coleta.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 using Copo_Coleta.Data;
-using MySqlConnector;
-using System.Reflection.Metadata;
-using static Azure.Core.HttpHeader;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using static Copo_Coleta.Models.HomeModel;
-
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Copo_Coleta.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly BancoContext _context;
-        private readonly IHttpContextAccessor _contextAcessor;
-
-        public HomeController(ILogger<HomeController> logger, BancoContext context, IHttpContextAccessor contextAcessor)
+        private readonly CoposContext _copos;
+        public HomeController(ILogger<HomeController> logger, BancoContext context, CoposContext copos)
         {
             _logger = logger;
             _context = context;
-            _contextAcessor = contextAcessor;
+            _copos = copos;
         }
 
         //Meu index.
         public IActionResult Index()
         {
-            _contextAcessor.HttpContext.Session.SetString("Nome", "usuario");
-
+            //PEGANDO O NOME DA SESSAO DO USUARIO. E MOSTRANDO NO INDEX.
+            var nomeUsuarioClaim = User.FindFirstValue(ClaimTypes.Name);
+            ViewBag.NomeUsuario = nomeUsuarioClaim;
             return View();
         }
         public IActionResult Privacy()
         {
-            return View();
-        }
-        public IActionResult Login()
-        {
-            return View();
+            var retornarFinalizadas = _copos.copos_finalizado
+                                      .ToList();
+
+            return View(retornarFinalizadas);
         }
 
-       
+        public async Task<IActionResult> LogOut()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Acess");
+
+        }
 
         //Pesquisar orçamento...
         [HttpPost]
@@ -79,70 +82,7 @@ namespace Copo_Coleta.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao buscar orçamento: {0}", ex.Message);
-                throw;
-            }
-        }
-
-        public async Task<IActionResult> LoginBuscar([Bind("Nome_Usuario, Senha_Usuario")] HomeModel.Usuario salvar)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(salvar.Nome_Usuario) || string.IsNullOrEmpty(salvar.Senha_Usuario))
-                {
-                    TempData["Mensagem"] = "Por favor, preencha o nome de usuário e senha.";
-                    return View("Login");
-                }
-                else
-                {
-                    var Nome_Usuario = salvar.Nome_Usuario.ToUpper();
-                    var Senha_Usuario = salvar.Senha_Usuario.ToUpper();
-
-                    var pegarValores = await _context.usuario_copy
-                        .Where(u => u.Nome_Usuario == Nome_Usuario)
-                        .Select(u => new
-                        {
-                            u.Nome_Usuario,
-                            u.Senha_Usuario,
-                            u.cargo,
-                            u.setor,
-                            u.laboratorio
-                        })
-                        .FirstOrDefaultAsync();
-
-                    if (pegarValores != null)
-                    {
-                        if (pegarValores.Nome_Usuario == Nome_Usuario && pegarValores.Senha_Usuario == Senha_Usuario)
-                        {
-                            if (pegarValores.setor == "Especial" && pegarValores.cargo == "Especial" || pegarValores.setor == "TI" && pegarValores.cargo == "TI")
-                            {
-                                TempData["Mensagem"] = "Logado com sucesso";
-                                return View("Index");
-                            }
-                            else
-                            {
-                                TempData["Mensagem"] = "Usuário não tem permissão";
-                                return View("Login");
-                            }
-
-                        }
-                        else
-                        {
-                            TempData["Mensagem"] = "Usuário não encontrado.";
-                            return View("Login");
-                        }
-                    }
-                    else
-                    {
-                        TempData["Mensagem"] = "Usuário Errado";
-                        return View("Login");
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erro ao buscar usuário", ex.Message);
+                _logger.LogError(ex, "Erro ao buscar orçamento: {}", ex.Message);
                 throw;
             }
         }

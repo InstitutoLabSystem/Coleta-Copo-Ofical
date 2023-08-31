@@ -1,6 +1,10 @@
 using Coleta_Copo_Oficial.Data;
 using Copo_Coleta.Data;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using Microsoft.Identity.Client;
 
 namespace Copo_Coleta
 {
@@ -29,14 +33,12 @@ namespace Copo_Coleta
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            builder.Services.AddDistributedMemoryCache();
-            builder.Services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromSeconds(0);
-
-
-            });
+            builder.Services.AddAuthentication(
+                CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
+                {
+                    option.LoginPath = "/Acess/Login";
+                    option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                });
 
             var app = builder.Build();
 
@@ -48,17 +50,19 @@ namespace Copo_Coleta
                 app.UseHsts();
             }
 
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
             app.UseSession();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Login}/{id?}");
+                pattern: "{controller=Acess}/{action=Login}/{id?}");
 
             app.Run();
         }
