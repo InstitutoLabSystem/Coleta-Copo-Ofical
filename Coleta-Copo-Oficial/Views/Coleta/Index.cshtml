@@ -325,15 +325,15 @@
                 </thead>
                 <tbody>
                     <tr>
-                        @if (Model.oDatas == null)
+                        @if (Model.oAspectosvisuais == null)
                         {
-                            <td style="text-align:center;"><input type="datetime-local" name="data_de_início" class="form-control" style="border: none" readonly /></td>
-                            <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none" readonly /></td>
+                            <td style="text-align:center;"><input type="datetime-local" name="data_de_inicio" class="form-control" style="border: none" /></td>
+                            <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none"/></td>
                         }
                         else
                         {
-                            <td><input type="text" value="@Model.oDatas.data_de_início" name="data_de_início" class="form-control" style="border: none" readonly /> </td>
-                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oDatas.data_de_termino" style="border: none" readonly /></td>
+                            <td><input type="text" value="@Model.oAspectosvisuais.data_de_inicio" name="data_de_inicio" class="form-control" style="border: none"/> </td>
+                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oAspectosvisuais.data_de_termino" style="border: none"/></td>
                         }
                     </tr>
                 </tbody>
@@ -575,15 +575,15 @@
                 </thead>
                 <tbody>
                     <tr>
-                        @if (Model.oDatas == null)
+                        @if (Model.oTablemassa == null)
                         {
-                            <td style="text-align:center;"><input type="datetime-local" name="data_de_início" class="form-control" style="border: none" readonly /></td>
-                            <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none" readonly /></td>
+                            <td style="text-align:center;"><input type="datetime-local" name="data_de_inicio" class="form-control" style="border: none"/></td>
+                            <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none"/></td>
                         }
                         else
                         {
-                            <td><input type="text" value="@Model.oDatas.data_de_início" name="data_de_início" class="form-control" style="border: none" readonly /> </td>
-                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oDatas.data_de_termino" style="border: none" readonly /></td>
+                            <td><input type="text" value="@Model.oTablemassa.data_de_inicio" name="data_de_início" class="form-control" style="border: none"/> </td>
+                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oTablemassa.data_de_termino" style="border: none"/></td>
                         }
                     </tr>
                 </tbody>
@@ -1341,15 +1341,15 @@
                 </thead>
                 <tbody>
                     <tr>
-                        @if (Model.oDatas == null)
+                        @if (Model.oCompressao == null)
                         {
-                            <td style="text-align:center;"><input type="datetime-local" name="data_de_início" class="form-control" style="border: none" readonly /></td>
-                            <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none" readonly /></td>
+                            <td style="text-align:center;"><input type="datetime-local" name="data_de_inicio" class="form-control" style="border: none"/></td>
+                            <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none"/></td>
                         }
                         else
                         {
-                            <td><input type="text" value="@Model.oDatas.data_de_início" name="data_de_início" class="form-control" style="border: none" readonly /> </td>
-                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oDatas.data_de_termino" style="border: none" readonly /></td>
+                            <td><input type="text" value="@Model.oCompressao.data_de_inicio" name="data_de_início" class="form-control" style="border: none"/> </td>
+                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oCompressao.data_de_termino" style="border: none"/></td>
                         }
                     </tr>
                 </tbody>
@@ -1471,32 +1471,35 @@
         <p style="text-align : center"> <strong> 6 - Embalagem </strong></p>
         <hr style="color:darkred" />
 
-        <table class="table table-bordered border-secondary">
-            <thead class="tablestyle">
-                <tr>
-                    <th scope="col"> Data de Início</th>
-                    <th scope="col">Data de Término</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    @if (Model.oDatas == null)
-                    {
-                        <td style="text-align:center;"><input type="datetime-local" name="data_de_início" class="form-control" style="border: none" readonly /></td>
-                        <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none" readonly /></td>
-                    }
-                    else
-                    {
-                        <td><input type="text" value="@Model.oDatas.data_de_início" name="data_de_início" class="form-control" style="border: none" readonly /> </td>
-                        <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oDatas.data_de_termino" style="border: none" readonly /></td>
-                    }
-                </tr>
-            </tbody>
-        </table>
 
         <p> <strong> Os copos devem ser comercializados em mangas invioláveis, ou ainda a granel, protegidos com sacos plásticos. Na embalagem devem ser identificadas a capacidade total e a quantidade de copos e informação(ões) para rastreabilidade.  </strong> </p>
 
         <form method="post" asp-controller="Coleta" asp-action="SalvarEmbalagem" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
+
+            <table class="table table-bordered border-secondary">
+                <thead class="tablestyle">
+                    <tr>
+                        <th scope="col"> Data de Início</th>
+                        <th scope="col">Data de Término</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        @if (Model.oEmbalagem == null)
+                        {
+                            <td style="text-align:center;"><input type="datetime-local" name="data_de_inicio" class="form-control" style="border: none" /></td>
+                            <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none" /></td>
+                        }
+                        else
+                        {
+                            <td><input type="text" value="@Model.oEmbalagem.data_de_inicio" name="data_de_inicio" class="form-control" style="border: none" /> </td>
+                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oEmbalagem.data_de_termino" style="border: none" /></td>
+                        }
+                    </tr>
+                </tbody>
+            </table>
+            
+            
             <table class="table table-bordered border-secondary table table-sm">
 
                 <tr class="tablestyle">
@@ -1628,15 +1631,18 @@
                 </thead>
                 <tbody>
                     <tr>
-                        @if (Model.oDatas == null)
+                        @if (Model.oMarcacao == null || Model.oMarcacao.Count == 0)
                         {
-                            <td style="text-align:center;"><input type="datetime-local" name="data_de_início" class="form-control" style="border: none" readonly /></td>
-                            <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none" readonly /></td>
+                            <td style="text-align:center;"><input type="datetime-local" name="data_de_inicio" class="form-control" style="border: none" /></td>
+                            <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none" /></td>
                         }
                         else
                         {
-                            <td><input type="text" value="@Model.oDatas.data_de_início" name="data_de_início" class="form-control" style="border: none" readonly /> </td>
-                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oDatas.data_de_termino" style="border: none" readonly /></td>
+                            @foreach (var item in Model.oMarcacao)
+                            {
+                                <td><input type="text" value="@item.data_de_inicio" name="data_de_inicio" class="form-control" style="border: none" /> </td>
+                                <td><input type="text" name="data_de_termino" class="form-control" value="@item.data_de_termino" style="border: none" /></td>
+                            }
                         }
                     </tr>
                 </tbody>

@@ -293,7 +293,7 @@ namespace Copo_Coleta.Controllers
 
         [HttpPost]
         public async Task<IActionResult> SalvarAspectosVisuais(int os, int orcamento, int rev, int osData, [Bind("quatro_dois_um_Atende,quatro_dois_um_Resul," +
-            "quatro_dois_dois_Atende,quatro_dois_dois_Resul,quatro_dois_tres_Atende,quatro_dois_tres_Resul,data_de_início,data_de_termino")] ColetaModel.Aspectosvisuais salvar)
+            "quatro_dois_dois_Atende,quatro_dois_dois_Resul,quatro_dois_tres_Atende,quatro_dois_tres_Resul,data_de_inicio,data_de_termino")] ColetaModel.Aspectosvisuais salvar)
         {
             try
             {
@@ -313,6 +313,8 @@ namespace Copo_Coleta.Controllers
                         Editardados.quatro_dois_dois_Resul = salvar.quatro_dois_dois_Resul;
                         Editardados.quatro_dois_tres_Atende = salvar.quatro_dois_tres_Atende;
                         Editardados.quatro_dois_tres_Resul = salvar.quatro_dois_tres_Resul;
+                        Editardados.data_de_inicio = salvar.data_de_inicio;
+                        Editardados.data_de_termino = salvar.data_de_termino;
 
                         await _context.SaveChangesAsync();
                         TempData["Mensagem"] = "Dados Editado com Sucesso";
@@ -328,18 +330,9 @@ namespace Copo_Coleta.Controllers
                         var quatro_dois_dois_Resul = salvar.quatro_dois_dois_Resul;
                         var quatro_dois_tres_Atende = salvar.quatro_dois_tres_Resul;
                         var quatro_dois_tres_Resul = salvar.quatro_dois_tres_Resul;
+                        var data_de_inicio = salvar.data_de_inicio;
+                        var data_de_termino = salvar.data_de_termino;
 
-                        osData = os;
-
-                        var pegarValoresDatas = _context.copo_datas
-                       .Where(os => os.os == osData)
-                        .Select(os => new
-                        {
-                            os.data_de_início,
-                            os.data_de_termino,
-
-                        })
-                      .FirstOrDefault();
 
 
                         if (quatro_dois_um_Atende == null || quatro_dois_um_Resul == null || quatro_dois_dois_Atende == null || quatro_dois_dois_Resul == null || quatro_dois_tres_Atende == null || quatro_dois_tres_Resul == null)
@@ -361,8 +354,8 @@ namespace Copo_Coleta.Controllers
                                 quatro_dois_dois_Resul = quatro_dois_dois_Resul,
                                 quatro_dois_tres_Atende = quatro_dois_tres_Atende,
                                 quatro_dois_tres_Resul = quatro_dois_tres_Resul,
-                                data_de_inicio = pegarValoresDatas.data_de_início,
-                                data_de_termino = pegarValoresDatas.data_de_termino
+                                data_de_inicio = data_de_inicio,
+                                data_de_termino = data_de_termino
                             };
 
                             _context.Add(salvarDados);
@@ -390,7 +383,7 @@ namespace Copo_Coleta.Controllers
 
         [HttpPost]
         public async Task<IActionResult> SalvarMarcacao(int os, int Rev, string orcamento, int osData, [Bind("a_Contem_informacao, a_Estão_relevo, a_Caracteres_visiveis, " +
-            "a_forma_indelevel,a_Evidencia,b_Contem_informacao,b_Estao_relevo,b_Caracteres_visiveis,b_forma_indelevel,b_Evidencia, c_Contem_informacao,c_Estao_relevo, c_Caracteres_visiveis, c_forma_indelevel,c_Evidencia, a_resultados, b_resultados, c_resultados, data_de_início,data_de_termino")] ColetaModel.Marcacao salvar, string info, string lote, string validade, string observacoes)
+            "a_forma_indelevel,a_Evidencia,b_Contem_informacao,b_Estao_relevo,b_Caracteres_visiveis,b_forma_indelevel,b_Evidencia, c_Contem_informacao,c_Estao_relevo, c_Caracteres_visiveis, c_forma_indelevel,c_Evidencia, a_resultados, b_resultados, c_resultados, data_de_inicio, data_de_termino")] ColetaModel.Marcacao salvar, string info, string lote, string validade, string observacoes)
         {
             try
             {
@@ -422,6 +415,8 @@ namespace Copo_Coleta.Controllers
                         EditarMarcacao.a_resultados = salvar.a_resultados;
                         EditarMarcacao.b_resultados = salvar.b_resultados;
                         EditarMarcacao.c_resultados = salvar.c_resultados;
+                        EditarMarcacao.data_de_inicio = salvar.data_de_inicio;
+                        EditarMarcacao.data_de_termino = salvar.data_de_termino;
 
                         await _context.SaveChangesAsync();
                         TempData["Mensagem"] = "Dados Editado Com Sucesso!";
@@ -448,18 +443,9 @@ namespace Copo_Coleta.Controllers
                         var a_resultados = salvar.a_resultados;
                         var b_resultados = salvar.b_resultados;
                         var c_resultados = salvar.c_resultados;
-
-                        osData = os;
-
-                        var pegarValoresDatas = _context.copo_datas
-                       .Where(os => os.os == osData)
-                      .Select(os => new
-                      {
-                          os.data_de_início,
-                          os.data_de_termino,
-
-                      })
-                      .FirstOrDefault();
+                        var data_de_inicio = salvar.data_de_inicio;
+                        var data_de_termino = salvar.data_de_termino;
+                        
 
 
                         if (a_Contem_informacao == null || a_Estão_relevo == null ||
@@ -467,7 +453,7 @@ namespace Copo_Coleta.Controllers
                             || a_Evidencia == null || b_Contem_informacao == null || b_Estao_relevo == null || b_Caracteres_visiveis == null
                             || b_forma_indelevel == null || b_Evidencia == null || c_Contem_informacao == null || c_Estao_relevo == null
                             || c_Caracteres_visiveis == null || c_forma_indelevel == null || c_Evidencia == null || a_resultados == null ||
-                            b_resultados == null || c_resultados == null)
+                            b_resultados == null || c_resultados == null )
                         {
                             TempData["Mensagem"] = "Preencha todos os campos para salvar";
                             return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
@@ -497,8 +483,8 @@ namespace Copo_Coleta.Controllers
                                 a_resultados = a_resultados,
                                 b_resultados = b_resultados,
                                 c_resultados = c_resultados,
-                                data_de_inicio = pegarValoresDatas.data_de_início,
-                                data_de_termino = pegarValoresDatas.data_de_termino
+                                data_de_inicio = data_de_inicio,
+                                data_de_termino =data_de_termino
                             };
 
                             _context.Add(SalvarMarcacao);
@@ -565,7 +551,7 @@ namespace Copo_Coleta.Controllers
 
         [HttpPost]
         public async Task<IActionResult> SalvarEmbalagem(int os, int rev, string orcamento, int osData, [Bind("As_mangas_estão_invioláveis, Estão_protegidos_saco_plástico, Capacidade_total, Capacidade_total_Evidencia," +
-            " Quantidade_de_copos, Quantidade_copos_Evidencia, Rastreabilidade, Resultados, data_de_início,data_de_termino")] ColetaModel.Embalagem salvar)
+            " Quantidade_de_copos, Quantidade_copos_Evidencia, Rastreabilidade, Resultados, data_de_inicio, data_de_termino")] ColetaModel.Embalagem salvar)
         {
             try
             {
@@ -584,6 +570,8 @@ namespace Copo_Coleta.Controllers
                         editarDados.Quantidade_copos_Evidencia = salvar.Quantidade_copos_Evidencia;
                         editarDados.Rastreabilidade = salvar.Rastreabilidade;
                         editarDados.Resultados = salvar.Resultados;
+                        editarDados.data_de_inicio = salvar.data_de_inicio;
+                        editarDados.data_de_termino = salvar.data_de_termino;
 
 
                         await _context.SaveChangesAsync();
@@ -602,18 +590,9 @@ namespace Copo_Coleta.Controllers
                         var Quantidade_copos_Evidencia = salvar.Quantidade_copos_Evidencia;
                         var Rastreabilidade = salvar.Rastreabilidade;
                         var Resultados = salvar.Resultados;
-
-                        osData = os;
-
-                        var pegarValoresDatas = _context.copo_datas
-                       .Where(os => os.os == osData)
-                      .Select(os => new
-                      {
-                          os.data_de_início,
-                          os.data_de_termino,
-
-                      })
-                      .FirstOrDefault();
+                        var data_de_inicio = salvar.data_de_inicio;
+                        var data_de_termino = salvar.data_de_termino;
+                        
 
                         if (As_mangas_estão_invioláveis == null || Estão_protegidos_saco_plástico == null ||
                             Capacidade_total == null || Capacidade_total_Evidencia == null || Quantidade_de_copos == null
@@ -638,8 +617,8 @@ namespace Copo_Coleta.Controllers
                                 Quantidade_copos_Evidencia = Quantidade_copos_Evidencia,
                                 Rastreabilidade = Rastreabilidade,
                                 Resultados = Resultados,
-                                data_de_inicio = pegarValoresDatas.data_de_início,
-                                data_de_termino = pegarValoresDatas.data_de_termino
+                                data_de_inicio = data_de_inicio,
+                                data_de_termino = data_de_termino,
 
 
                             };
@@ -675,8 +654,7 @@ namespace Copo_Coleta.Controllers
             try
             {
 
-                osDescricao = os;
-                osData = os;
+                osDescricao = os; 
 
                 if (orcamento != null)
                 {
@@ -696,16 +674,7 @@ namespace Copo_Coleta.Controllers
                         })
                         .FirstOrDefault();
 
-                        var pegarValoresDatas = _context.copo_datas
-                      .Where(os => os.os == osData)
-                       .Select(os => new
-                       {
-                           os.data_de_início,
-                           os.data_de_termino,
-
-                       })
-                       .FirstOrDefault();
-
+                     
                         // Converte os números em strings para valores numéricos
                         List<double> numeros = peso.Select(s => double.Parse(s)).ToList();
 
@@ -872,7 +841,6 @@ namespace Copo_Coleta.Controllers
                                                   .OrderByDescending(x => x.data_cadastro)
                                                   .FirstOrDefault();
                         //pegando os valores enviados pelo html.
-                        //var incerteza = tablemassa.incerteza;
                         var data_de_inicio = tablemassa.data_de_inicio;
                         var data_de_termino = tablemassa.data_de_termino;
                         //Fazendo a conta qdo RCI (Se o Obtida(Resultfinal) - a incerteza(verificarincerteza)
@@ -909,8 +877,8 @@ namespace Copo_Coleta.Controllers
                             incerteza = pegarValorIncerteza.valor,
                             rsi = rsi,
                             rci = rci,
-                            data_de_inicio = pegarValoresDatas.data_de_início,
-                            data_de_termino = pegarValoresDatas.data_de_termino
+                            data_de_inicio = data_de_inicio,
+                            data_de_termino = data_de_termino
 
                         };
                         _context.Add(compressaoDados);
@@ -974,6 +942,8 @@ namespace Copo_Coleta.Controllers
 
 
                         var incerteza = tablemassa.incerteza;
+                        var data_de_inicio = tablemassa.data_de_inicio;
+                        var data_de_termino = tablemassa.data_de_termino;
 
                         //Fazendo a conta qdo RCI (Se o Obtida(Resultfinal) - a incerteza(verificarincerteza)
                         //é >= ao especificada, entao é "CONFORME", se não é "NÃO CONFORME".
@@ -998,6 +968,8 @@ namespace Copo_Coleta.Controllers
                         EditarTable.incerteza = incerteza;
                         EditarTable.rsi = rsi;
                         EditarTable.rci = rci;
+                        EditarTable.data_de_inicio = data_de_inicio;
+                        EditarTable.data_de_termino = data_de_termino;
 
                         await _context.SaveChangesAsync();
                         TempData["Mensagem"] = "Editado com sucesso!!";
@@ -1024,7 +996,7 @@ namespace Copo_Coleta.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> EnsaioDeCompressaoAndAmostras(int osDescricao, int os, string orcamento, int osData, int rev, string rsi, string rci, string capacidade_especificada, string capacidadeCopo, string valor_min_especificado, List<int> amostra, List<string> resistencia, ColetaModel.Descricao descricaoCopos, [Bind("Incerteza,data_de_início,data_de_termino")] ColetaModel.Compressao dadosCompressao)
+        public async Task<IActionResult> EnsaioDeCompressaoAndAmostras(int osDescricao, int os, string orcamento, int osData, int rev, string rsi, string rci, string capacidade_especificada, string capacidadeCopo, string valor_min_especificado, List<int> amostra, List<string> resistencia, ColetaModel.Descricao descricaoCopos, [Bind("Incerteza,data_de_inicio,data_de_termino")] ColetaModel.Compressao dadosCompressao)
         {
             try
             {
@@ -1112,18 +1084,9 @@ namespace Copo_Coleta.Controllers
                                                   .OrderByDescending(x => x.data_cadastro)
                                                   .FirstOrDefault();
 
-
-                        osData = os;
-                        var pegarValoresDatas = _context.copo_datas
-                                                  .Where(os => os.os == osData)
-                                                  .Select(os => new
-                                                  {
-                                                      os.data_de_início,
-                                                      os.data_de_termino,
-
-                                                  })
-                                                  .FirstOrDefault();
-
+                        // pegando dados do html
+                        var data_de_inicio = dadosCompressao.data_de_inicio;
+                        var data_de_termino = dadosCompressao.data_de_termino;
 
                         var compressaoDados = new ColetaModel.Compressao
                         {
@@ -1134,8 +1097,8 @@ namespace Copo_Coleta.Controllers
                             Valor_min_especificado = valor_min_especificado,
                             Valor_min_obtido = menor_valor_resistencia.ToString(),
                             Incerteza = pegarValorIncerteza.valor,
-                            data_de_inicio = pegarValoresDatas.data_de_início,
-                            data_de_termino = pegarValoresDatas.data_de_termino
+                            data_de_inicio = data_de_inicio,
+                            data_de_termino = data_de_termino
                         };
 
                         _context.Add(compressaoDados);
@@ -1244,10 +1207,18 @@ namespace Copo_Coleta.Controllers
 
                             await _context.SaveChangesAsync();
                         }
+
+                        // pegando dados do html
+                        var data_de_inicio = dadosCompressao.data_de_inicio;
+                        var data_de_termino = dadosCompressao.data_de_termino;
+
                         //editando dados da tabela compressao.
                         editatDescricao.Valor_min_obtido = menor_valor_resistencia.ToString();
                         var incerteza = dadosCompressao.Incerteza;
                         editatDescricao.Incerteza = incerteza;
+                      
+
+
 
                         // verificando a amostra para atualizar o valor de resistencia, para fazer o calculo de rsi e rci.
                         var editarAmostraExistente = _context.copos_amostra
@@ -1270,6 +1241,9 @@ namespace Copo_Coleta.Controllers
                             var Rsi = double.Parse(resistencia[editarAmostraExistente[i].amostra - 1]);
                             double Valor_min_especificado = double.Parse(editarCompressaoExistente.Valor_min_especificado);
                             double editarIncerteza = double.Parse(incerteza);
+                            editarCompressaoExistente.data_de_inicio = data_de_inicio;
+                            editarCompressaoExistente.data_de_termino = data_de_termino;
+
 
                             //verificando o rsi, para editar o valor.
                             if (Rsi <= Valor_min_especificado)
