@@ -706,8 +706,9 @@ namespace Copo_Coleta.Controllers
                        })
                        .FirstOrDefault();
 
-                        // Converte os números em strings para valores numéricos
-                        List<double> numeros = peso.Select(s => double.Parse(s)).ToList();
+                        // verificando cada lista preenchida se tem --- , se receber --- o valor é passado como 0,
+                        // porem salva como --- no banco e numeros para salvar no banco de dados.
+                        List<double> numeros = peso.Select(s => s == "---" ? 0 : double.Parse(s)).ToList();
 
 
                         // Calcula a média aritmética
@@ -916,20 +917,38 @@ namespace Copo_Coleta.Controllers
                         _context.Add(compressaoDados);
 
                         await _context.SaveChangesAsync();
-                        //Percorrendo a lista de resultados de peso e massa e salvando na tabela copos_massa.
 
+                        //Percorrendo a lista de resultados de peso e massa e salvando na tabela copos_massa.
                         for (int i = 0; i < massa.Count; i++)
                         {
-                            var item = new ColetaModel.Massa
+                            double pesoValor;
+                            if (double.TryParse(peso[i], out pesoValor))
                             {
-                                os = os,
-                                rev = rev,
-                                massa = massa[i],
-                                peso = peso[i]
-                            };
+                                var item = new ColetaModel.Massa
+                                {
+                                    os = os,
+                                    rev = rev,
+                                    massa = massa[i],
+                                    peso = peso[i]
+                                };
 
-                            _context.Add(item);
-                            await _context.SaveChangesAsync();
+                                _context.Add(item);
+                                await _context.SaveChangesAsync();
+                            }
+                            else if (peso[i] == "---")
+                            {
+                                var itemEspecial = new ColetaModel.Massa
+                                {
+                                    os = os,
+                                    rev = rev,
+                                    massa = massa[i],
+                                    peso = peso[i]
+                                };
+
+                                _context.Add(itemEspecial);
+                                await _context.SaveChangesAsync();
+                            }
+
                         };
                         TempData["Mensagem"] = "Dados salvos com sucesso!!";
                         return RedirectToAction(nameof(Index), new { os, orcamento, rev });
@@ -937,7 +956,6 @@ namespace Copo_Coleta.Controllers
                     }
                     else
                     {
-
                         //percorrendo o peso que vem do parametro
                         for (int j = 0; j < massa.Count; j++)
                         {
@@ -945,14 +963,23 @@ namespace Copo_Coleta.Controllers
                             var pesoatual = EditarMassa.FirstOrDefault(x => x.massa == massa[j]);
                             if (pesoatual != null)
                             {
-                                pesoatual.peso = peso[j];
+                                double pesoValor;
+                                if (double.TryParse(peso[j], out pesoValor))
+                                {
+                                    pesoatual.peso = peso[j];
+                                }
+                                else if(peso[j] == "---")
+                                {
+                                    pesoatual.peso = peso[j];
+                                }
                                 await _context.SaveChangesAsync();
                             }
                         };
 
                         var EditarTable = _context.copos_tablemassa.Where(a => a.os == os && a.Rev == rev).FirstOrDefault();
                         // Editando o obtida, que é o valor média dos números dividida por 10
-                        List<double> numeros = peso.Select(s => double.Parse(s)).ToList();
+                        List<double> numeros = peso.Select(s => s == "---" ? 0 : double.Parse(s)).ToList();
+
 
                         double soma = numeros.Sum();
                         double mediaAritmetica = soma / numeros.Count;
@@ -1003,7 +1030,6 @@ namespace Copo_Coleta.Controllers
                         TempData["Mensagem"] = "Editado com sucesso!!";
                         return RedirectToAction(nameof(Index), new { os, orcamento, rev });
                     }
-                    return RedirectToAction(nameof(Index), new { os, orcamento, rev });
                 }
                 else
                 {
@@ -1246,7 +1272,7 @@ namespace Copo_Coleta.Controllers
                         }
                         //editando dados da tabela compressao.
                         editatDescricao.Valor_min_obtido = menor_valor_resistencia.ToString();
-                        var incerteza = dadosCompressao.Incerteza;
+                        var incerteza = editatDescricao.Incerteza;
                         editatDescricao.Incerteza = incerteza;
 
                         // verificando a amostra para atualizar o valor de resistencia, para fazer o calculo de rsi e rci.
@@ -1262,6 +1288,7 @@ namespace Copo_Coleta.Controllers
                         var editarRci = _context.copos_compressao
                                           .Where(a => a.os == os && a.rev == rev)
                                           .ToList();
+
 
                         // PERCORRENDO TABELA DE AMOSTRA PARA EDITAR VALOR RSI E RCI
                         for (int i = 0; i < editarAmostraExistente.Count; i++)
