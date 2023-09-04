@@ -58,8 +58,8 @@
                             }
                             else
                             {
-                                <td><input type="text" value="@Model.oDatas.data_de_início" name="data_de_início" class="form-control" style="border: none" /> </td>
-                                <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oDatas.data_de_termino" style="border: none" /></td>
+                                <td><input type="text" value="@Model.oDatas.data_de_início.ToString("dd/MM/yyyy")" name="data_de_início" class="form-control" style="border: none" /> </td>
+                                <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oDatas.data_de_termino.ToString("dd/MM/yyyy")" style="border: none" /></td>
                             }
                         </tr>
                     </tbody>
@@ -186,7 +186,7 @@
                         </tr>
                         <tr>
                             <td>Inicio:</td>
-                            <td> <input class="form-control" type="text" name="ini_dat_acond" value="@Model.oCondicionamento.ini_dat_acond" /></td>
+                            <td> <input class="form-control" type="text" name="ini_dat_acond" value="@Model.oCondicionamento.ini_dat_acond.ToString("dd/MM/yyyy")" /></td>
                             <td>Inicio:</td>
                             <td> <input class="form-control" type="time" name="ini_hora_acond" value="@Model.oCondicionamento.ini_hora_acond" /></td>
                             <td>Mínimo:</td>
@@ -196,7 +196,7 @@
                         </tr>
                         <tr>
                             <td>Termino:</td>
-                            <td> <input class="form-control" type="text" name="ter_data_acond" value="@Model.oCondicionamento.ter_data_acond" /> </td>
+                            <td> <input class="form-control" type="text" name="ter_data_acond" value="@Model.oCondicionamento.ter_data_acond.ToString("dd/MM/yyyy")" /> </td>
                             <td>Termino:</td>
                             <td> <input class="form-control" type="time" name="term_hora_acond" value="@Model.oCondicionamento.term_hora_acond" /></td>
                             <td>Máximo: </td>
@@ -277,7 +277,7 @@
                         </tr>
                         <tr>
                             <td>Inicio:</td>
-                            <td> <input class="form-control" type="text" name="ini_dat_acond_max" value="@Model.oCondicionamentoMaximo.ini_dat_acond_max" /></td>
+                            <td> <input class="form-control" type="text" name="ini_dat_acond_max" value="@Model.oCondicionamentoMaximo.ini_dat_acond_max.ToString("dd/MM/yyyy")" /></td>
                             <td>Inicio:</td>
                             <td> <input class="form-control" type="time" name="ini_hora_acond_max" value="@Model.oCondicionamentoMaximo.ini_hora_acond_max" /></td>
                             <td>Mínimo:</td>
@@ -288,7 +288,7 @@
                         </tr>
                         <tr>
                             <td>Termino:</td>
-                            <td> <input class="form-control" type="text" name="ter_data_acond_max" value="@Model.oCondicionamentoMaximo.ter_data_acond_max" /> </td>
+                            <td> <input class="form-control" type="text" name="ter_data_acond_max" value="@Model.oCondicionamentoMaximo.ter_data_acond_max.ToString("dd/MM/yyyy")" /> </td>
                             <td>Termino:</td>
                             <td> <input class="form-control" type="time" name="term_hora_acond_max" value="@Model.oCondicionamentoMaximo.term_hora_acond_max" /></td>
                             <td>Máximo: </td>
@@ -328,12 +328,12 @@
                         @if (Model.oAspectosvisuais == null)
                         {
                             <td style="text-align:center;"><input type="datetime-local" name="data_de_inicio" class="form-control" style="border: none" /></td>
-                            <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none"/></td>
+                            <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none" /></td>
                         }
                         else
                         {
-                            <td><input type="text" value="@Model.oAspectosvisuais.data_de_inicio" name="data_de_inicio" class="form-control" style="border: none"/> </td>
-                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oAspectosvisuais.data_de_termino" style="border: none"/></td>
+                            <td><input type="text" value="@Model.oAspectosvisuais.data_de_inicio.ToString("dd/MM/yyyy")" name="data_de_inicio" class="form-control" style="border: none" /> </td>
+                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oAspectosvisuais.data_de_termino.ToString("dd/MM/yyyy")" style="border: none" /></td>
                         }
                     </tr>
                 </tbody>
@@ -361,18 +361,12 @@
                                     <option></option>
                                     <option value="Sim">Sim</option>
                                     <option value="Não">Não</option>
-                                    <option value="---">---</option>
+                                    <option value="Na">---</option>
                                 </select>
                             </td>
                             <td>
-                                <select class="form-control" name="quatro_dois_um_Resul">
-                                    <option></option>
-                                    <option value="C">C</option>
-                                    <option value="NC">NC</option>
-                                    <option value="NA">NA</option>
-                                </select>
+                                <input disabled type="text" name="quatro_dois_um_Resul" class="form-control" style="border: none" />
                             </td>
-                            @* <td><input type="text" name="quatro_dois_um_Resul" class="form-control" style="border: none" /></td> *@
                         </tr>
                     </tbody>
                 </table>
@@ -399,13 +393,10 @@
                                 </select>
                             </td>
 
+
+
                             <td>
-                                <select class="form-control" name="quatro_dois_dois_Resul">
-                                    <option></option>
-                                    <option value="C">C</option>
-                                    <option value="NC">NC</option>
-                                    <option value="NA">NA</option>
-                                </select>
+                                <input disabled type="text" name="quatro_dois_dois_Resul" class="form-control" style="border: none" />
                             </td>
                         </tr>
                     </tbody>
@@ -434,12 +425,7 @@
                                 </select>
                             </td>
                             <td>
-                                <select class="form-control" name="quatro_dois_tres_Resul">
-                                    <option></option>
-                                    <option value="C">C</option>
-                                    <option value="NC">NC</option>
-                                    <option value="NA">NA</option>
-                                </select>
+                                <input disabled type="text" name="quatro_dois_tres_Resul" class="form-control" style="border: none" />
                             </td>
                         </tr>
 
@@ -468,16 +454,11 @@
                                     <option>@Model.oAspectosvisuais.quatro_dois_um_Atende</option>
                                     <option value="Sim">Sim</option>
                                     <option value="Não">Não</option>
-                                    <option value="---">---</option>
+                                    <option value="Na">---</option>
                                 </select>
                             </td>
                             <td>
-                                <select class="form-control" name="quatro_dois_um_Resul">
-                                    <option>@Model.oAspectosvisuais.quatro_dois_um_Resul</option>
-                                    <option value="C">C</option>
-                                    <option value="NC">NC</option>
-                                    <option value="NA">NA</option>
-                                </select>
+                                <input type="text" Disabled name="quatro_dois_um_Resul" class="form-control" value="@Model.oAspectosvisuais.quatro_dois_um_Resul" style="border: none; font-weight:bold" />
                             </td>
                         </tr>
                     </tbody>
@@ -501,16 +482,11 @@
                                     <option>@Model.oAspectosvisuais.quatro_dois_dois_Atende</option>
                                     <option value="Sim">Sim</option>
                                     <option value="Não">Não</option>
-                                    <option value="---">---</option>
+                                    <option value="Na">---</option>
                                 </select>
                             </td>
                             <td>
-                                <select class="form-control" name="quatro_dois_dois_Resul">
-                                    <option>@Model.oAspectosvisuais.quatro_dois_dois_Resul</option>
-                                    <option value="C">C</option>
-                                    <option value="NC">NC</option>
-                                    <option value="NA">NA</option>
-                                </select>
+                                <input type="text" Disabled name="quatro_dois_dois_Resul" class="form-control" value="@Model.oAspectosvisuais.quatro_dois_dois_Resul" style="border: none; font-weight:bold" />
                             </td>
                         </tr>
                     </tbody>
@@ -535,16 +511,11 @@
                                     <option>@Model.oAspectosvisuais.quatro_dois_tres_Atende</option>
                                     <option value="Sim">Sim</option>
                                     <option value="Não">Não</option>
-                                    <option value="---">---</option>
+                                    <option value="Na">---</option>
                                 </select>
                             </td>
                             <td>
-                                <select class="form-control" name="quatro_dois_tres_Resul">
-                                    <option>@Model.oAspectosvisuais.quatro_dois_tres_Resul</option>
-                                    <option value="C">C</option>
-                                    <option value="NC">NC</option>
-                                    <option value="NA">NA</option>
-                                </select>
+                                <input type="text" Disabled name="quatro_dois_tres_Resul" class="form-control" value="@Model.oAspectosvisuais.quatro_dois_dois_Resul" style="border: none; font-weight:bold" />
                             </td>
 
                         </tr>
@@ -577,13 +548,13 @@
                     <tr>
                         @if (Model.oTablemassa == null)
                         {
-                            <td style="text-align:center;"><input type="datetime-local" name="data_de_inicio" class="form-control" style="border: none"/></td>
-                            <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none"/></td>
+                            <td style="text-align:center;"><input type="datetime-local" name="data_de_inicio" class="form-control" style="border: none" /></td>
+                            <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none" /></td>
                         }
                         else
                         {
-                            <td><input type="text" value="@Model.oTablemassa.data_de_inicio" name="data_de_inicio" class="form-control" style="border: none"/> </td>
-                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oTablemassa.data_de_termino" style="border: none"/></td>
+                            <td><input type="text" value="@Model.oTablemassa.data_de_inicio" name="data_de_inicio" class="form-control" style="border: none" /> </td>
+                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oTablemassa.data_de_termino" style="border: none" /></td>
                         }
                     </tr>
                 </tbody>
@@ -1343,13 +1314,13 @@
                     <tr>
                         @if (Model.oCompressao == null)
                         {
-                            <td style="text-align:center;"><input type="datetime-local" name="data_de_inicio" class="form-control" style="border: none"/></td>
-                            <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none"/></td>
+                            <td style="text-align:center;"><input type="datetime-local" name="data_de_inicio" class="form-control" style="border: none" /></td>
+                            <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none" /></td>
                         }
                         else
                         {
-                            <td><input type="text" value="@Model.oCompressao.data_de_inicio" name="data_de_inicio" class="form-control" style="border: none"/> </td>
-                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oCompressao.data_de_termino" style="border: none"/></td>
+                            <td><input type="text" value="@Model.oCompressao.data_de_inicio.ToString("dd/MM/yyyy")" name="data_de_inicio" class="form-control" style="border: none" /> </td>
+                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oCompressao.data_de_termino.ToString("dd/MM/yyyy")" style="border: none" /></td>
                         }
                     </tr>
                 </tbody>
@@ -1492,14 +1463,14 @@
                         }
                         else
                         {
-                            <td><input type="text" value="@Model.oEmbalagem.data_de_inicio" name="data_de_inicio" class="form-control" style="border: none" /> </td>
-                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oEmbalagem.data_de_termino" style="border: none" /></td>
+                            <td><input type="text" value="@Model.oEmbalagem.data_de_inicio.ToString("dd/MM/yyyy")" name="data_de_inicio" class="form-control" style="border: none" /> </td>
+                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oEmbalagem.data_de_termino.ToString("dd/MM/yyyy")" style="border: none" /></td>
                         }
                     </tr>
                 </tbody>
             </table>
-            
-            
+
+
             <table class="table table-bordered border-secondary table table-sm">
 
                 <tr class="tablestyle">
@@ -1523,7 +1494,6 @@
                                 <option value="Sim">Sim</option>
                                 <option value="Não">Não</option>
                             </select>
-                            @* <input type="text" name="As_Mangas_estão_invioláveis" class="form-control" style="border: none; width: 200px; height: 100px;" /> *@
                         </td>
                         <td rowspan="2">
                             <select name="Estão_protegidos_saco_plástico" class=" form-control" style="width: 200px; height: 100px; text-align:center;">
@@ -1532,8 +1502,23 @@
                                 <option value="Não">Não</option>
                             </select>
                         </td>
-                        <td><input type="text" name="Capacidade_total" class="form-control" style="border: none" /></td>
-                        <td><input type="text" name="Quantidade_de_copos" class="form-control" style="border: none" /></td>
+                        <td>
+                            <select name="Capacidade_total" class=" form-control">
+                                <option></option>
+                                <option value="Sim">Sim</option>
+                                <option value="Não">Não</option>
+                                <option value="NA">---</option>
+                            </select>
+
+                        </td>
+                        <td>
+                            <select name="Quantidade_de_copos" class=" form-control">
+                                <option></option>
+                                <option value="Sim">Sim</option>
+                                <option value="Não">Não</option>
+                                <option value="NA">---</option>
+                            </select>
+                        </td>
                         <td rowspan="2" style="border: 1px solid ;width: 200px; height: 100px; ">
                             <select name="Rastreabilidade" class=" form-control" style="width: 200px; height: 100px; text-align:center;">
                                 <option></option>
@@ -1554,7 +1539,6 @@
                     <tr>
                         <td><input type="text" name="Capacidade_total_Evidencia" class="form-control" style="border: none" /></td>
                         <td><input type="text" name="Quantidade_copos_Evidencia" class="form-control" style="border: none" /></td>
-                        @*<td style=" border: 1px solid transparent;"></td>*@
                     </tr>
                 }
                 else
@@ -1574,8 +1558,26 @@
                                 <option value="Não">Não</option>
                             </select>
                         </td>
-                        <td><input type="text" name="Capacidade_total" class="form-control" style="border: none" value="@Model.oEmbalagem.Capacidade_total" /></td>
-                        <td><input type="text" name="Quantidade_de_copos" class="form-control" style="border: none" value="@Model.oEmbalagem.Quantidade_de_copos" /></td>
+                        <td>
+                            <select name="Capacidade_total" class=" form-control">
+                                <option>@Model.oEmbalagem.Capacidade_total</option>
+                                <option value="Sim">Sim</option>
+                                <option value="Não">Não</option>
+                                <option value="NA">---</option>
+                            </select>
+                            @*                             <input type="text" name="Capacidade_total" class="form-control" style="border: none" value="@Model.oEmbalagem.Capacidade_total" />
+                        *@
+                        </td>
+                        <td>
+                            <select name="Quantidade_de_copos" class=" form-control">
+                                <option>@Model.oEmbalagem.Quantidade_de_copos</option>
+                                <option value="Sim">Sim</option>
+                                <option value="Não">Não</option>
+                                <option value="NA">---</option>
+                            </select>
+                            @*                             <input type="text" name="Quantidade_de_copos" class="form-control" style="border: none" value="@Model.oEmbalagem.Quantidade_de_copos" />
+                        *@
+                        </td>
                         <td rowspan="2" style="border: 1px solid; ">
                             <select name="Rastreabilidade" class=" form-control" style="width: 200px; height: 100px; text-align:center;">
                                 <option>@Model.oEmbalagem.Rastreabilidade</option>
@@ -1594,6 +1596,7 @@
                     </tr>
 
                     <tr>
+
                         <td><input type="text" name="Capacidade_total_Evidencia" class="form-control" style="border: none" value="@Model.oEmbalagem.Capacidade_total_Evidencia" /></td>
                         <td><input type="text" name="Quantidade_copos_Evidencia" class="form-control" style="border: none" value="@Model.oEmbalagem.Quantidade_copos_Evidencia" /></td>
                         @*<td style=" border: 1px solid transparent;"></td>*@
@@ -1640,8 +1643,8 @@
                         {
                             @foreach (var item in Model.oMarcacao)
                             {
-                                <td><input type="text" value="@item.data_de_inicio" name="data_de_inicio" class="form-control" style="border: none" /> </td>
-                                <td><input type="text" name="data_de_termino" class="form-control" value="@item.data_de_termino" style="border: none" /></td>
+                                <td><input type="text" value="@item.data_de_inicio.ToString("dd/MM/yyyy")" name="data_de_inicio" class="form-control" style="border: none" /> </td>
+                                <td><input type="text" name="data_de_termino" class="form-control" value="@item.data_de_termino.ToString("dd/MM/yyyy")" style="border: none" /></td>
                             }
                         }
                     </tr>
@@ -1692,28 +1695,15 @@
                                 </select>
                             </td>
                             <td>
-                                <select name="a_forma_indelevel" class="form-control" style=" height:50px;">
-                                    <option></option>
-                                    <option value="Sim">Sim</option>
-                                    <option value="Não">Não</option>
-                                    <option value="Na">---</option>
-                                </select>
+                                <input type="text" name="a_forma_indelevel" class="form-control" style="border: none" />
                             </td>
+
                             <td>
-                                <select name="a_Evidencia" class="form-control" style=" height:50px;">
-                                    <option></option>
-                                    <option value="Sim">Sim</option>
-                                    <option value="Não">Não</option>
-                                    <option value="Na">---</option>
-                                </select>
+                                <input type="text" name="a_Evidencia" class="form-control" style="border: none" />
                             </td>
+                         
                             <td>
-                                <select name="a_resultados" class="form-control" style=" height:50px;">
-                                    <option></option>
-                                    <option value="C">C</option>
-                                    <option value="NC">NC</option>
-                                    <option value="NA">NA</option>
-                                </select>
+                                <input disabled type="text" name="a_resultados" class="form-control" style="border: none" />
                             </td>
                         </tr>
                         <tr>
@@ -1742,29 +1732,16 @@
                                     <option value="Na">---</option>
                                 </select>
                             </td>
+
                             <td>
-                                <select name="b_forma_indelevel" class="form-control" style=" height:50px;">
-                                    <option></option>
-                                    <option value="Sim">Sim</option>
-                                    <option value="Não">Não</option>
-                                    <option value="Na">---</option>
-                                </select>
+                                <input type="text" name="b_forma_indelevel" class="form-control" style="border: none" />
+                            </td>
+
+                            <td>
+                                <input type="text" name="b_Evidencia" class="form-control" style="border: none" />
                             </td>
                             <td>
-                                <select name="b_Evidencia" class="form-control" style=" height:50px;">
-                                    <option></option>
-                                    <option value="Sim">Sim</option>
-                                    <option value="Não">Não</option>
-                                    <option value="Na">---</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select name="b_resultados" class="form-control" style=" height:50px;">
-                                    <option></option>
-                                    <option value="C">C</option>
-                                    <option value="NC">NC</option>
-                                    <option value="NA">NA</option>
-                                </select>
+                                <input disabled type="text" name="b_resultados" class="form-control" style="border: none" />
                             </td>
                         </tr>
                         <tr>
@@ -1794,28 +1771,13 @@
                                 </select>
                             </td>
                             <td>
-                                <select name="c_forma_indelevel" class="form-control" style=" height:50px;">
-                                    <option></option>
-                                    <option value="Sim">Sim</option>
-                                    <option value="Não">Não</option>
-                                    <option value="Na">---</option>
-                                </select>
+                                <input type="text" name="c_forma_indelevel" class="form-control" style="border: none" />
                             </td>
                             <td>
-                                <select name="c_Evidencia" class="form-control" style=" height:50px;">
-                                    <option></option>
-                                    <option value="Sim">Sim</option>
-                                    <option value="Não">Não</option>
-                                    <option value="Na">---</option>
-                                </select>
+                                <input type="text" name="c_Evidencia" class="form-control" style="border: none" />
                             </td>
-                            <td>
-                                <select name="c_resultados" class="form-control" style=" height:50px;">
-                                    <option></option>
-                                    <option value="C">C</option>
-                                    <option value="NC">NC</option>
-                                    <option value="NA">NA</option>
-                                </select>
+                              <td>
+                                <input disabled type="text" name="c_resultados" class="form-control" style="border: none" />
                             </td>
                         </tr>
                     }
@@ -1850,29 +1812,15 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select name="a_forma_indelevel" class="form-control" style=" height:50px;">
-                                        <option>@marcacao.a_forma_indelevel</option>
-                                        <option value="Sim">Sim</option>
-                                        <option value="Não">Não</option>
-                                        <option value="Na">---</option>
-                                    </select>
+                                    <input value="@marcacao.a_forma_indelevel" type="text" name="a_forma_indelevel" class="form-control" style="border: none" />
                                 </td>
                                 <td>
-                                    <select name="a_Evidencia" class="form-control" style=" height:50px;">
-                                        <option>@marcacao.a_Evidencia</option>
-                                        <option value="Sim">Sim</option>
-                                        <option value="Não">Não</option>
-                                        <option value="Na">---</option>
-                                    </select>
+                                    <input value="@marcacao.a_Evidencia" type="text" name="a_Evidencia" class="form-control" style="border: none" />
                                 </td>
                                 <td>
-                                    <select name="a_resultados" class="form-control" style=" height:50px;">
-                                        <option>@marcacao.a_resultados</option>
-                                        <option value="C">C</option>
-                                        <option value="NC">NC</option>
-                                        <option value="NA">NA</option>
-                                    </select>
+                                    <input value="@marcacao.a_resultados"  disabled type="text" name="a_resultados" class="form-control" style="border: none" />
                                 </td>
+                               
                             </tr>
                             <tr>
                                 <td colspan="2"> b) Capacidade do copo</td>
@@ -1901,28 +1849,13 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select name="b_forma_indelevel" class="form-control" style=" height:50px;">
-                                        <option>@marcacao.b_forma_indelevel</option>
-                                        <option value="Sim">Sim</option>
-                                        <option value="Não">Não</option>
-                                        <option value="Na">---</option>
-                                    </select>
+                                    <input value="@marcacao.b_forma_indelevel" type="text" name="b_forma_indelevel" class="form-control" style="border: none" />
                                 </td>
                                 <td>
-                                    <select name="b_Evidencia" class="form-control" style=" height:50px;">
-                                        <option>@marcacao.b_Evidencia</option>
-                                        <option value="Sim">Sim</option>
-                                        <option value="Não">Não</option>
-                                        <option value="Na">---</option>
-                                    </select>
+                                    <input value="@marcacao.b_Evidencia" type="text" name="b_Evidencia" class="form-control" style="border: none" />
                                 </td>
                                 <td>
-                                    <select name="b_resultados" class="form-control" style=" height:50px;">
-                                        <option>@marcacao.b_resultados</option>
-                                        <option value="C">C</option>
-                                        <option value="NC">NC</option>
-                                        <option value="NA">NA</option>
-                                    </select>
+                                    <input disabled value="@marcacao.b_resultados" type="text" name="b_resultados" class="form-control" style="border: none" />
                                 </td>
                             </tr>
                             <tr>
@@ -1952,29 +1885,15 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select name="c_forma_indelevel" class="form-control" style=" height:50px;">
-                                        <option>@marcacao.c_forma_indelevel</option>
-                                        <option value="Sim">Sim</option>
-                                        <option value="Não">Não</option>
-                                        <option value="Na">---</option>
-                                    </select>
+                                    <input value="@marcacao.c_forma_indelevel" type="text" name="c_forma_indelevel" class="form-control" style="border: none" />
                                 </td>
                                 <td>
-                                    <select name="c_Evidencia" class="form-control" style=" height:50px;">
-                                        <option>@marcacao.c_Evidencia</option>
-                                        <option value="Sim">Sim</option>
-                                        <option value="Não">Não</option>
-                                        <option value="Na">---</option>
-                                    </select>
+                                    <input value="@marcacao.c_Evidencia" type="text" name="c_Evidencia" class="form-control" style="border: none" />
                                 </td>
                                 <td>
-                                    <select name="c_resultados" class="form-control" style=" height:50px;">
-                                        <option>@marcacao.c_resultados</option>
-                                        <option value="C">C</option>
-                                        <option value="NC">NC</option>
-                                        <option value="NA">NA</option>
-                                    </select>
+                                    <input disabled value="@marcacao.c_resultados" type="text" name="c_resultados" class="form-control" style="border: none" />
                                 </td>
+                               
                             </tr>
 
                         }
