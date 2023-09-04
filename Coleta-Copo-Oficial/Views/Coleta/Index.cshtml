@@ -582,8 +582,8 @@
                         }
                         else
                         {
-                            <td><input type="text" value="@Model.oTablemassa.data_de_inicio" name="data_de_inicio" class="form-control" style="border: none"/> </td>
-                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oTablemassa.data_de_termino" style="border: none"/></td>
+                            <td><input type="text" value="@Model.oTablemassa.data_de_inicio.ToString("dd/MM/yyyy")" name="data_de_inicio" class="form-control" style="border: none"/> </td>
+                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oTablemassa.data_de_termino.ToString("dd/MM/yyyy")" style="border: none"/></td>
                         }
                     </tr>
                 </tbody>

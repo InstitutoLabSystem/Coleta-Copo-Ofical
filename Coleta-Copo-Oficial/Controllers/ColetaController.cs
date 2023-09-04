@@ -689,13 +689,13 @@ namespace Copo_Coleta.Controllers
                         // verificando cada lista preenchida se tem --- , se receber --- o valor é passado como 0,
                         // porem salva como --- no banco e numeros para salvar no banco de dados.
                         List<double> numeros = peso.Select(s => s == "---" ? 0 : double.Parse(s)).ToList();
+                        double quantidadeValoresNaoZero = numeros.Count(numero => numero != 0);
 
 
                         // Calcula a média aritmética
 
                         double soma = numeros.Sum();
-                        double mediaAritmetica = soma / numeros.Count;
-                        double Resultfinal = mediaAritmetica / 10;
+                        double Resultfinal = soma / (quantidadeValoresNaoZero * 10);
 
                         double capacidadeCopo;
                         capacidadeCopo = Double.Parse(pegarValoresDescricao.capacidade_copo);
@@ -861,10 +861,10 @@ namespace Copo_Coleta.Controllers
                         double verificarincerteza;
                         verificarincerteza = Double.Parse(pegarValorIncerteza.valor);
 
-                        double verificarRsi;
-                        verificarRsi = Resultfinal - verificarincerteza;
+                        double verificarRci;
+                        verificarRci = Resultfinal - verificarincerteza;
 
-                        if (verificarRsi >= especificada)
+                        if (verificarRci >= especificada)
                         {
                             rci = "C";
                         }
