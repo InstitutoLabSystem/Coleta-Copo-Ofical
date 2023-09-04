@@ -486,6 +486,46 @@ namespace Copo_Coleta.Controllers
                     // verificando se existe valor 
                     if (EditarMarcacao != null)
                     {
+                        if (salvar.a_Contem_informacao == "Sim" && salvar.a_Estão_relevo == "Sim" && salvar.a_Caracteres_visiveis == "Sim")
+                        {
+                            salvar.a_resultados = "C";
+                        }
+                        else if (salvar.a_Contem_informacao == "Não" || salvar.a_Estão_relevo == "Não" || salvar.a_Caracteres_visiveis == "Não")
+                        {
+                            salvar.a_resultados = "NC";
+                        }
+                        else
+                        {
+                            salvar.a_resultados = "Na";
+                        }
+
+                        // verificando segundo linha para passar resultado.
+                        if (salvar.b_Contem_informacao == "Sim" && salvar.b_Estao_relevo == "Sim" && salvar.b_Caracteres_visiveis == "Sim")
+                        {
+                            salvar.b_resultados = "C";
+                        }
+                        else if (salvar.b_Contem_informacao == "Não" || salvar.b_Estao_relevo == "Não" || salvar.b_Caracteres_visiveis == "Não")
+                        {
+                            salvar.b_resultados = "NC";
+                        }
+                        else
+                        {
+                            salvar.b_resultados = "Na";
+                        }
+
+                        // verificando segundo linha para passar resultado.
+                        if (salvar.c_Contem_informacao == "Sim" && salvar.c_Estao_relevo == "Sim" && salvar.c_Caracteres_visiveis == "Sim")
+                        {
+                            salvar.c_resultados = "C";
+                        }
+                        else if (salvar.c_Contem_informacao == "Não" || salvar.c_Estao_relevo == "Não" || salvar.c_Caracteres_visiveis == "Não")
+                        {
+                            salvar.c_resultados = "NC";
+                        }
+                        else
+                        {
+                            salvar.c_resultados = "Na";
+                        }
                         EditarMarcacao.a_Contem_informacao = salvar.a_Contem_informacao;
                         EditarMarcacao.a_Estão_relevo = salvar.a_Estão_relevo;
                         EditarMarcacao.a_Caracteres_visiveis = salvar.a_Caracteres_visiveis;
