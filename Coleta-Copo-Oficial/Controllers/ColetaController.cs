@@ -308,6 +308,48 @@ namespace Copo_Coleta.Controllers
                     // verificando se existe dados para editar, 
                     if (Editardados != null)
                     {
+                        // verificando e alterando primeiro resultado
+                        if (salvar.quatro_dois_um_Atende == "Sim")
+                        {
+                            salvar.quatro_dois_um_Resul = "C";
+                        }
+                        else if (salvar.quatro_dois_um_Atende == "Não")
+                        {
+                            salvar.quatro_dois_um_Resul = "NC";
+                        }
+                        else
+                        {
+                            salvar.quatro_dois_um_Resul = "Na";
+                        }
+
+                        // verificando e alterando segundo resultado
+                        if (salvar.quatro_dois_dois_Atende == "Sim")
+                        {
+                            salvar.quatro_dois_dois_Resul = "C";
+                        }
+                        else if (salvar.quatro_dois_dois_Atende == "Não")
+                        {
+                            salvar.quatro_dois_dois_Resul = "NC";
+                        }
+                        else
+                        {
+                            salvar.quatro_dois_dois_Resul = "Na";
+                        }
+
+                        // verificando e alterando terceiro resultado
+                        if (salvar.quatro_dois_tres_Atende == "Sim")
+                        {
+                            salvar.quatro_dois_tres_Resul = "C";
+                        }
+                        else if (salvar.quatro_dois_tres_Atende == "Não")
+                        {
+                            salvar.quatro_dois_tres_Resul = "NC";
+                        }
+                        else
+                        {
+                            salvar.quatro_dois_tres_Resul = "Na";
+                        }
+
 
                         Editardados.quatro_dois_um_Atende = salvar.quatro_dois_um_Atende;
                         Editardados.quatro_dois_um_Resul = salvar.quatro_dois_um_Resul;
@@ -317,6 +359,7 @@ namespace Copo_Coleta.Controllers
                         Editardados.quatro_dois_tres_Resul = salvar.quatro_dois_tres_Resul;
                         Editardados.data_de_inicio = salvar.data_de_inicio;
                         Editardados.data_de_termino = salvar.data_de_termino;
+
 
                         await _context.SaveChangesAsync();
                         TempData["Mensagem"] = "Dados Editado com Sucesso";
@@ -330,20 +373,64 @@ namespace Copo_Coleta.Controllers
                         var quatro_dois_um_Resul = salvar.quatro_dois_um_Resul;
                         var quatro_dois_dois_Atende = salvar.quatro_dois_dois_Atende;
                         var quatro_dois_dois_Resul = salvar.quatro_dois_dois_Resul;
-                        var quatro_dois_tres_Atende = salvar.quatro_dois_tres_Resul;
+                        var quatro_dois_tres_Atende = salvar.quatro_dois_tres_Atende;
                         var quatro_dois_tres_Resul = salvar.quatro_dois_tres_Resul;
                         var data_de_inicio = salvar.data_de_inicio;
                         var data_de_termino = salvar.data_de_termino;
 
 
 
-                        if (quatro_dois_um_Atende == null || quatro_dois_um_Resul == null || quatro_dois_dois_Atende == null || quatro_dois_dois_Resul == null || quatro_dois_tres_Atende == null || quatro_dois_tres_Resul == null)
+                        if (quatro_dois_um_Atende == null || quatro_dois_dois_Atende == null || quatro_dois_tres_Atende == null)
                         {
                             TempData["Mensagem"] = "Preencha todos os campos para salvar";
                             return RedirectToAction(nameof(Index), new { os, orcamento, rev });
                         }
                         else
                         {
+                            // verifcando valor recebido do checkbox do primeiro valor 
+                            if (quatro_dois_um_Atende == "Sim")
+                            {
+                                quatro_dois_um_Resul = "C";
+
+                            }
+                            else if (quatro_dois_um_Resul == "Não")
+                            {
+                                quatro_dois_um_Resul = "NC";
+                            }
+                            else
+                            {
+                                quatro_dois_um_Resul = "Na";
+                            }
+
+                            //verificando do segundo valor o checkbox
+                            if (quatro_dois_dois_Atende == "Sim")
+                            {
+                                quatro_dois_dois_Resul = "c";
+
+                            }
+                            else if (quatro_dois_um_Resul == "Não")
+                            {
+                                quatro_dois_dois_Resul = "NC";
+                            }
+                            else
+                            {
+                                quatro_dois_dois_Resul = "Na";
+                            }
+
+                            // verificando do terceiro valor do checkbox
+                            if (quatro_dois_tres_Atende == "Sim")
+                            {
+                                quatro_dois_tres_Resul = "C";
+
+                            }
+                            else if (quatro_dois_tres_Resul == "Não")
+                            {
+                                quatro_dois_tres_Resul = "NC";
+                            }
+                            else
+                            {
+                                quatro_dois_tres_Resul = "Na";
+                            }
 
                             var salvarDados = new ColetaModel.Aspectosvisuais
                             {
@@ -447,21 +534,60 @@ namespace Copo_Coleta.Controllers
                         var c_resultados = salvar.c_resultados;
                         var data_de_inicio = salvar.data_de_inicio;
                         var data_de_termino = salvar.data_de_termino;
-                        
 
+             
 
                         if (a_Contem_informacao == null || a_Estão_relevo == null ||
                             a_Caracteres_visiveis == null || a_forma_indelevel == null
                             || a_Evidencia == null || b_Contem_informacao == null || b_Estao_relevo == null || b_Caracteres_visiveis == null
                             || b_forma_indelevel == null || b_Evidencia == null || c_Contem_informacao == null || c_Estao_relevo == null
-                            || c_Caracteres_visiveis == null || c_forma_indelevel == null || c_Evidencia == null || a_resultados == null ||
-                            b_resultados == null || c_resultados == null )
+                            || c_Caracteres_visiveis == null || c_forma_indelevel == null || c_Evidencia == null)
                         {
                             TempData["Mensagem"] = "Preencha todos os campos para salvar";
                             return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
                         }
                         else
                         {
+                            // verificando primeira linha para passar resultado.
+                            if (a_Contem_informacao == "Sim" &&  a_Estão_relevo == "Sim" && a_Caracteres_visiveis == "Sim")
+                            {
+                                a_resultados = "C";
+                            }else if (a_Contem_informacao == "Não" || a_Estão_relevo == "Não" || a_Caracteres_visiveis == "Não")
+                            {
+                                a_resultados = "NC";
+                            }
+                            else
+                            {
+                                a_resultados = "Na";
+                            }
+
+                            // verificando segundo linha para passar resultado.
+                            if (b_Contem_informacao == "Sim" && b_Estao_relevo == "Sim" && b_Caracteres_visiveis == "Sim")
+                            {
+                                b_resultados = "C";
+                            }
+                            else if (b_Contem_informacao == "Não" || b_Estao_relevo == "Não" || b_Caracteres_visiveis == "Não")
+                            {
+                                b_resultados = "NC";
+                            }
+                            else
+                            {
+                                b_resultados = "Na";
+                            }
+
+                            // verificando segundo linha para passar resultado.
+                            if ( c_Contem_informacao == "Sim" && c_Estao_relevo == "Sim" && c_Caracteres_visiveis == "Sim")
+                            {
+                                c_resultados = "C";
+                            }
+                            else if (c_Contem_informacao == "Não" || c_Estao_relevo == "Não" || c_Caracteres_visiveis == "Não")
+                            {
+                                c_resultados = "NC";
+                            }
+                            else
+                            {
+                                c_resultados = "Na";
+                            }
 
                             var SalvarMarcacao = new ColetaModel.Marcacao
                             {
@@ -486,7 +612,7 @@ namespace Copo_Coleta.Controllers
                                 b_resultados = b_resultados,
                                 c_resultados = c_resultados,
                                 data_de_inicio = data_de_inicio,
-                                data_de_termino =data_de_termino
+                                data_de_termino = data_de_termino
                             };
 
                             _context.Add(SalvarMarcacao);
@@ -594,7 +720,7 @@ namespace Copo_Coleta.Controllers
                         var Resultados = salvar.Resultados;
                         var data_de_inicio = salvar.data_de_inicio;
                         var data_de_termino = salvar.data_de_termino;
-                        
+
 
                         if (As_mangas_estão_invioláveis == null || Estão_protegidos_saco_plástico == null ||
                             Capacidade_total == null || Capacidade_total_Evidencia == null || Quantidade_de_copos == null
@@ -656,7 +782,7 @@ namespace Copo_Coleta.Controllers
             try
             {
 
-                osDescricao = os; 
+                osDescricao = os;
 
                 if (orcamento != null)
                 {
@@ -1253,8 +1379,8 @@ namespace Copo_Coleta.Controllers
                         editatDescricao.Valor_min_obtido = menor_valor_resistencia.ToString();
                         var incerteza = editatDescricao.Incerteza;
                         editatDescricao.Incerteza = incerteza;
-                        
-                      
+
+
 
 
 

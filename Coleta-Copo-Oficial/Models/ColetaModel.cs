@@ -13,8 +13,11 @@ namespace Copo_Coleta.Models
             public int Id { get; set; }
 
             [Required(ErrorMessage = "Campo Obrigatorio.")]
+            [DataType(DataType.Date)]
             public DateTime data_de_início { get; set; }
+
             [Required(ErrorMessage = "Campo Obrigatorio.")]
+            [DataType(DataType.Date)]
             public DateTime data_de_termino { get; set; }
              
             public int editar {get; set; }
