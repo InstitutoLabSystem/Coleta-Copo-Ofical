@@ -288,9 +288,44 @@ namespace Copo_Coleta.Models
             public DateTime data_de_fin { get; set; }
             public string responsavel { get; set; }
             public string revisao { get; set; }
-
-
         }
 
+        public class instrumentosCond
+        {
+            public int Id { get; set; }
+            public int os { get; set; }
+            public int rev { get; set; }
+            public string orcamento { get; set; }
+            public string codigo { get; set; }
+            public string descricao { get; set; }
+            public string certificado { get; set; }
+            public DateTime? validade { get; set; }
+            public int ativo { get; set; }
+        }
+        public class instrumentosMassa
+        {
+            public int Id { get; set; }
+            public int os { get; set; }
+            public int rev { get; set; }
+            public string orcamento { get; set; }
+            public string codigo { get; set; }
+            public string descricao { get; set; }
+            public string certificado { get; set; }
+            public DateTime? validade { get; set; }
+            public int ativo { get; set; }
+        }
+        public class instrumentosCompressao
+        {
+            public int Id { get; set; }
+            public int os { get; set; }
+            public int rev { get; set; }
+            public string orcamento { get; set; }
+            public string codigo { get; set; }
+            public string descricao { get; set; }
+            public string certificado { get; set; }
+            public DateTime? validade { get; set; }
+            public int ativo { get; set; }
+        }
+        
     }
 }

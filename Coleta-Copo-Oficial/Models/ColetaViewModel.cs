@@ -24,5 +24,8 @@ namespace Copo_Coleta.Models
         public Materiais oMateriais { get; set; }
         public CondicionamentoMinimo oCondicionamento { get; set; }
         public CondicMaximo oCondicionamentoMaximo { get; set; }
+        public List<instrumentosCond> oCondInstrumentos { get; set; }
+        public List<instrumentosMassa> oInstrumentosMassa { get; set; }
+        public List<instrumentosCompressao> oInstrumentosCompressao { get; set; }
     }
 }

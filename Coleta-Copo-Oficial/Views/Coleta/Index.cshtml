@@ -208,6 +208,7 @@
                 </table>
 
             }
+
             <br />
             @if (Model.oCondicionamentoMaximo == null)
             {
@@ -301,11 +302,66 @@
             }
 
             <div class="d-grid gap-2">
-                <button type="submit" value="condicionamentoAmostra" class="btn btn-outline-success">Salvar</button>
+                <button type="submit" value="condicionamentoAmostra" class="btn btn-outline-success">Salvar </button>
             </div>
-
-
         </form>
+        <br />
+        <form method="post" asp-action="InstrumentosCondicionamento" asp-controller="Coleta" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]>
+            <div class="container p-3">
+                <div class="d-flex align-items-end justify-content-between">
+                    <div class="mr-3 w-100">
+                        <p class="rotulo-instrumento">Tipo</p>
+                        <input type="text" disabled class="form-control" placeholder="IM/DE/EE">
+                    </div>
+                    <div class="mr-3 w-100">
+                        <p class="rotulo-instrumento">Código/Lote</p>
+                        <input type="text" name="Codigo" class="form-control" id="codigo">
+                    </div>
+                    <div>
+                        <p type="hidden" class="rotulo-instrumento"></p>
+                        <input type="text" hidden name="instrumetosExcluir" class="form-control" id="codigo">
+                    </div>
+                </div>
+
+                <table class="table table-bordered border-secondary table-instrumentos">
+                    <Br />
+                    <thead class="tablestyle">
+                        <tr>
+                            <td>Código/Lote</td>
+                            <td>Descrição</td>
+                            <td>Certificado</td>
+                            <td>Validade</td>
+
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-instrumentos">
+                    @foreach (var instrumentos in Model.oCondInstrumentos)
+                    {
+                        @if (instrumentos.ativo == 1)
+                        {
+                                <tr>
+                                    <td>@instrumentos.codigo</td>
+                                    <td>@instrumentos.descricao</td>
+                                    <td>@instrumentos.certificado</td>
+                                    <td>@instrumentos.validade</td>
+                                </tr>
+                        }
+                    }
+                    </tbody>
+                </table>
+
+                <div class="teste">
+                    <button type="submit" value="InstrumentosCondicionamento" class="btn btn-outline-danger"> Adicionar Instrumentos.  </button>
+                </div>
+        </form>
+        @if (Model.oCondInstrumentos.Count > 0)
+        {
+            <form asp-controller="Coleta" asp-action="ExcInstrumentosCondicionamento" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
+                <div>
+                    <button type="submit" value="ExcInstrumentosCondicionamento" class="btn btn-danger"> Excluir Codigo </button>
+                </div>
+            </form>
+        }
         <!-- Final Condicionamento das amostras  -->
         <!-- Inicio 4.2 Aspectos Visuais -->
         <hr style="color:darkred" />
@@ -1293,8 +1349,63 @@
             }
 
         </form>
+        <br />
+        <form method="post" asp-action="InstrumentosMassa" asp-controller="Coleta" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]>
+            <div class="container p-3">
+                <div class="d-flex align-items-end justify-content-between">
+                    <div class="mr-3 w-100">
+                        <p class="rotulo-instrumento">Tipo</p>
+                        <input type="text" disabled class="form-control" placeholder="IM/DE/EE">
+                    </div>
+                    <div class="mr-3 w-100">
+                        <p class="rotulo-instrumento">Código/Lote</p>
+                        <input type="text" name="Codigo" class="form-control" id="codigo">
+                    </div>
+                    <div>
+                        <p type="hidden" class="rotulo-instrumento"></p>
+                        <input type="text" hidden name="instrumetosExcluir" class="form-control" id="codigo">
+                    </div>
+                </div>
 
+                <table class="table table-bordered border-secondary table-instrumentos">
+                    <Br />
+                    <thead class="tablestyle">
+                        <tr>
+                            <td>Código/Lote</td>
+                            <td>Descrição</td>
+                            <td>Certificado</td>
+                            <td>Validade</td>
 
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-instrumentos">
+                    @foreach (var instrumentos in Model.oInstrumentosMassa)
+                    {
+                        @if (instrumentos.ativo == 1)
+                        {
+                                <tr>
+                                    <td>@instrumentos.codigo</td>
+                                    <td>@instrumentos.descricao</td>
+                                    <td>@instrumentos.certificado</td>
+                                    <td>@instrumentos.validade</td>
+                                </tr>
+                        }
+                    }
+                    </tbody>
+                </table>
+
+                <div class="teste">
+                    <button type="submit" value="InstrumentosMassa" class="btn btn-outline-danger"> Adicionar Instrumentos.  </button>
+                </div>
+        </form>
+        @if (Model.oCondInstrumentos.Count > 0)
+        {
+            <form asp-controller="Coleta" asp-action="ExcInstrumentosMassa" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
+                <div>
+                    <button type="submit" value="ExcInstrumentosMassa" class="btn btn-danger"> Excluir Codigo </button>
+                </div>
+            </form>
+        }
 
         <!-- Final 4.3 Massa -->
         <!-- Inicio coleta 4.4 Resistência à compressão lateral-->
@@ -1433,8 +1544,64 @@
                     <button type="submit" value="EnsaioDeCompressaoAndAmostras" class="btn btn-outline-success">Editar</button>
                 </div>
             }
-
         </form>
+        <br />
+        <form method="post" asp-action="InstrumentosCompressao" asp-controller="Coleta" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]>
+            <div class="container p-3">
+                <div class="d-flex align-items-end justify-content-between">
+                    <div class="mr-3 w-100">
+                        <p class="rotulo-instrumento">Tipo</p>
+                        <input type="text" disabled class="form-control" placeholder="IM/DE/EE">
+                    </div>
+                    <div class="mr-3 w-100">
+                        <p class="rotulo-instrumento">Código/Lote</p>
+                        <input type="text" name="Codigo" class="form-control" id="codigo">
+                    </div>
+                    <div>
+                        <p type="hidden" class="rotulo-instrumento"></p>
+                        <input type="text" hidden name="instrumetosExcluir" class="form-control" id="codigo">
+                    </div>
+                </div>
+
+                <table class="table table-bordered border-secondary table-instrumentos">
+                    <Br />
+                    <thead class="tablestyle">
+                        <tr>
+                            <td>Código/Lote</td>
+                            <td>Descrição</td>
+                            <td>Certificado</td>
+                            <td>Validade</td>
+
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-instrumentos">
+                    @foreach (var instrumentos in Model.oInstrumentosCompressao)
+                    {
+                        @if (instrumentos.ativo == 1)
+                        {
+                                <tr>
+                                    <td>@instrumentos.codigo</td>
+                                    <td>@instrumentos.descricao</td>
+                                    <td>@instrumentos.certificado</td>
+                                    <td>@instrumentos.validade</td>
+                                </tr>
+                        }
+                    }
+                    </tbody>
+                </table>
+
+                <div class="teste">
+                    <button type="submit" value="InstrumentosCompressao" class="btn btn-outline-danger"> Adicionar Instrumentos.  </button>
+                </div>
+        </form>
+        @if (Model.oCondInstrumentos.Count > 0)
+        {
+            <form asp-controller="Coleta" asp-action="ExcInstrumentosCompressao" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
+                <div>
+                    <button type="submit" value="ExcInstrumentosCompressao" class="btn btn-danger"> Excluir Codigo </button>
+                </div>
+            </form>
+        }
 
         <!-- Final coleta 4.4 Resistência à compressão lateral-->
 
@@ -1701,7 +1868,7 @@
                             <td>
                                 <input type="text" name="a_Evidencia" class="form-control" style="border: none" />
                             </td>
-                         
+
                             <td>
                                 <input disabled type="text" name="a_resultados" class="form-control" style="border: none" />
                             </td>
@@ -1776,7 +1943,7 @@
                             <td>
                                 <input type="text" name="c_Evidencia" class="form-control" style="border: none" />
                             </td>
-                              <td>
+                            <td>
                                 <input disabled type="text" name="c_resultados" class="form-control" style="border: none" />
                             </td>
                         </tr>
@@ -1818,9 +1985,9 @@
                                     <input value="@marcacao.a_Evidencia" type="text" name="a_Evidencia" class="form-control" style="border: none" />
                                 </td>
                                 <td>
-                                    <input value="@marcacao.a_resultados"  disabled type="text" name="a_resultados" class="form-control" style="border: none" />
+                                    <input value="@marcacao.a_resultados" disabled type="text" name="a_resultados" class="form-control" style="border: none; height:50px;" />
                                 </td>
-                               
+
                             </tr>
                             <tr>
                                 <td colspan="2"> b) Capacidade do copo</td>
@@ -1849,13 +2016,13 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input value="@marcacao.b_forma_indelevel" type="text" name="b_forma_indelevel" class="form-control" style="border: none" />
+                                    <input value="@marcacao.b_forma_indelevel" type="text" name="b_forma_indelevel" class="form-control" style="border: none;" />
                                 </td>
                                 <td>
                                     <input value="@marcacao.b_Evidencia" type="text" name="b_Evidencia" class="form-control" style="border: none" />
                                 </td>
                                 <td>
-                                    <input disabled value="@marcacao.b_resultados" type="text" name="b_resultados" class="form-control" style="border: none" />
+                                    <input disabled value="@marcacao.b_resultados" type="text" name="b_resultados" class="form-control" style="border: none; height:50px;" />
                                 </td>
                             </tr>
                             <tr>
@@ -1891,9 +2058,9 @@
                                     <input value="@marcacao.c_Evidencia" type="text" name="c_Evidencia" class="form-control" style="border: none" />
                                 </td>
                                 <td>
-                                    <input disabled value="@marcacao.c_resultados" type="text" name="c_resultados" class="form-control" style="border: none" />
+                                    <input disabled value="@marcacao.c_resultados" type="text" name="c_resultados" class="form-control" style="border: none;height:50px;" />
                                 </td>
-                               
+
                             </tr>
 
                         }
@@ -1988,28 +2155,6 @@
                         <p type="hidden" class="rotulo-instrumento"></p>
                         <input type="text" hidden name="instrumetosExcluir" class="form-control" id="codigo">
                     </div>
-                @* <div class="mr-2 w-25">
-                    <button type="button" class="btn btn-primary form-control pesquisar-instrumentos">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                    </svg>
-                    </button>
-                    </div>
-                    <div class="w-100 mr-2">
-                    <p class="rotulo-instrumento">Nome</p>
-                    <input type="text" name="descricao" id="descricao" class="form-control w-100">
-                    </div>
-                    <div class="mr-2 w-50">
-                    <p class="rotulo-instrumento">Certificado</p>
-                    <input type="text" name="certificado" id="certificado" class="form-control">
-                    </div>
-                    <div class="mr-2 w-50 d-flex align-items-end">
-                    <div>
-                    <p class="rotulo-instrumento">Validade</p>
-                    <input type="text" name="validade" id="validade" class="form-control">
-                    </div>
-                    <button style="margin:0px;" class="btn btn-primary h4 ml-2 adicionar_instrumentos">+</button>
-                    </div>*@
                 </div>
 
                 <table class="table table-bordered border-secondary table-instrumentos">
