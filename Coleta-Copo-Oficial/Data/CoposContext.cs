@@ -33,6 +33,10 @@ namespace Copo_Coleta.Data
         public DbSet<ColetaModel.CondicMaximo> copos_codicionamento_maximo { get; set; }
 
         public DbSet<ColetaModel.Finalizado> copos_finalizado { get; set; }
+        public DbSet<ColetaModel.instrumentosCond> instrumentos_cond { get; set; }
+        public DbSet<ColetaModel.instrumentosMassa> instrumentos_massa { get; set; }
+        public DbSet<ColetaModel.instrumentosCompressao> instrumentos_compressao { get; set; }
+
     }
 }
 

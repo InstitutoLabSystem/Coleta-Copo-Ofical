@@ -57,6 +57,9 @@ namespace Copo_Coleta.Controllers
             model.oMateriais = ObterMateriais(os, Rev);
             model.oCondicionamento = ObterCondicionamento(os, Rev);
             model.oCondicionamentoMaximo = ObterCondicionamentoMaximo(os, Rev);
+            model.oCondInstrumentos = ObterInstrumentoCond(os, Rev);
+            model.oInstrumentosMassa = ObterInstrumentoMassa(os, Rev);
+            model.oInstrumentosCompressao = ObterInstrumentoCompressao(os, Rev);
 
 
             ViewBag.OS = os;
@@ -179,6 +182,29 @@ namespace Copo_Coleta.Controllers
                             .FirstOrDefault();
             return obterCondMaximo;
         }
+
+        private List<instrumentosCond> ObterInstrumentoCond(int os, int Rev)
+        {
+            var trazerInstrumentoCond = _context.instrumentos_cond
+                      .Where(x => x.os == os && x.rev == Rev)
+                      .ToList();
+            return trazerInstrumentoCond;
+        }
+        private List<instrumentosMassa> ObterInstrumentoMassa(int os, int Rev)
+        {
+            var trazerInstrumentoMassa = _context.instrumentos_massa
+                      .Where(x => x.os == os && x.rev == Rev)
+                      .ToList();
+            return trazerInstrumentoMassa;
+        }
+        private List<instrumentosCompressao> ObterInstrumentoCompressao(int os, int Rev)
+        {
+            var trazerInstrumentoComp = _context.instrumentos_compressao
+                      .Where(x => x.os == os && x.rev == Rev)
+                      .ToList();
+            return trazerInstrumentoComp;
+        }
+
 
 
         [HttpPost]
@@ -1195,6 +1221,192 @@ namespace Copo_Coleta.Controllers
         }
 
 
+        [HttpPost]
+        public async Task<IActionResult> InstrumentosMassa(int os, string orcamento, int Rev, string codigo, List<ColetaModel.instrumentosMassa> instrumentos)
+        {
+            try
+            {
+                if (orcamento != null)
+                {
+                    if (codigo != null || string.IsNullOrEmpty(codigo))
+                    {
+                        string codigoPesquisa = codigo.ToUpper();
+                        var pesquisarInstrumentos = _bancocontext.cad_instr
+                            .Where(x => x.Codigo == codigoPesquisa && x.laboratorio == "ESP")
+                            .FirstOrDefault();
+
+                        if (pesquisarInstrumentos != null)
+                        {
+
+                            var salvarInstrumentosCond = new ColetaModel.instrumentosMassa
+                            {
+                                os = os,
+                                orcamento = orcamento,
+                                rev = Rev,
+                                codigo = codigoPesquisa,
+                                descricao = pesquisarInstrumentos.descricaoins,
+                                certificado = pesquisarInstrumentos.NC,
+                                validade = pesquisarInstrumentos.data2,
+                                ativo = 1
+                            };
+                            _context.Add(salvarInstrumentosCond);
+
+                            await _context.SaveChangesAsync();
+
+                            TempData["Mensagem"] = "DADOS SALVO COM SUCESSO";
+                            return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+
+                        }
+                        else
+                        {
+                            TempData["Mensagem"] = "Não Foi encontrado nenhum codigo. ";
+                            return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+                        }
+                    }
+                    else
+                    {
+                        TempData["Mensagem"] = "Não foi inserido nenhum codigo ";
+                        return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+                    }
+
+                }
+                else
+                {
+                    TempData["Mensagem"] = "NÃO FOI POSSIVEL SALVAR OS DADOS ";
+                    return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error", ex.Message);
+                throw;
+            }
+        }
+
+        public async Task<IActionResult> ExcInstrumentosMassa(int os, int Rev, string orcamento)
+        {
+            try
+            {
+                //VERIFICANDO O ULTIMO DADO NA TABELA E PASSANDO O ATIVO PARA 0.
+                var apagarInstrumento = _context.instrumentos_massa
+                                        .Where(x => x.os == os && x.rev == Rev && x.ativo == 1)
+                                        .OrderBy(x => x.Id)
+                                        .LastOrDefault();
+
+                if (apagarInstrumento != null)
+                {
+                    apagarInstrumento.ativo = 0;
+                    await _context.SaveChangesAsync();
+
+                    TempData["Mensagem"] = " Instrumento excluído com sucesso";
+                    return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+                }
+                else
+                {
+                    TempData["Mensagem"] = "Não foi possivel excluir codigo";
+                    return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error", ex.Message);
+                throw;
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> InstrumentosCompressao(int os, int Rev, string orcamento,string codigo, List<ColetaModel.instrumentosCompressao> instrumentos)
+        {
+            try
+            {
+                if (orcamento != null)
+                {
+                    if (codigo != null || string.IsNullOrEmpty(codigo))
+                    {
+                        string codigoPesquisa = codigo.ToUpper();
+                        var pesquisarInstrumentos = _bancocontext.cad_instr
+                            .Where(x => x.Codigo == codigoPesquisa && x.laboratorio == "ESP")
+                            .FirstOrDefault();
+
+                        if (pesquisarInstrumentos != null)
+                        {
+
+                            var salvarInstrumentosCompressao = new ColetaModel.instrumentosCompressao
+                            {
+                                os = os,
+                                orcamento = orcamento,
+                                rev = Rev,
+                                codigo = codigoPesquisa,
+                                descricao = pesquisarInstrumentos.descricaoins,
+                                certificado = pesquisarInstrumentos.NC,
+                                validade = pesquisarInstrumentos.data2,
+                                ativo = 1
+                            };
+                            _context.Add(salvarInstrumentosCompressao);
+
+                            await _context.SaveChangesAsync();
+
+                            TempData["Mensagem"] = "DADOS SALVO COM SUCESSO";
+                            return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+
+                        }
+                        else
+                        {
+                            TempData["Mensagem"] = "Não Foi encontrado nenhum codigo. ";
+                            return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+                        }
+                    }
+                    else
+                    {
+                        TempData["Mensagem"] = "Não foi inserido nenhum codigo ";
+                        return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+                    }
+
+                }
+                else
+                {
+                    TempData["Mensagem"] = "NÃO FOI POSSIVEL SALVAR OS DADOS ";
+                    return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error", ex.Message);
+                throw;
+            }
+        }
+
+        public async Task<IActionResult> ExcInstrumentosCompressao(int os, int Rev, string orcamento)
+        {
+            try
+            {
+                //VERIFICANDO O ULTIMO DADO NA TABELA E PASSANDO O ATIVO PARA 0.
+                var apagarInstrumento = _context.instrumentos_compressao
+                                        .Where(x => x.os == os && x.rev == Rev && x.ativo == 1)
+                                        .OrderBy(x => x.Id)
+                                        .LastOrDefault();
+
+                if (apagarInstrumento != null)
+                {
+                    apagarInstrumento.ativo = 0;
+                    await _context.SaveChangesAsync();
+
+                    TempData["Mensagem"] = " Instrumento excluído com sucesso";
+                    return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+                }
+                else
+                {
+                    TempData["Mensagem"] = "Não foi possivel excluir codigo";
+                    return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error", ex.Message);
+                throw;
+            }
+        }
+
 
 
 
@@ -1759,7 +1971,102 @@ namespace Copo_Coleta.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> InstrumentosCondicionamento(int os, string orcamento, int Rev,string codigo, List<ColetaModel.instrumentosCond> instrumentos)
+        {
+            try
+            {
+                if (orcamento != null)
+                {
+                    if (codigo != null || string.IsNullOrEmpty(codigo))
+                    {
+                        string codigoPesquisa = codigo.ToUpper();
+                        var pesquisarInstrumentos = _bancocontext.cad_instr
+                            .Where(x => x.Codigo == codigoPesquisa && x.laboratorio == "ESP")
+                            .FirstOrDefault();
 
+                        if (pesquisarInstrumentos != null)
+                        {
+
+                            var salvarInstrumentosCond = new ColetaModel.instrumentosCond
+                            {
+                                os = os,
+                                orcamento = orcamento,
+                                rev = Rev,
+                                codigo = codigoPesquisa,
+                                descricao = pesquisarInstrumentos.descricaoins,
+                                certificado = pesquisarInstrumentos.NC,
+                                validade = pesquisarInstrumentos.data2,
+                                ativo = 1
+                            };
+                            _context.Add(salvarInstrumentosCond);
+
+                            await _context.SaveChangesAsync();
+
+                            TempData["Mensagem"] = "DADOS SALVO COM SUCESSO";
+                            return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+
+                        }
+                        else
+                        {
+                            TempData["Mensagem"] = "Não Foi encontrado nenhum codigo. ";
+                            return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+                        }
+                    }
+                    else
+                    {
+                        TempData["Mensagem"] = "Não foi inserido nenhum codigo ";
+                        return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+                    }
+
+                }
+                else
+                {
+                    TempData["Mensagem"] = "NÃO FOI POSSIVEL SALVAR OS DADOS ";
+                    return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error", ex.Message);
+                throw;
+            }
+        }
+
+        public async Task<IActionResult> ExcInstrumentosCondicionamento(int os, int Rev, string orcamento)
+        {
+            try
+            {
+                //VERIFICANDO O ULTIMO DADO NA TABELA E PASSANDO O ATIVO PARA 0.
+                var apagarInstrumento = _context.instrumentos_cond
+                                        .Where(x => x.os == os && x.rev == Rev && x.ativo == 1)
+                                        .OrderBy(x => x.Id)
+                                        .LastOrDefault();
+
+                if (apagarInstrumento != null)
+                {
+                    apagarInstrumento.ativo = 0;
+                    await _context.SaveChangesAsync();
+
+                    TempData["Mensagem"] = " Instrumento excluído com sucesso";
+                    return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+                }
+                else
+                {
+                    TempData["Mensagem"] = "Não foi possivel excluir codigo";
+                    return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error", ex.Message);
+                throw;
+            }
+        }
+
+
+
+        [HttpPost]
         public async Task<IActionResult> FinalizarColeta(int os, string orcamento, int rev, [Bind("data_de_fin, responsavel,revisao")] ColetaModel.Finalizado salvar)
         {
             try
