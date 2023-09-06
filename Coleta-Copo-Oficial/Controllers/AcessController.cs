@@ -56,20 +56,23 @@ namespace Coleta_Copo_Oficial.Controllers
                         u.Senha_Usuario,
                         u.cargo,
                         u.setor,
-                        u.laboratorio
+                        u.laboratorio,
+                        u.nomecompleto
                     })
                     .FirstOrDefault();
+                    
 
                     if (pegarValores != null)
                     {
+                        var nomeCompleto = pegarValores.nomecompleto;
                         if (pegarValores.Nome_Usuario == Nome_Usuario && pegarValores.Senha_Usuario == Senha_Usuario)
                         {
                             if (pegarValores.setor == "Especial" && pegarValores.cargo == "Especial" || pegarValores.setor == "TI" && pegarValores.cargo == "TI" || pegarValores.setor == "Qualidade")
                             {
                                 List<Claim> claims = new List<Claim>()
                                 {
-                                new Claim(ClaimTypes.NameIdentifier,Nome_Usuario),
                                 new Claim(ClaimTypes.Name, Nome_Usuario),
+                                new Claim (ClaimTypes.NameIdentifier, nomeCompleto),
                                 new Claim("OtherProperties","Example Role")
                                 };
 

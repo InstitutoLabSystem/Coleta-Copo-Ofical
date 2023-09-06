@@ -96,7 +96,43 @@
                         </tr>
                     </tbody>
                 </table>
+                <br />
+                @if (Model.oDescricao == null)
+                {
+                    <div class="row">
+                        <div class="col-md-3 position-relative">
+                            <label for="executador" id="executador">Executador:</label>
+                            <input readonly type="text" class="form-control" name="executador" id="executador" value="@ViewBag.NomeCompleto">
+                        </div>
+                        <div class="col-md-3 position-relative">
+                            <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                            <input type="text" class="form-control" name="auxiliador" id="auxiliador">
+                        </div>
+                        <div class="col-md-3 position-relative">
+                            <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                            <input type="text" class="form-control" name="resp_conf" id="resp_conf">
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-md-3 position-relative">
+                            <label for="executador" id="executador">Executador:</label>
+                            <input readonly type="text" class="form-control" name="executador" id="executador" value="@Model.oDescricao.executador" />
+                        </div>
+                        <div class="col-md-3 position-relative">
+                            <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                            <input readonly type="text" class="form-control" name="auxiliador" id="auxiliador" value="@Model.oDescricao.auxiliador" />
+                        </div>
+                        <div class="col-md-3 position-relative">
+                            <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                            <input readonly type="text" class="form-control" name="resp_conf" id="resp_conf" value="@Model.oDescricao.resp_conf" />
+                        </div>
+                    </div>
+                }
 
+                <br />
                 <div class="d-grid gap-2">
                     @if (Model.oDatas == null)
                     {
@@ -487,6 +523,22 @@
 
                     </tbody>
                 </table>
+                <br />
+                <div class="row">
+                    <div class="col-md-3 position-relative">
+                        <label for="executador" id="executador">Executador:</label>
+                        <input readonly type="text" class="form-control" name="executador" id="executador" value="@ViewBag.NomeCompleto" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                        <input type="text" class="form-control" name="auxiliador" id="auxiliador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                        <input type="text" class="form-control" name="resp_conf" id="resp_conf" />
+                    </div>
+                </div>
+                <br />
                 <div class="d-grid gap-2">
                     <button type="submit" value="SalvarAspectosVisuais" class="btn btn-outline-danger"> Salvar </button>
                 </div>
@@ -578,6 +630,23 @@
 
                     </tbody>
                 </table>
+
+                <br />
+                <div class="row">
+                    <div class="col-md-3 position-relative">
+                        <label for="executador" id="executador">Executador:</label>
+                        <input readonly type="text" class="form-control" name="executador" id="executador" value="@Model.oAspectosvisuais.executador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                        <input readonly type="text" class="form-control" name="auxiliador" id="auxiliador" value="@Model.oAspectosvisuais.auxiliador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                        <input readonly type="text" class="form-control" name="resp_conf" id="resp_conf" value="@Model.oAspectosvisuais.resp_conf" />
+                    </div>
+                </div>
+                <br />
                 <div class="d-grid gap-2">
                     <button type="submit" value="SalvarAspectosVisuais" class="btn btn-outline-success"> Editar </button>
                 </div>
@@ -609,8 +678,8 @@
                         }
                         else
                         {
-                            <td><input type="text" value="@Model.oTablemassa.data_de_inicio.ToString("dd/MM/yyyy")" name="data_de_inicio" class="form-control" style="border: none"/> </td>
-                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oTablemassa.data_de_termino.ToString("dd/MM/yyyy")" style="border: none"/></td>
+                            <td><input type="text" value="@Model.oTablemassa.data_de_inicio.ToString("dd/MM/yyyy")" name="data_de_inicio" class="form-control" style="border: none" /> </td>
+                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oTablemassa.data_de_termino.ToString("dd/MM/yyyy")" style="border: none" /></td>
                         }
                     </tr>
                 </tbody>
@@ -1001,7 +1070,6 @@
                             </tr>
                         </tbody>
                     </table>
-
                 }
                 else
                 {
@@ -1332,6 +1400,44 @@
 
                 }
             </div>
+            @if (Model.oTablemassa == null)
+            {
+                <br />
+                <div class="row">
+                    <div class="col-md-3 position-relative">
+                        <label for="executador" id="executador">Executador:</label>
+                        <input readonly type="text" class="form-control" name="executador" id="executador" value="@ViewBag.NomeCompleto" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                        <input type="text" class="form-control" name="auxiliador" id="auxiliador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                        <input type="text" class="form-control" name="resp_conf" id="resp_conf" />
+                    </div>
+                </div>
+                <br />
+            }
+            else
+            {
+                <br />
+                <div class="row">
+                    <div class="col-md-3 position-relative">
+                        <label for="executador" id="executador">Executador:</label>
+                        <input readonly type="text" class="form-control" name="executador" id="executador" value="@Model.oTablemassa.executador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                        <input readonly type="text" class="form-control" name="auxiliador" id="auxiliador" value="@Model.oTablemassa.auxiliador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                        <input readonly type="text" class="form-control" name="resp_conf" id="resp_conf" value="@Model.oTablemassa.resp_conf" />
+                    </div>
+                </div>
+                <br />
+            }
 
             @if (Model.oMassa.Count == 0 || Model.oMassa == null)
             {
@@ -1530,8 +1636,44 @@
                         }
                     }
                 </tbody>
-
             </table>
+            <br />
+            @if (Model.oCompressao == null)
+            {
+                <div class="row">
+                    <div class="col-md-3 position-relative">
+                        <label for="executador" id="executador">Executador:</label>
+                        <input readonly type="text" class="form-control" name="executador" id="executador" value="@ViewBag.NomeCompleto" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                        <input type="text" class="form-control" name="auxiliador" id="auxiliador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                        <input type="text" class="form-control" name="resp_conf" id="resp_conf" />
+                    </div>
+                </div>
+                <br />
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-3 position-relative">
+                        <label for="executador" id="executador">Executador:</label>
+                        <input readonly type="text" class="form-control" name="executador" id="executador" value="@Model.oCompressao.executador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                        <input readonly type="text" class="form-control" name="auxiliador" id="auxiliador" value="@Model.oCompressao.auxiliador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                        <input readonly type="text" class="form-control" name="resp_conf" id="resp_conf" value="@Model.oCompressao.resp_conf" />
+                    </div>
+                </div>
+                <br />
+            }
             @if (Model.oAmostra == null || Model.oAmostra.Count == 0)
             {
                 <div class="d-grid gap-2">
@@ -1770,6 +1912,43 @@
                     </tr>
                 }
             </table>
+            @if (Model.oEmbalagem == null)
+            {
+                <div class="row">
+                    <div class="col-md-3 position-relative">
+                        <label for="executador" id="executador">Executador:</label>
+                        <input readonly type="text" class="form-control" name="executador" id="executador" value="@ViewBag.NomeCompleto" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                        <input type="text" class="form-control" name="auxiliador" id="auxiliador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                        <input type="text" class="form-control" name="resp_conf" id="resp_conf" />
+                    </div>
+                </div>
+                <br />
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-3 position-relative">
+                        <label for="executador" id="executador">Executador:</label>
+                        <input readonly type="text" class="form-control" name="executador" id="executador" value="@Model.oEmbalagem.executador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                        <input readonly type="text" class="form-control" name="auxiliador" id="auxiliador" value="@Model.oEmbalagem.auxiliador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                        <input readonly type="text" class="form-control" name="resp_conf" id="resp_conf" value="@Model.oEmbalagem.resp_conf" />
+                    </div>
+                </div>
+                <br />
+            }
+
             @if (Model.oEmbalagem == null)
             {
                 <div class="d-grid gap-2">
@@ -2067,6 +2246,49 @@
                     }
                 </tbody>
             </table>
+            @if (Model.oMarcacao == null || Model.oMarcacao.Count == 0 )
+            {
+
+                <br />
+                <div class="row">
+                    <div class="col-md-3 position-relative">
+                        <label for="executador" id="executador">Executador:</label>
+                        <input readonly type="text" class="form-control" name="executador" id="executador" value="@ViewBag.NomeCompleto" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                        <input type="text" class="form-control" name="auxiliador" id="auxiliador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                        <input type="text" class="form-control" name="resp_conf" id="resp_conf" />
+                    </div>
+                </div>
+                <br />
+            }
+            else
+            {
+                @foreach (var item in Model.oMarcacao)
+                {
+                    <br />
+                    <div class="row">
+                        <div class="col-md-3 position-relative">
+                            <label for="executador" id="executador">Executador:</label>
+                            <input readonly type="text" class="form-control" name="executador" id="executador" value="@item.executador" />
+                        </div>
+                        <div class="col-md-3 position-relative">
+                            <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                            <input readonly type="text" class="form-control" name="auxiliador" id="auxiliador" value="@item.auxiliador" />
+                        </div>
+                        <div class="col-md-3 position-relative">
+                            <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                            <input readonly type="text" class="form-control" name="resp_conf" id="resp_conf" value="@item.resp_conf" />
+                        </div>
+                    </div>
+                    <br />
+                }
+            }
+
             @if (Model.oMateriais == null)
             {
                 <table class="table table-bordered border-secondary table table-sm">
@@ -2134,70 +2356,7 @@
 
         </form>
 
-        <br />
-
-        <!--Inico de instrumentos utilizados -->
-        <hr style="color:darkred" />
-        <p style="text-align : center"> <strong> Instrumentos Utilizados. </strong></p>
-        <hr style="color:darkred" />
-        <form method="post" asp-action="PesquisarInstrumentos" asp-controller="Coleta" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]>
-            <div class="container p-3">
-                <div class="d-flex align-items-end justify-content-between">
-                    <div class="mr-3 w-100">
-                        <p class="rotulo-instrumento">Tipo</p>
-                        <input type="text" disabled class="form-control" placeholder="IM/DE/EE">
-                    </div>
-                    <div class="mr-3 w-100">
-                        <p class="rotulo-instrumento">Código/Lote</p>
-                        <input type="text" name="Codigo" class="form-control" id="codigo">
-                    </div>
-                    <div>
-                        <p type="hidden" class="rotulo-instrumento"></p>
-                        <input type="text" hidden name="instrumetosExcluir" class="form-control" id="codigo">
-                    </div>
-                </div>
-
-                <table class="table table-bordered border-secondary table-instrumentos">
-                    <Br />
-                    <thead class="tablestyle">
-                        <tr>
-                            <td>Código/Lote</td>
-                            <td>Descrição</td>
-                            <td>Certificado</td>
-                            <td>Validade</td>
-
-                        </tr>
-                    </thead>
-                    <tbody id="tbody-instrumentos">
-                    @foreach (var instrumentos in Model.oInstrumentos)
-                    {
-                        @if (instrumentos.ativo == 1)
-                        {
-                                <tr>
-                                    <td>@instrumentos.codigo</td>
-                                    <td>@instrumentos.descricao</td>
-                                    <td>@instrumentos.certificado</td>
-                                    <td>@instrumentos.validade</td>
-                                </tr>
-                        }
-                    }
-                    </tbody>
-                </table>
-
-                <div class="teste">
-                    <button type="submit" value="SalvarInstrumentos" class="btn btn-outline-danger"> Salvar </button>
-                </div>
-        </form>
-
         <Br />
-        @if (Model.oInstrumentos.Count > 0)
-        {
-            <form asp-controller="Coleta" asp-action="ExcluirInstrumentos" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
-                <div>
-                    <button type="submit" value="ExcluirInstrumentos" class="btn btn-danger"> Excluir Codigo </button>
-                </div>
-            </form>
-        }
 
     </div>
 

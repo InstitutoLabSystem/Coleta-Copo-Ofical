@@ -20,6 +20,7 @@ using Microsoft.CodeAnalysis.Differencing;
 using System.Xml.Linq;
 using Coleta_Copo_Oficial.Data;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Copo_Coleta.Controllers
 {
@@ -52,7 +53,6 @@ namespace Copo_Coleta.Controllers
             model.oCompressao = ObterCompressao(os, Rev);
             model.oAmostra = ObterAmostra(os, Rev);
             model.oEmbalagem = ObterEmbalagem(os, Rev);
-            model.oInstrumentos = ObterInstrumentos(os, Rev);
             model.oMarcacao = ObterMarcacao(os, Rev);
             model.oMateriais = ObterMateriais(os, Rev);
             model.oCondicionamento = ObterCondicionamento(os, Rev);
@@ -61,6 +61,11 @@ namespace Copo_Coleta.Controllers
             model.oInstrumentosMassa = ObterInstrumentoMassa(os, Rev);
             model.oInstrumentosCompressao = ObterInstrumentoCompressao(os, Rev);
 
+            //pegando nome do usuario da sessao por viewbag
+            var nomeUsuarioClaim = User.FindFirstValue(ClaimTypes.Name);
+            var nomeCompletoClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            ViewBag.NomeUsuario = nomeUsuarioClaim;
+            ViewBag.NomeCompleto = nomeCompletoClaim;
 
             ViewBag.OS = os;
             ViewBag.Orcamento = orcamento;
@@ -88,8 +93,10 @@ namespace Copo_Coleta.Controllers
                     qtd_ensaiada = item.qtd_ensaiada,
                     capacidade_copo = item.capacidade_copo,
                     quant_manga = item.quant_manga,
-                    capacidade_manga = item.capacidade_manga
-
+                    capacidade_manga = item.capacidade_manga,
+                    executador = item.executador,
+                    auxiliador = item.auxiliador,
+                    resp_conf = item.resp_conf
 
                 })
                 .FirstOrDefault();
@@ -160,13 +167,6 @@ namespace Copo_Coleta.Controllers
             return materiais;
         }
 
-        private List<Instrumentos> ObterInstrumentos(int os, int Rev)
-        {
-            var pesquisarInstrumentos = _context.copos_instrumentos
-                      .Where(x => x.os == os && x.rev == Rev)
-                      .ToList();
-            return pesquisarInstrumentos;
-        }
 
         private CondicionamentoMinimo ObterCondicionamento(int os, int Rev)
         {
@@ -208,7 +208,7 @@ namespace Copo_Coleta.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> SalvarData(int os, string orcamento, int Rev, [Bind("data_de_início,data_de_termino")] ColetaModel.Datas salvar, [Bind("qtd_recebida,qtd_ensaiada,capacidade_copo,quant_manga,capacidade_manga")] ColetaModel.Descricao descricao)
+        public async Task<IActionResult> SalvarData(int os, string orcamento, int Rev, [Bind("data_de_início,data_de_termino,executador,auxiliador,resp_conf")] ColetaModel.Datas salvar, [Bind("qtd_recebida,qtd_ensaiada,capacidade_copo,quant_manga,capacidade_manga,executador,auxiliador,resp_conf")] ColetaModel.Descricao descricao)
         {
             try
             {
@@ -217,6 +217,9 @@ namespace Copo_Coleta.Controllers
                     //pegando o resultado da tabela salvar.
                     var data_de_início = salvar.data_de_início;
                     var data_de_termino = salvar.data_de_termino;
+                    string executadorData = salvar.executador;
+                    string auxiliadorData = salvar.auxiliador;
+                    string res_confData = salvar.resp_conf;
 
                     //pegando o resultado da tabela descricao.
                     var qtd_recebida = descricao.qtd_recebida;
@@ -224,6 +227,9 @@ namespace Copo_Coleta.Controllers
                     var capacidade_copo = descricao.capacidade_copo;
                     var quant_manga = descricao.quant_manga;
                     var capacidade_manga = descricao.capacidade_manga;
+                    string executador = descricao.executador;
+                    string auxiliador = descricao.auxiliador;
+                    string res_conf = descricao.resp_conf;
 
                     //verificando se os campos estao vazios.
                     if (data_de_início == DateTime.MinValue || data_de_termino == DateTime.MinValue || qtd_recebida == null || qtd_ensaiada == null || capacidade_copo == null || quant_manga == null || capacidade_manga == null)
@@ -258,6 +264,9 @@ namespace Copo_Coleta.Controllers
                             os = os,
                             orcamento = orcamento,
                             Rev = Rev,
+                            executador = executadorData,
+                            auxiliador = auxiliadorData,
+                            resp_conf = res_confData,
                             editar = 1
                         };
                         _context.Add(salvarDados);
@@ -290,7 +299,10 @@ namespace Copo_Coleta.Controllers
                             qtd_ensaiada = qtd_ensaiada,
                             capacidade_copo = capacidade_copo,
                             quant_manga = quant_manga,
-                            capacidade_manga = capacidade_manga
+                            capacidade_manga = capacidade_manga,
+                            executador = executador,
+                            auxiliador = auxiliador,
+                            resp_conf = res_conf,
                         };
 
                         _context.Add(salvarDescricao);
@@ -321,7 +333,7 @@ namespace Copo_Coleta.Controllers
 
         [HttpPost]
         public async Task<IActionResult> SalvarAspectosVisuais(int os, int orcamento, int rev, int osData, [Bind("quatro_dois_um_Atende,quatro_dois_um_Resul," +
-            "quatro_dois_dois_Atende,quatro_dois_dois_Resul,quatro_dois_tres_Atende,quatro_dois_tres_Resul,data_de_inicio,data_de_termino")] ColetaModel.Aspectosvisuais salvar)
+            "quatro_dois_dois_Atende,quatro_dois_dois_Resul,quatro_dois_tres_Atende,quatro_dois_tres_Resul,data_de_inicio,data_de_termino,executador,auxiliador,resp_conf")] ColetaModel.Aspectosvisuais salvar)
         {
             try
             {
@@ -403,6 +415,9 @@ namespace Copo_Coleta.Controllers
                         var quatro_dois_tres_Resul = salvar.quatro_dois_tres_Resul;
                         var data_de_inicio = salvar.data_de_inicio;
                         var data_de_termino = salvar.data_de_termino;
+                        string executador = salvar.executador;
+                        string auxiliador = salvar.auxiliador;
+                        string resp_conf = salvar.resp_conf;
 
 
 
@@ -470,7 +485,10 @@ namespace Copo_Coleta.Controllers
                                 quatro_dois_tres_Atende = quatro_dois_tres_Atende,
                                 quatro_dois_tres_Resul = quatro_dois_tres_Resul,
                                 data_de_inicio = data_de_inicio,
-                                data_de_termino = data_de_termino
+                                data_de_termino = data_de_termino,
+                                executador = executador,
+                                auxiliador = auxiliador,
+                                resp_conf = resp_conf
                             };
 
                             _context.Add(salvarDados);
@@ -498,7 +516,7 @@ namespace Copo_Coleta.Controllers
 
         [HttpPost]
         public async Task<IActionResult> SalvarMarcacao(int os, int Rev, string orcamento, int osData, [Bind("a_Contem_informacao, a_Estão_relevo, a_Caracteres_visiveis, " +
-            "a_forma_indelevel,a_Evidencia,b_Contem_informacao,b_Estao_relevo,b_Caracteres_visiveis,b_forma_indelevel,b_Evidencia, c_Contem_informacao,c_Estao_relevo, c_Caracteres_visiveis, c_forma_indelevel,c_Evidencia, a_resultados, b_resultados, c_resultados, data_de_inicio, data_de_termino")] ColetaModel.Marcacao salvar, string info, string lote, string validade, string observacoes)
+            "a_forma_indelevel,a_Evidencia,b_Contem_informacao,b_Estao_relevo,b_Caracteres_visiveis,b_forma_indelevel,b_Evidencia, c_Contem_informacao,c_Estao_relevo, c_Caracteres_visiveis, c_forma_indelevel,c_Evidencia, a_resultados, b_resultados, c_resultados, data_de_inicio, data_de_termino,executador,auxiliador, resp_conf")] ColetaModel.Marcacao salvar, string info, string lote, string validade, string observacoes)
         {
             try
             {
@@ -600,8 +618,11 @@ namespace Copo_Coleta.Controllers
                         var c_resultados = salvar.c_resultados;
                         var data_de_inicio = salvar.data_de_inicio;
                         var data_de_termino = salvar.data_de_termino;
+                        string executador = salvar.executador;
+                        string auxiliador = salvar.auxiliador;
+                        string resp_conf = salvar.resp_conf;
 
-             
+
 
                         if (a_Contem_informacao == null || a_Estão_relevo == null ||
                             a_Caracteres_visiveis == null || a_forma_indelevel == null
@@ -615,10 +636,11 @@ namespace Copo_Coleta.Controllers
                         else
                         {
                             // verificando primeira linha para passar resultado.
-                            if (a_Contem_informacao == "Sim" &&  a_Estão_relevo == "Sim" && a_Caracteres_visiveis == "Sim")
+                            if (a_Contem_informacao == "Sim" && a_Estão_relevo == "Sim" && a_Caracteres_visiveis == "Sim")
                             {
                                 a_resultados = "C";
-                            }else if (a_Contem_informacao == "Não" || a_Estão_relevo == "Não" || a_Caracteres_visiveis == "Não")
+                            }
+                            else if (a_Contem_informacao == "Não" || a_Estão_relevo == "Não" || a_Caracteres_visiveis == "Não")
                             {
                                 a_resultados = "NC";
                             }
@@ -642,7 +664,7 @@ namespace Copo_Coleta.Controllers
                             }
 
                             // verificando segundo linha para passar resultado.
-                            if ( c_Contem_informacao == "Sim" && c_Estao_relevo == "Sim" && c_Caracteres_visiveis == "Sim")
+                            if (c_Contem_informacao == "Sim" && c_Estao_relevo == "Sim" && c_Caracteres_visiveis == "Sim")
                             {
                                 c_resultados = "C";
                             }
@@ -678,7 +700,10 @@ namespace Copo_Coleta.Controllers
                                 b_resultados = b_resultados,
                                 c_resultados = c_resultados,
                                 data_de_inicio = data_de_inicio,
-                                data_de_termino = data_de_termino
+                                data_de_termino = data_de_termino,
+                                executador = executador,
+                                auxiliador = auxiliador,
+                                resp_conf = resp_conf
                             };
 
                             _context.Add(SalvarMarcacao);
@@ -745,7 +770,7 @@ namespace Copo_Coleta.Controllers
 
         [HttpPost]
         public async Task<IActionResult> SalvarEmbalagem(int os, int rev, string orcamento, int osData, [Bind("As_mangas_estão_invioláveis, Estão_protegidos_saco_plástico, Capacidade_total, Capacidade_total_Evidencia," +
-            " Quantidade_de_copos, Quantidade_copos_Evidencia, Rastreabilidade, Resultados, data_de_inicio, data_de_termino")] ColetaModel.Embalagem salvar)
+            " Quantidade_de_copos, Quantidade_copos_Evidencia, Rastreabilidade, Resultados, data_de_inicio, data_de_termino,executador,auxiliador,resp_conf")] ColetaModel.Embalagem salvar)
         {
             try
             {
@@ -786,6 +811,9 @@ namespace Copo_Coleta.Controllers
                         var Resultados = salvar.Resultados;
                         var data_de_inicio = salvar.data_de_inicio;
                         var data_de_termino = salvar.data_de_termino;
+                        string executador = salvar.executador;
+                        string auxiliador = salvar.auxiliador;
+                        string resp_conf = salvar.resp_conf;
 
 
                         if (As_mangas_estão_invioláveis == null || Estão_protegidos_saco_plástico == null ||
@@ -813,6 +841,9 @@ namespace Copo_Coleta.Controllers
                                 Resultados = Resultados,
                                 data_de_inicio = data_de_inicio,
                                 data_de_termino = data_de_termino,
+                                executador = executador,
+                                auxiliador = auxiliador,
+                                resp_conf = resp_conf,
 
 
                             };
@@ -843,7 +874,7 @@ namespace Copo_Coleta.Controllers
         [HttpPost]
         public async Task<IActionResult> SalvarMassa(int os, int osDescricao, int osData, string rsi, string rci, string massamin, string fatcorrelacao, int rev, string orcamento,
           List<string> massa, List<string> peso,
-          ColetaModel.Descricao descricaocopos, [Bind("incerteza, data_de_inicio, data_de_termino")] ColetaModel.Tablemassa tablemassa)
+          ColetaModel.Descricao descricaocopos, [Bind("incerteza, data_de_inicio, data_de_termino,executador,auxiliador,resp_conf")] ColetaModel.Tablemassa tablemassa)
         {
             try
             {
@@ -1047,6 +1078,9 @@ namespace Copo_Coleta.Controllers
                         //pegando os valores enviados pelo html.
                         var data_de_inicio = tablemassa.data_de_inicio;
                         var data_de_termino = tablemassa.data_de_termino;
+                        string executador = tablemassa.executador;
+                        string auxiliador = tablemassa.auxiliador;
+                        string resp_conf = tablemassa.resp_conf;
                         //Fazendo a conta qdo RCI (Se o Obtida(Resultfinal) - a incerteza(verificarincerteza)
                         //é >= ao especificada, entao é "CONFORME", se não é "NÃO CONFORME".
 
@@ -1082,7 +1116,10 @@ namespace Copo_Coleta.Controllers
                             rsi = rsi,
                             rci = rci,
                             data_de_inicio = data_de_inicio,
-                            data_de_termino = data_de_termino
+                            data_de_termino = data_de_termino,
+                            executador = executador,
+                            auxiliador = auxiliador,
+                            resp_conf = resp_conf
 
                         };
                         _context.Add(compressaoDados);
@@ -1315,7 +1352,7 @@ namespace Copo_Coleta.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InstrumentosCompressao(int os, int Rev, string orcamento,string codigo, List<ColetaModel.instrumentosCompressao> instrumentos)
+        public async Task<IActionResult> InstrumentosCompressao(int os, int Rev, string orcamento, string codigo, List<ColetaModel.instrumentosCompressao> instrumentos)
         {
             try
             {
@@ -1411,7 +1448,7 @@ namespace Copo_Coleta.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> EnsaioDeCompressaoAndAmostras(int osDescricao, int os, string orcamento, int osData, int rev, string rsi, string rci, string capacidade_especificada, string capacidadeCopo, string valor_min_especificado, List<int> amostra, List<string> resistencia, ColetaModel.Descricao descricaoCopos, [Bind("Incerteza,data_de_inicio,data_de_termino")] ColetaModel.Compressao dadosCompressao)
+        public async Task<IActionResult> EnsaioDeCompressaoAndAmostras(int osDescricao, int os, string orcamento, int osData, int rev, string rsi, string rci, string capacidade_especificada, string capacidadeCopo, string valor_min_especificado, List<int> amostra, List<string> resistencia, ColetaModel.Descricao descricaoCopos, [Bind("Incerteza,data_de_inicio,data_de_termino,executador,auxiliador,resp_conf")] ColetaModel.Compressao dadosCompressao)
         {
             try
             {
@@ -1502,6 +1539,9 @@ namespace Copo_Coleta.Controllers
                         // pegando dados do html
                         var data_de_inicio = dadosCompressao.data_de_inicio;
                         var data_de_termino = dadosCompressao.data_de_termino;
+                        string executador = dadosCompressao.executador;
+                        string auxiliador = dadosCompressao.auxiliador;
+                        string resp_conf = dadosCompressao.resp_conf;
 
                         var compressaoDados = new ColetaModel.Compressao
                         {
@@ -1513,7 +1553,10 @@ namespace Copo_Coleta.Controllers
                             Valor_min_obtido = menor_valor_resistencia.ToString(),
                             Incerteza = pegarValorIncerteza.valor,
                             data_de_inicio = data_de_inicio,
-                            data_de_termino = data_de_termino
+                            data_de_termino = data_de_termino,
+                            executador = executador,
+                            auxiliador = auxiliador,
+                            resp_conf = resp_conf
                         };
 
                         _context.Add(compressaoDados);
@@ -1738,98 +1781,6 @@ namespace Copo_Coleta.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> PesquisarInstrumentos(int os, string orcamento, int Rev, string codigo, List<ColetaModel.Instrumentos> instrumentos, int? instrumetosExcluir)
-        {
-            try
-            {
-                if (orcamento != null)
-                {
-                    if (codigo != null || string.IsNullOrEmpty(codigo))
-                    {
-                        string codigoPesquisa = codigo.ToUpper();
-                        var pesquisarInstrumentos = _bancocontext.cad_instr
-                            .Where(x => x.Codigo == codigoPesquisa && x.laboratorio == "ESP")
-                            .FirstOrDefault();
-
-                        if (pesquisarInstrumentos != null)
-                        {
-
-                            var salvarInstrumentos = new ColetaModel.Instrumentos
-                            {
-                                os = os,
-                                orcamento = orcamento,
-                                rev = Rev,
-                                codigo = codigoPesquisa,
-                                descricao = pesquisarInstrumentos.descricaoins,
-                                certificado = pesquisarInstrumentos.NC,
-                                validade = pesquisarInstrumentos.data2,
-                                ativo = 1
-                            };
-                            _context.Add(salvarInstrumentos);
-
-                            await _context.SaveChangesAsync();
-
-                            TempData["Mensagem"] = "DADOS SALVO COM SUCESSO";
-                            return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
-
-                        }
-                        else
-                        {
-                            TempData["Mensagem"] = "Não Foi encontrado nenhum codigo. ";
-                            return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
-                        }
-                    }
-                    else
-                    {
-                        TempData["Mensagem"] = "Não foi inserido nenhum codigo ";
-                        return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
-                    }
-
-                }
-                else
-                {
-                    TempData["Mensagem"] = "NÃO FOI POSSIVEL SALVAR OS DADOS ";
-                    return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error", ex.Message);
-                throw;
-            }
-        }
-        public async Task<IActionResult> ExcluirInstrumentos(int os, string orcamento, int Rev)
-        {
-            try
-            {
-                //VERIFICANDO O ULTIMO DADO NA TABELA E PASSANDO O ATIVO PARA 0.
-                var apagarInstrumento = _context.copos_instrumentos
-                                        .Where(x => x.os == os && x.rev == Rev && x.ativo == 1)
-                                        .OrderByDescending(x => x.Id)
-                                        .LastOrDefault();
-
-                if (apagarInstrumento != null)
-                {
-                    apagarInstrumento.ativo = 0;
-                    await _context.SaveChangesAsync();
-
-                    TempData["Mensagem"] = " Instrumento excluído com sucesso";
-                    return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
-                }
-                else
-                {
-                    TempData["Mensagem"] = "Não foi possivel excluir codigo";
-                    return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error", ex.Message);
-                throw;
-            }
-        }
-
         public async Task<IActionResult> condicionamentoAmostra(int os, string orcamento, int Rev, [Bind("ini_dat_acond,ter_data_acond,tem_min_encon,temp_max_encont,ini_hora_acond,term_hora_acond,umid_min_encon,umid_max_encon,im_utilizado,responsavel")] ColetaModel.CondicionamentoMinimo salvarCondMin, [Bind("ini_dat_acond_max,ter_data_acond_max,tem_min_encon_max,temp_max_encont_max,ini_hora_acond_max,term_hora_acond_max,umid_min_encon_max,umid_max_encon_max,im_utilizado_max,responsavel_max")] ColetaModel.CondicMaximo salvarCondMax)
         {
             try
@@ -1972,7 +1923,7 @@ namespace Copo_Coleta.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InstrumentosCondicionamento(int os, string orcamento, int Rev,string codigo, List<ColetaModel.instrumentosCond> instrumentos)
+        public async Task<IActionResult> InstrumentosCondicionamento(int os, string orcamento, int Rev, string codigo, List<ColetaModel.instrumentosCond> instrumentos)
         {
             try
             {
