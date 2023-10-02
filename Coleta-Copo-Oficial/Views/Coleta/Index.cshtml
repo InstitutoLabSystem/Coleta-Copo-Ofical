@@ -53,13 +53,13 @@
                         <tr>
                             @if (Model.oDatas == null)
                             {
-                                <td style="text-align:center;"><input type="datetime-local" name="data_de_início" class="form-control" style="border: none" /></td>
-                                <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none" /></td>
+                                <td style="text-align:center;"><input type="date" name="data_de_início" class="form-control" style="border: none" /></td>
+                                <td><input type="date" name="data_de_termino" class="form-control" style="border: none" /></td>
                             }
                             else
                             {
-                                <td><input type="text" value="@Model.oDatas.data_de_início" name="data_de_início" class="form-control" style="border: none" /> </td>
-                                <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oDatas.data_de_termino" style="border: none" /></td>
+                                <td><input type="text" value="@Model.oDatas.data_de_início.ToString("dd/MM/yyyy")" name="data_de_início" class="form-control" style="border: none" /> </td>
+                                <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oDatas.data_de_termino.ToString("dd/MM/yyyy")" style="border: none" /></td>
                             }
                         </tr>
                     </tbody>
@@ -207,6 +207,8 @@
                     </tbody>
                 </table>
 
+               
+
             }
             <br />
             @if (Model.oCondicionamentoMaximo == null)
@@ -253,6 +255,10 @@
                         </tr>
                     </tbody>
                 </table>
+
+                   <div class="d-grid gap-2">
+                    <button type="submit" value="condicionamentoAmostra" class="btn btn-outline-danger"> Salvar </button>
+                </div>
             }
             else
             {
@@ -298,11 +304,13 @@
                         </tr>
                     </tbody>
                 </table>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" value="condicionamentoAmostra" class="btn btn-outline-success">Editar</button>
+                </div>
             }
 
-            <div class="d-grid gap-2">
-                <button type="submit" value="condicionamentoAmostra" class="btn btn-outline-success">Salvar</button>
-            </div>
+            
 
 
         </form>
@@ -327,13 +335,13 @@
                     <tr>
                         @if (Model.oAspectosvisuais == null)
                         {
-                            <td style="text-align:center;"><input type="datetime-local" name="data_de_inicio" class="form-control" style="border: none" /></td>
-                            <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none"/></td>
+                            <td style="text-align:center;"><input type="date" name="data_de_inicio" class="form-control" style="border: none" /></td>
+                            <td><input type="date" name="data_de_termino" class="form-control" style="border: none"/></td>
                         }
                         else
                         {
-                            <td><input type="text" value="@Model.oAspectosvisuais.data_de_inicio" name="data_de_inicio" class="form-control" style="border: none"/> </td>
-                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oAspectosvisuais.data_de_termino" style="border: none"/></td>
+                            <td><input type="text" value="@Model.oAspectosvisuais.data_de_inicio.ToString("dd/MM/yyyy")" name="data_de_inicio" class="form-control" style="border: none" /> </td>
+                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oAspectosvisuais.data_de_termino.ToString("dd/MM/yyyy")" style="border: none" /></td>
                         }
                     </tr>
                 </tbody>
@@ -577,8 +585,8 @@
                     <tr>
                         @if (Model.oTablemassa == null)
                         {
-                            <td style="text-align:center;"><input type="datetime-local" name="data_de_inicio" class="form-control" style="border: none"/></td>
-                            <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none"/></td>
+                            <td style="text-align:center;"><input type="date" name="data_de_inicio" class="form-control" style="border: none"/></td>
+                            <td><input type="date" name="data_de_termino" class="form-control" style="border: none"/></td>
                         }
                         else
                         {
@@ -1343,13 +1351,13 @@
                     <tr>
                         @if (Model.oCompressao == null)
                         {
-                            <td style="text-align:center;"><input type="datetime-local" name="data_de_inicio" class="form-control" style="border: none"/></td>
-                            <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none"/></td>
+                            <td style="text-align:center;"><input type="date" name="data_de_inicio" class="form-control" style="border: none"/></td>
+                            <td><input type="date" name="data_de_termino" class="form-control" style="border: none"/></td>
                         }
                         else
                         {
-                            <td><input type="text" value="@Model.oCompressao.data_de_inicio" name="data_de_inicio" class="form-control" style="border: none"/> </td>
-                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oCompressao.data_de_termino" style="border: none"/></td>
+                            <td><input type="text" value="@Model.oCompressao.data_de_inicio.ToString("dd/MM/yyyy")" name="data_de_inicio" class="form-control" style="border: none" /> </td>
+                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oCompressao.data_de_termino.ToString("dd/MM/yyyy")" style="border: none"/></td>
                         }
                     </tr>
                 </tbody>
@@ -1487,13 +1495,13 @@
                     <tr>
                         @if (Model.oEmbalagem == null)
                         {
-                            <td style="text-align:center;"><input type="datetime-local" name="data_de_inicio" class="form-control" style="border: none" /></td>
-                            <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none" /></td>
+                            <td style="text-align:center;"><input type="date" name="data_de_inicio" class="form-control" style="border: none" /></td>
+                            <td><input type="date" name="data_de_termino" class="form-control" style="border: none" /></td>
                         }
                         else
                         {
-                            <td><input type="text" value="@Model.oEmbalagem.data_de_inicio" name="data_de_inicio" class="form-control" style="border: none" /> </td>
-                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oEmbalagem.data_de_termino" style="border: none" /></td>
+                            <td><input type="text" value="@Model.oEmbalagem.data_de_inicio.ToString("dd/MM/yyyy")" name="data_de_inicio" class="form-control" style="border: none" /> </td>
+                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oEmbalagem.data_de_termino.ToString("dd/MM/yyyy")" style="border: none" /></td>
                         }
                     </tr>
                 </tbody>
@@ -1633,15 +1641,15 @@
                     <tr>
                         @if (Model.oMarcacao == null || Model.oMarcacao.Count == 0)
                         {
-                            <td style="text-align:center;"><input type="datetime-local" name="data_de_inicio" class="form-control" style="border: none" /></td>
-                            <td><input type="datetime-local" name="data_de_termino" class="form-control" style="border: none" /></td>
+                            <td style="text-align:center;"><input type="date" name="data_de_inicio" class="form-control" style="border: none" /></td>
+                            <td><input type="date" name="data_de_termino" class="form-control" style="border: none" /></td>
                         }
                         else
                         {
                             @foreach (var item in Model.oMarcacao)
                             {
-                                <td><input type="text" value="@item.data_de_inicio" name="data_de_inicio" class="form-control" style="border: none" /> </td>
-                                <td><input type="text" name="data_de_termino" class="form-control" value="@item.data_de_termino" style="border: none" /></td>
+                                <td><input type="text" value="@item.data_de_inicio.ToString("dd/MM/yyyy")" name="data_de_inicio" class="form-control" style="border: none" /> </td>
+                                <td><input type="text" name="data_de_termino" class="form-control" value="@item.data_de_termino.ToString("dd/MM/yyyy")" style="border: none" /></td>
                             }
                         }
                     </tr>

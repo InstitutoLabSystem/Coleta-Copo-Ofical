@@ -243,6 +243,7 @@ namespace Copo_Coleta.Controllers
                     var descricaoExistente = _context.copos_descricao.FirstOrDefault(d => d.os == os && d.rev == Rev);
                     if (descricaoExistente != null)
                     {
+
                         descricaoExistente.qtd_recebida = qtd_recebida;
                         descricaoExistente.qtd_ensaiada = qtd_ensaiada;
                         descricaoExistente.capacidade_copo = capacidade_copo;
@@ -955,11 +956,193 @@ namespace Copo_Coleta.Controllers
                             }
                         };
 
+
+                        var pegarValoresDescricao = _context.copos_descricao
+                        .Where(os => os.os == osDescricao)
+                        .Select(os => new
+                       {
+                           os.capacidade_copo,
+                           os.quant_manga,
+                           os.capacidade_manga,
+
+                       })
+                       .FirstOrDefault();
+
+                        double capacidadeCopo;
+                        capacidadeCopo = Double.Parse(pegarValoresDescricao.capacidade_copo);
                         var EditarTable = _context.copos_tablemassa.Where(a => a.os == os && a.Rev == rev).FirstOrDefault();
+
+                        if (capacidadeCopo == 1 && capacidadeCopo < 50)
+                        {
+                            EditarTable.fatcorrelacao = "0,00150";
+
+                            double correlacao;
+                            correlacao = Double.Parse(fatcorrelacao);
+                            double resultado = capacidadeCopo * correlacao;
+                            massamin = resultado.ToString("0.000");
+                            EditarTable.especificada = massamin;
+
+                        }
+                        if (pegarValoresDescricao.capacidade_copo == "50")
+                        {
+                            massamin = "0,75";
+                            EditarTable.fatcorrelacao = "0,0150";
+                            EditarTable.especificada = massamin;
+                        }
+                        if (capacidadeCopo >= 51 && capacidadeCopo <= 149 && capacidadeCopo != 80 && capacidadeCopo != 110)
+                        {
+                            fatcorrelacao = "0,00175";
+
+                            double correlacao;
+                            correlacao = Double.Parse(fatcorrelacao);
+                            double resultado = capacidadeCopo * correlacao;
+                            massamin = resultado.ToString("0.000");
+                            EditarTable.especificada = massamin;
+                            EditarTable.fatcorrelacao = fatcorrelacao;
+
+                        }
+                        if (pegarValoresDescricao.capacidade_copo == "80")
+                        {
+                            massamin = "1,40";
+                            fatcorrelacao = "0,0175";
+                            EditarTable.especificada = massamin;
+                            EditarTable.fatcorrelacao = fatcorrelacao;
+                        }
+                        if (pegarValoresDescricao.capacidade_copo == "110")
+                        {
+                            massamin = "1,90";
+                            fatcorrelacao = "0,0175";
+                            EditarTable.especificada = massamin;
+                            EditarTable.fatcorrelacao = fatcorrelacao;
+                        }
+                        if (pegarValoresDescricao.capacidade_copo == "150")
+                        {
+                            massamin = "1,35";
+                            fatcorrelacao = "0,0090";
+                            EditarTable.especificada = massamin;
+                            EditarTable.fatcorrelacao = fatcorrelacao;
+                        }
+                        if (capacidadeCopo >= 151 && capacidadeCopo <= 299 && capacidadeCopo != 180 && capacidadeCopo != 200 && capacidadeCopo != 250)
+                        {
+                            fatcorrelacao = "0,0090";
+
+                            double correlacao;
+                            correlacao = Double.Parse(fatcorrelacao);
+                            double resultado = capacidadeCopo * correlacao;
+                            massamin = resultado.ToString("0.000");
+                            EditarTable.especificada = massamin;
+                            EditarTable.fatcorrelacao = fatcorrelacao;
+
+                        }
+                        if (pegarValoresDescricao.capacidade_copo == "180")
+                        {
+                            massamin = "1,62";
+                            fatcorrelacao = "0,0090";
+                            EditarTable.especificada = massamin;
+                            EditarTable.fatcorrelacao = fatcorrelacao;
+                        }
+                        if (pegarValoresDescricao.capacidade_copo == "200")
+                        {
+                            massamin = "1,80";
+                            fatcorrelacao = "0,0090";
+                            EditarTable.especificada = massamin;
+                            EditarTable.fatcorrelacao = fatcorrelacao;
+                        }
+                        if (pegarValoresDescricao.capacidade_copo == "250")
+                        {
+                            massamin = "2,25";
+                            fatcorrelacao = "0,0090";
+                            EditarTable.especificada = massamin;
+                            EditarTable.fatcorrelacao = fatcorrelacao;
+                        }
+                        if (pegarValoresDescricao.capacidade_copo == "300")
+                        {
+                            massamin = "2,70";
+                            fatcorrelacao = "0,0090";
+                            EditarTable.especificada = massamin;
+                            EditarTable.fatcorrelacao = fatcorrelacao;
+                        }
+                        if (capacidadeCopo >= 301 && capacidadeCopo <= 329)
+                        {
+                            fatcorrelacao = "0,0110";
+
+                            double correlacao;
+                            correlacao = Double.Parse(fatcorrelacao);
+                            double resultado = capacidadeCopo * correlacao;
+                            massamin = resultado.ToString("0.000");
+                            EditarTable.especificada = massamin;
+                            EditarTable.fatcorrelacao = fatcorrelacao;
+
+                        }
+                        if (pegarValoresDescricao.capacidade_copo == "330")
+                        {
+                            massamin = "3,63";
+                            fatcorrelacao = "0,0110";
+                            EditarTable.especificada = massamin;
+                            EditarTable.fatcorrelacao = fatcorrelacao;
+                        }
+                        if (capacidadeCopo >= 331 && capacidadeCopo <= 549 && capacidadeCopo != 400 && capacidadeCopo != 440 &&
+                            capacidadeCopo != 500)
+                        {
+                            fatcorrelacao = "0,0126";
+
+                            double correlacao;
+                            correlacao = Double.Parse(fatcorrelacao);
+                            double resultado = capacidadeCopo * correlacao;
+                            massamin = resultado.ToString("0.000");
+                            EditarTable.especificada = massamin;
+                            EditarTable.fatcorrelacao = fatcorrelacao;
+
+                        }
+                        if (pegarValoresDescricao.capacidade_copo == "400")
+                        {
+                            massamin = "5,00";
+                            fatcorrelacao = "0,0126";
+                            EditarTable.especificada = massamin;
+                            EditarTable.fatcorrelacao = fatcorrelacao;
+                        }
+                        if (pegarValoresDescricao.capacidade_copo == "440")
+                        {
+                            massamin = "5,54";
+                            fatcorrelacao = "0,0126";
+                            EditarTable.especificada = massamin;
+                            EditarTable.fatcorrelacao = fatcorrelacao;
+                        }
+                        if (pegarValoresDescricao.capacidade_copo == "500")
+                        {
+                            massamin = "6,30";
+                            fatcorrelacao = "0,0126";
+                            EditarTable.especificada = massamin;
+                            EditarTable.fatcorrelacao = fatcorrelacao;
+                        }
+                        if (pegarValoresDescricao.capacidade_copo == "550")
+                        {
+                            massamin = "6,93";
+                            fatcorrelacao = "0,0126";
+                            EditarTable.especificada = massamin;
+                            EditarTable.fatcorrelacao = fatcorrelacao;
+                        }
+                        if (capacidadeCopo >= 551 && capacidadeCopo != 770)
+                        {
+                            fatcorrelacao = "0,0156";
+
+                            double correlacao;
+                            correlacao = Double.Parse(fatcorrelacao);
+                            double resultado = capacidadeCopo * correlacao;
+                            massamin = resultado.ToString("0.000");
+                            EditarTable.especificada = massamin;
+                            EditarTable.fatcorrelacao = fatcorrelacao;
+                        }
+                        if (pegarValoresDescricao.capacidade_copo == "770")
+                        {
+                            massamin = "12,00";
+                            fatcorrelacao = "0,0156";
+                            EditarTable.especificada = massamin;
+                            EditarTable.fatcorrelacao = fatcorrelacao;
+                        }
+
                         // Editando o obtida, que é o valor média dos números dividida por 10
                         List<double> numeros = peso.Select(s => s == "---" ? 0 : double.Parse(s)).ToList();
-
-
                         double soma = numeros.Sum();
                         double mediaAritmetica = soma / numeros.Count;
                         double Resultfinal = mediaAritmetica / 10;
@@ -1008,6 +1191,7 @@ namespace Copo_Coleta.Controllers
                         EditarTable.rci = rci;
                         EditarTable.data_de_inicio = data_de_inicio;
                         EditarTable.data_de_termino = data_de_termino;
+                      
 
                         await _context.SaveChangesAsync();
                         TempData["Mensagem"] = "Editado com sucesso!!";
