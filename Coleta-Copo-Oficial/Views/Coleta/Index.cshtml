@@ -1,4 +1,4 @@
-﻿@model Copo_Coleta.Models.ColetaViewModel
+@model Copo_Coleta.Models.ColetaViewModel
 
 @{
     ViewData["Title"] = "Coleta";
@@ -96,7 +96,43 @@
                         </tr>
                     </tbody>
                 </table>
+                <br />
+                @if (Model.oDescricao == null)
+                {
+                    <div class="row">
+                        <div class="col-md-3 position-relative">
+                            <label for="executador" id="executador">Executador:</label>
+                            <input readonly type="text" class="form-control" name="executador" id="executador" value="@ViewBag.NomeCompleto">
+                        </div>
+                        <div class="col-md-3 position-relative">
+                            <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                            <input type="text" class="form-control" name="auxiliador" id="auxiliador">
+                        </div>
+                        <div class="col-md-3 position-relative">
+                            <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                            <input type="text" class="form-control" name="resp_conf" id="resp_conf">
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-md-3 position-relative">
+                            <label for="executador" id="executador">Executador:</label>
+                            <input readonly type="text" class="form-control" name="executador" id="executador" value="@Model.oDescricao.executador" />
+                        </div>
+                        <div class="col-md-3 position-relative">
+                            <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                            <input readonly type="text" class="form-control" name="auxiliador" id="auxiliador" value="@Model.oDescricao.auxiliador" />
+                        </div>
+                        <div class="col-md-3 position-relative">
+                            <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                            <input readonly type="text" class="form-control" name="resp_conf" id="resp_conf" value="@Model.oDescricao.resp_conf" />
+                        </div>
+                    </div>
+                }
 
+                <br />
                 <div class="d-grid gap-2">
                     @if (Model.oDatas == null)
                     {
@@ -186,7 +222,7 @@
                         </tr>
                         <tr>
                             <td>Inicio:</td>
-                            <td> <input class="form-control" type="text" name="ini_dat_acond" value="@Model.oCondicionamento.ini_dat_acond" /></td>
+                            <td> <input class="form-control" type="text" name="ini_dat_acond" value="@Model.oCondicionamento.ini_dat_acond.ToString("dd/MM/yyyy")" /></td>
                             <td>Inicio:</td>
                             <td> <input class="form-control" type="time" name="ini_hora_acond" value="@Model.oCondicionamento.ini_hora_acond" /></td>
                             <td>Mínimo:</td>
@@ -196,7 +232,7 @@
                         </tr>
                         <tr>
                             <td>Termino:</td>
-                            <td> <input class="form-control" type="text" name="ter_data_acond" value="@Model.oCondicionamento.ter_data_acond" /> </td>
+                            <td> <input class="form-control" type="text" name="ter_data_acond" value="@Model.oCondicionamento.ter_data_acond.ToString("dd/MM/yyyy")" /> </td>
                             <td>Termino:</td>
                             <td> <input class="form-control" type="time" name="term_hora_acond" value="@Model.oCondicionamento.term_hora_acond" /></td>
                             <td>Máximo: </td>
@@ -210,6 +246,7 @@
                
 
             }
+
             <br />
             @if (Model.oCondicionamentoMaximo == null)
             {
@@ -283,7 +320,7 @@
                         </tr>
                         <tr>
                             <td>Inicio:</td>
-                            <td> <input class="form-control" type="text" name="ini_dat_acond_max" value="@Model.oCondicionamentoMaximo.ini_dat_acond_max" /></td>
+                            <td> <input class="form-control" type="text" name="ini_dat_acond_max" value="@Model.oCondicionamentoMaximo.ini_dat_acond_max.ToString("dd/MM/yyyy")" /></td>
                             <td>Inicio:</td>
                             <td> <input class="form-control" type="time" name="ini_hora_acond_max" value="@Model.oCondicionamentoMaximo.ini_hora_acond_max" /></td>
                             <td>Mínimo:</td>
@@ -294,7 +331,7 @@
                         </tr>
                         <tr>
                             <td>Termino:</td>
-                            <td> <input class="form-control" type="text" name="ter_data_acond_max" value="@Model.oCondicionamentoMaximo.ter_data_acond_max" /> </td>
+                            <td> <input class="form-control" type="text" name="ter_data_acond_max" value="@Model.oCondicionamentoMaximo.ter_data_acond_max.ToString("dd/MM/yyyy")" /> </td>
                             <td>Termino:</td>
                             <td> <input class="form-control" type="time" name="term_hora_acond_max" value="@Model.oCondicionamentoMaximo.term_hora_acond_max" /></td>
                             <td>Máximo: </td>
@@ -310,10 +347,67 @@
                 </div>
             }
 
-            
-
-
+            <div class="d-grid gap-2">
+                <button type="submit" value="condicionamentoAmostra" class="btn btn-outline-success">Salvar </button>
+            </div>
         </form>
+        <br />
+        <form method="post" asp-action="InstrumentosCondicionamento" asp-controller="Coleta" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]>
+            <div class="container p-3">
+                <div class="d-flex align-items-end justify-content-between">
+                    <div class="mr-3 w-100">
+                        <p class="rotulo-instrumento">Tipo</p>
+                        <input type="text" disabled class="form-control" placeholder="IM/DE/EE">
+                    </div>
+                    <div class="mr-3 w-100">
+                        <p class="rotulo-instrumento">Código/Lote</p>
+                        <input type="text" name="Codigo" class="form-control" id="codigo">
+                    </div>
+                    <div>
+                        <p type="hidden" class="rotulo-instrumento"></p>
+                        <input type="text" hidden name="instrumetosExcluir" class="form-control" id="codigo">
+                    </div>
+                </div>
+
+                <table class="table table-bordered border-secondary table-instrumentos">
+                    <Br />
+                    <thead class="tablestyle">
+                        <tr>
+                            <td>Código/Lote</td>
+                            <td>Descrição</td>
+                            <td>Certificado</td>
+                            <td>Validade</td>
+
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-instrumentos">
+                    @foreach (var instrumentos in Model.oCondInstrumentos)
+                    {
+                        @if (instrumentos.ativo == 1)
+                        {
+                                <tr>
+                                    <td>@instrumentos.codigo</td>
+                                    <td>@instrumentos.descricao</td>
+                                    <td>@instrumentos.certificado</td>
+                                    <td>@instrumentos.validade</td>
+                                </tr>
+                        }
+                    }
+                    </tbody>
+                </table>
+
+                <div class="teste">
+                    <button type="submit" value="InstrumentosCondicionamento" class="btn btn-outline-danger"> Adicionar Instrumentos.  </button>
+                </div>
+        </form>
+        @if (Model.oCondInstrumentos.Count > 0)
+        {
+            <form asp-controller="Coleta" asp-action="ExcInstrumentosCondicionamento" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
+                <div>
+                    <button type="submit" value="ExcInstrumentosCondicionamento" class="btn btn-danger"> Excluir Codigo </button>
+                </div>
+            </form>
+        }
         <!-- Final Condicionamento das amostras  -->
         <!-- Inicio 4.2 Aspectos Visuais -->
         <hr style="color:darkred" />
@@ -369,18 +463,12 @@
                                     <option></option>
                                     <option value="Sim">Sim</option>
                                     <option value="Não">Não</option>
-                                    <option value="---">---</option>
+                                    <option value="Na">---</option>
                                 </select>
                             </td>
                             <td>
-                                <select class="form-control" name="quatro_dois_um_Resul">
-                                    <option></option>
-                                    <option value="C">C</option>
-                                    <option value="NC">NC</option>
-                                    <option value="NA">NA</option>
-                                </select>
+                                <input disabled type="text" name="quatro_dois_um_Resul" class="form-control" style="border: none" />
                             </td>
-                            @* <td><input type="text" name="quatro_dois_um_Resul" class="form-control" style="border: none" /></td> *@
                         </tr>
                     </tbody>
                 </table>
@@ -407,13 +495,10 @@
                                 </select>
                             </td>
 
+
+
                             <td>
-                                <select class="form-control" name="quatro_dois_dois_Resul">
-                                    <option></option>
-                                    <option value="C">C</option>
-                                    <option value="NC">NC</option>
-                                    <option value="NA">NA</option>
-                                </select>
+                                <input disabled type="text" name="quatro_dois_dois_Resul" class="form-control" style="border: none" />
                             </td>
                         </tr>
                     </tbody>
@@ -442,17 +527,28 @@
                                 </select>
                             </td>
                             <td>
-                                <select class="form-control" name="quatro_dois_tres_Resul">
-                                    <option></option>
-                                    <option value="C">C</option>
-                                    <option value="NC">NC</option>
-                                    <option value="NA">NA</option>
-                                </select>
+                                <input disabled type="text" name="quatro_dois_tres_Resul" class="form-control" style="border: none" />
                             </td>
                         </tr>
 
                     </tbody>
                 </table>
+                <br />
+                <div class="row">
+                    <div class="col-md-3 position-relative">
+                        <label for="executador" id="executador">Executador:</label>
+                        <input readonly type="text" class="form-control" name="executador" id="executador" value="@ViewBag.NomeCompleto" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                        <input type="text" class="form-control" name="auxiliador" id="auxiliador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                        <input type="text" class="form-control" name="resp_conf" id="resp_conf" />
+                    </div>
+                </div>
+                <br />
                 <div class="d-grid gap-2">
                     <button type="submit" value="SalvarAspectosVisuais" class="btn btn-outline-danger"> Salvar </button>
                 </div>
@@ -476,16 +572,11 @@
                                     <option>@Model.oAspectosvisuais.quatro_dois_um_Atende</option>
                                     <option value="Sim">Sim</option>
                                     <option value="Não">Não</option>
-                                    <option value="---">---</option>
+                                    <option value="Na">---</option>
                                 </select>
                             </td>
                             <td>
-                                <select class="form-control" name="quatro_dois_um_Resul">
-                                    <option>@Model.oAspectosvisuais.quatro_dois_um_Resul</option>
-                                    <option value="C">C</option>
-                                    <option value="NC">NC</option>
-                                    <option value="NA">NA</option>
-                                </select>
+                                <input type="text" Disabled name="quatro_dois_um_Resul" class="form-control" value="@Model.oAspectosvisuais.quatro_dois_um_Resul" style="border: none; font-weight:bold" />
                             </td>
                         </tr>
                     </tbody>
@@ -509,16 +600,11 @@
                                     <option>@Model.oAspectosvisuais.quatro_dois_dois_Atende</option>
                                     <option value="Sim">Sim</option>
                                     <option value="Não">Não</option>
-                                    <option value="---">---</option>
+                                    <option value="Na">---</option>
                                 </select>
                             </td>
                             <td>
-                                <select class="form-control" name="quatro_dois_dois_Resul">
-                                    <option>@Model.oAspectosvisuais.quatro_dois_dois_Resul</option>
-                                    <option value="C">C</option>
-                                    <option value="NC">NC</option>
-                                    <option value="NA">NA</option>
-                                </select>
+                                <input type="text" Disabled name="quatro_dois_dois_Resul" class="form-control" value="@Model.oAspectosvisuais.quatro_dois_dois_Resul" style="border: none; font-weight:bold" />
                             </td>
                         </tr>
                     </tbody>
@@ -543,22 +629,34 @@
                                     <option>@Model.oAspectosvisuais.quatro_dois_tres_Atende</option>
                                     <option value="Sim">Sim</option>
                                     <option value="Não">Não</option>
-                                    <option value="---">---</option>
+                                    <option value="Na">---</option>
                                 </select>
                             </td>
                             <td>
-                                <select class="form-control" name="quatro_dois_tres_Resul">
-                                    <option>@Model.oAspectosvisuais.quatro_dois_tres_Resul</option>
-                                    <option value="C">C</option>
-                                    <option value="NC">NC</option>
-                                    <option value="NA">NA</option>
-                                </select>
+                                <input type="text" Disabled name="quatro_dois_tres_Resul" class="form-control" value="@Model.oAspectosvisuais.quatro_dois_dois_Resul" style="border: none; font-weight:bold" />
                             </td>
 
                         </tr>
 
                     </tbody>
                 </table>
+
+                <br />
+                <div class="row">
+                    <div class="col-md-3 position-relative">
+                        <label for="executador" id="executador">Executador:</label>
+                        <input readonly type="text" class="form-control" name="executador" id="executador" value="@Model.oAspectosvisuais.executador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                        <input readonly type="text" class="form-control" name="auxiliador" id="auxiliador" value="@Model.oAspectosvisuais.auxiliador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                        <input readonly type="text" class="form-control" name="resp_conf" id="resp_conf" value="@Model.oAspectosvisuais.resp_conf" />
+                    </div>
+                </div>
+                <br />
                 <div class="d-grid gap-2">
                     <button type="submit" value="SalvarAspectosVisuais" class="btn btn-outline-success"> Editar </button>
                 </div>
@@ -590,8 +688,8 @@
                         }
                         else
                         {
-                            <td><input type="text" value="@Model.oTablemassa.data_de_inicio.ToString("dd/MM/yyyy")" name="data_de_inicio" class="form-control" style="border: none"/> </td>
-                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oTablemassa.data_de_termino.ToString("dd/MM/yyyy")" style="border: none"/></td>
+                            <td><input type="text" value="@Model.oTablemassa.data_de_inicio.ToString("dd/MM/yyyy")" name="data_de_inicio" class="form-control" style="border: none" /> </td>
+                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oTablemassa.data_de_termino.ToString("dd/MM/yyyy")" style="border: none" /></td>
                         }
                     </tr>
                 </tbody>
@@ -982,7 +1080,6 @@
                             </tr>
                         </tbody>
                     </table>
-
                 }
                 else
                 {
@@ -1313,6 +1410,44 @@
 
                 }
             </div>
+            @if (Model.oTablemassa == null)
+            {
+                <br />
+                <div class="row">
+                    <div class="col-md-3 position-relative">
+                        <label for="executador" id="executador">Executador:</label>
+                        <input readonly type="text" class="form-control" name="executador" id="executador" value="@ViewBag.NomeCompleto" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                        <input type="text" class="form-control" name="auxiliador" id="auxiliador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                        <input type="text" class="form-control" name="resp_conf" id="resp_conf" />
+                    </div>
+                </div>
+                <br />
+            }
+            else
+            {
+                <br />
+                <div class="row">
+                    <div class="col-md-3 position-relative">
+                        <label for="executador" id="executador">Executador:</label>
+                        <input readonly type="text" class="form-control" name="executador" id="executador" value="@Model.oTablemassa.executador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                        <input readonly type="text" class="form-control" name="auxiliador" id="auxiliador" value="@Model.oTablemassa.auxiliador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                        <input readonly type="text" class="form-control" name="resp_conf" id="resp_conf" value="@Model.oTablemassa.resp_conf" />
+                    </div>
+                </div>
+                <br />
+            }
 
             @if (Model.oMassa.Count == 0 || Model.oMassa == null)
             {
@@ -1330,8 +1465,63 @@
             }
 
         </form>
+        <br />
+        <form method="post" asp-action="InstrumentosMassa" asp-controller="Coleta" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]>
+            <div class="container p-3">
+                <div class="d-flex align-items-end justify-content-between">
+                    <div class="mr-3 w-100">
+                        <p class="rotulo-instrumento">Tipo</p>
+                        <input type="text" disabled class="form-control" placeholder="IM/DE/EE">
+                    </div>
+                    <div class="mr-3 w-100">
+                        <p class="rotulo-instrumento">Código/Lote</p>
+                        <input type="text" name="Codigo" class="form-control" id="codigo">
+                    </div>
+                    <div>
+                        <p type="hidden" class="rotulo-instrumento"></p>
+                        <input type="text" hidden name="instrumetosExcluir" class="form-control" id="codigo">
+                    </div>
+                </div>
 
+                <table class="table table-bordered border-secondary table-instrumentos">
+                    <Br />
+                    <thead class="tablestyle">
+                        <tr>
+                            <td>Código/Lote</td>
+                            <td>Descrição</td>
+                            <td>Certificado</td>
+                            <td>Validade</td>
 
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-instrumentos">
+                    @foreach (var instrumentos in Model.oInstrumentosMassa)
+                    {
+                        @if (instrumentos.ativo == 1)
+                        {
+                                <tr>
+                                    <td>@instrumentos.codigo</td>
+                                    <td>@instrumentos.descricao</td>
+                                    <td>@instrumentos.certificado</td>
+                                    <td>@instrumentos.validade</td>
+                                </tr>
+                        }
+                    }
+                    </tbody>
+                </table>
+
+                <div class="teste">
+                    <button type="submit" value="InstrumentosMassa" class="btn btn-outline-danger"> Adicionar Instrumentos.  </button>
+                </div>
+        </form>
+        @if (Model.oCondInstrumentos.Count > 0)
+        {
+            <form asp-controller="Coleta" asp-action="ExcInstrumentosMassa" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
+                <div>
+                    <button type="submit" value="ExcInstrumentosMassa" class="btn btn-danger"> Excluir Codigo </button>
+                </div>
+            </form>
+        }
 
         <!-- Final 4.3 Massa -->
         <!-- Inicio coleta 4.4 Resistência à compressão lateral-->
@@ -1456,8 +1646,44 @@
                         }
                     }
                 </tbody>
-
             </table>
+            <br />
+            @if (Model.oCompressao == null)
+            {
+                <div class="row">
+                    <div class="col-md-3 position-relative">
+                        <label for="executador" id="executador">Executador:</label>
+                        <input readonly type="text" class="form-control" name="executador" id="executador" value="@ViewBag.NomeCompleto" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                        <input type="text" class="form-control" name="auxiliador" id="auxiliador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                        <input type="text" class="form-control" name="resp_conf" id="resp_conf" />
+                    </div>
+                </div>
+                <br />
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-3 position-relative">
+                        <label for="executador" id="executador">Executador:</label>
+                        <input readonly type="text" class="form-control" name="executador" id="executador" value="@Model.oCompressao.executador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                        <input readonly type="text" class="form-control" name="auxiliador" id="auxiliador" value="@Model.oCompressao.auxiliador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                        <input readonly type="text" class="form-control" name="resp_conf" id="resp_conf" value="@Model.oCompressao.resp_conf" />
+                    </div>
+                </div>
+                <br />
+            }
             @if (Model.oAmostra == null || Model.oAmostra.Count == 0)
             {
                 <div class="d-grid gap-2">
@@ -1470,8 +1696,64 @@
                     <button type="submit" value="EnsaioDeCompressaoAndAmostras" class="btn btn-outline-success">Editar</button>
                 </div>
             }
-
         </form>
+        <br />
+        <form method="post" asp-action="InstrumentosCompressao" asp-controller="Coleta" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]>
+            <div class="container p-3">
+                <div class="d-flex align-items-end justify-content-between">
+                    <div class="mr-3 w-100">
+                        <p class="rotulo-instrumento">Tipo</p>
+                        <input type="text" disabled class="form-control" placeholder="IM/DE/EE">
+                    </div>
+                    <div class="mr-3 w-100">
+                        <p class="rotulo-instrumento">Código/Lote</p>
+                        <input type="text" name="Codigo" class="form-control" id="codigo">
+                    </div>
+                    <div>
+                        <p type="hidden" class="rotulo-instrumento"></p>
+                        <input type="text" hidden name="instrumetosExcluir" class="form-control" id="codigo">
+                    </div>
+                </div>
+
+                <table class="table table-bordered border-secondary table-instrumentos">
+                    <Br />
+                    <thead class="tablestyle">
+                        <tr>
+                            <td>Código/Lote</td>
+                            <td>Descrição</td>
+                            <td>Certificado</td>
+                            <td>Validade</td>
+
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-instrumentos">
+                    @foreach (var instrumentos in Model.oInstrumentosCompressao)
+                    {
+                        @if (instrumentos.ativo == 1)
+                        {
+                                <tr>
+                                    <td>@instrumentos.codigo</td>
+                                    <td>@instrumentos.descricao</td>
+                                    <td>@instrumentos.certificado</td>
+                                    <td>@instrumentos.validade</td>
+                                </tr>
+                        }
+                    }
+                    </tbody>
+                </table>
+
+                <div class="teste">
+                    <button type="submit" value="InstrumentosCompressao" class="btn btn-outline-danger"> Adicionar Instrumentos.  </button>
+                </div>
+        </form>
+        @if (Model.oCondInstrumentos.Count > 0)
+        {
+            <form asp-controller="Coleta" asp-action="ExcInstrumentosCompressao" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
+                <div>
+                    <button type="submit" value="ExcInstrumentosCompressao" class="btn btn-danger"> Excluir Codigo </button>
+                </div>
+            </form>
+        }
 
         <!-- Final coleta 4.4 Resistência à compressão lateral-->
 
@@ -1506,8 +1788,8 @@
                     </tr>
                 </tbody>
             </table>
-            
-            
+
+
             <table class="table table-bordered border-secondary table table-sm">
 
                 <tr class="tablestyle">
@@ -1531,7 +1813,6 @@
                                 <option value="Sim">Sim</option>
                                 <option value="Não">Não</option>
                             </select>
-                            @* <input type="text" name="As_Mangas_estão_invioláveis" class="form-control" style="border: none; width: 200px; height: 100px;" /> *@
                         </td>
                         <td rowspan="2">
                             <select name="Estão_protegidos_saco_plástico" class=" form-control" style="width: 200px; height: 100px; text-align:center;">
@@ -1540,8 +1821,23 @@
                                 <option value="Não">Não</option>
                             </select>
                         </td>
-                        <td><input type="text" name="Capacidade_total" class="form-control" style="border: none" /></td>
-                        <td><input type="text" name="Quantidade_de_copos" class="form-control" style="border: none" /></td>
+                        <td>
+                            <select name="Capacidade_total" class=" form-control">
+                                <option></option>
+                                <option value="Sim">Sim</option>
+                                <option value="Não">Não</option>
+                                <option value="NA">---</option>
+                            </select>
+
+                        </td>
+                        <td>
+                            <select name="Quantidade_de_copos" class=" form-control">
+                                <option></option>
+                                <option value="Sim">Sim</option>
+                                <option value="Não">Não</option>
+                                <option value="NA">---</option>
+                            </select>
+                        </td>
                         <td rowspan="2" style="border: 1px solid ;width: 200px; height: 100px; ">
                             <select name="Rastreabilidade" class=" form-control" style="width: 200px; height: 100px; text-align:center;">
                                 <option></option>
@@ -1562,7 +1858,6 @@
                     <tr>
                         <td><input type="text" name="Capacidade_total_Evidencia" class="form-control" style="border: none" /></td>
                         <td><input type="text" name="Quantidade_copos_Evidencia" class="form-control" style="border: none" /></td>
-                        @*<td style=" border: 1px solid transparent;"></td>*@
                     </tr>
                 }
                 else
@@ -1582,8 +1877,26 @@
                                 <option value="Não">Não</option>
                             </select>
                         </td>
-                        <td><input type="text" name="Capacidade_total" class="form-control" style="border: none" value="@Model.oEmbalagem.Capacidade_total" /></td>
-                        <td><input type="text" name="Quantidade_de_copos" class="form-control" style="border: none" value="@Model.oEmbalagem.Quantidade_de_copos" /></td>
+                        <td>
+                            <select name="Capacidade_total" class=" form-control">
+                                <option>@Model.oEmbalagem.Capacidade_total</option>
+                                <option value="Sim">Sim</option>
+                                <option value="Não">Não</option>
+                                <option value="NA">---</option>
+                            </select>
+                            @*                             <input type="text" name="Capacidade_total" class="form-control" style="border: none" value="@Model.oEmbalagem.Capacidade_total" />
+                        *@
+                        </td>
+                        <td>
+                            <select name="Quantidade_de_copos" class=" form-control">
+                                <option>@Model.oEmbalagem.Quantidade_de_copos</option>
+                                <option value="Sim">Sim</option>
+                                <option value="Não">Não</option>
+                                <option value="NA">---</option>
+                            </select>
+                            @*                             <input type="text" name="Quantidade_de_copos" class="form-control" style="border: none" value="@Model.oEmbalagem.Quantidade_de_copos" />
+                        *@
+                        </td>
                         <td rowspan="2" style="border: 1px solid; ">
                             <select name="Rastreabilidade" class=" form-control" style="width: 200px; height: 100px; text-align:center;">
                                 <option>@Model.oEmbalagem.Rastreabilidade</option>
@@ -1602,12 +1915,50 @@
                     </tr>
 
                     <tr>
+
                         <td><input type="text" name="Capacidade_total_Evidencia" class="form-control" style="border: none" value="@Model.oEmbalagem.Capacidade_total_Evidencia" /></td>
                         <td><input type="text" name="Quantidade_copos_Evidencia" class="form-control" style="border: none" value="@Model.oEmbalagem.Quantidade_copos_Evidencia" /></td>
                         @*<td style=" border: 1px solid transparent;"></td>*@
                     </tr>
                 }
             </table>
+            @if (Model.oEmbalagem == null)
+            {
+                <div class="row">
+                    <div class="col-md-3 position-relative">
+                        <label for="executador" id="executador">Executador:</label>
+                        <input readonly type="text" class="form-control" name="executador" id="executador" value="@ViewBag.NomeCompleto" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                        <input type="text" class="form-control" name="auxiliador" id="auxiliador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                        <input type="text" class="form-control" name="resp_conf" id="resp_conf" />
+                    </div>
+                </div>
+                <br />
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-3 position-relative">
+                        <label for="executador" id="executador">Executador:</label>
+                        <input readonly type="text" class="form-control" name="executador" id="executador" value="@Model.oEmbalagem.executador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                        <input readonly type="text" class="form-control" name="auxiliador" id="auxiliador" value="@Model.oEmbalagem.auxiliador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                        <input readonly type="text" class="form-control" name="resp_conf" id="resp_conf" value="@Model.oEmbalagem.resp_conf" />
+                    </div>
+                </div>
+                <br />
+            }
+
             @if (Model.oEmbalagem == null)
             {
                 <div class="d-grid gap-2">
@@ -1700,28 +2051,15 @@
                                 </select>
                             </td>
                             <td>
-                                <select name="a_forma_indelevel" class="form-control" style=" height:50px;">
-                                    <option></option>
-                                    <option value="Sim">Sim</option>
-                                    <option value="Não">Não</option>
-                                    <option value="Na">---</option>
-                                </select>
+                                <input type="text" name="a_forma_indelevel" class="form-control" style="border: none" />
                             </td>
+
                             <td>
-                                <select name="a_Evidencia" class="form-control" style=" height:50px;">
-                                    <option></option>
-                                    <option value="Sim">Sim</option>
-                                    <option value="Não">Não</option>
-                                    <option value="Na">---</option>
-                                </select>
+                                <input type="text" name="a_Evidencia" class="form-control" style="border: none" />
                             </td>
+
                             <td>
-                                <select name="a_resultados" class="form-control" style=" height:50px;">
-                                    <option></option>
-                                    <option value="C">C</option>
-                                    <option value="NC">NC</option>
-                                    <option value="NA">NA</option>
-                                </select>
+                                <input disabled type="text" name="a_resultados" class="form-control" style="border: none" />
                             </td>
                         </tr>
                         <tr>
@@ -1750,29 +2088,16 @@
                                     <option value="Na">---</option>
                                 </select>
                             </td>
+
                             <td>
-                                <select name="b_forma_indelevel" class="form-control" style=" height:50px;">
-                                    <option></option>
-                                    <option value="Sim">Sim</option>
-                                    <option value="Não">Não</option>
-                                    <option value="Na">---</option>
-                                </select>
+                                <input type="text" name="b_forma_indelevel" class="form-control" style="border: none" />
+                            </td>
+
+                            <td>
+                                <input type="text" name="b_Evidencia" class="form-control" style="border: none" />
                             </td>
                             <td>
-                                <select name="b_Evidencia" class="form-control" style=" height:50px;">
-                                    <option></option>
-                                    <option value="Sim">Sim</option>
-                                    <option value="Não">Não</option>
-                                    <option value="Na">---</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select name="b_resultados" class="form-control" style=" height:50px;">
-                                    <option></option>
-                                    <option value="C">C</option>
-                                    <option value="NC">NC</option>
-                                    <option value="NA">NA</option>
-                                </select>
+                                <input disabled type="text" name="b_resultados" class="form-control" style="border: none" />
                             </td>
                         </tr>
                         <tr>
@@ -1802,28 +2127,13 @@
                                 </select>
                             </td>
                             <td>
-                                <select name="c_forma_indelevel" class="form-control" style=" height:50px;">
-                                    <option></option>
-                                    <option value="Sim">Sim</option>
-                                    <option value="Não">Não</option>
-                                    <option value="Na">---</option>
-                                </select>
+                                <input type="text" name="c_forma_indelevel" class="form-control" style="border: none" />
                             </td>
                             <td>
-                                <select name="c_Evidencia" class="form-control" style=" height:50px;">
-                                    <option></option>
-                                    <option value="Sim">Sim</option>
-                                    <option value="Não">Não</option>
-                                    <option value="Na">---</option>
-                                </select>
+                                <input type="text" name="c_Evidencia" class="form-control" style="border: none" />
                             </td>
                             <td>
-                                <select name="c_resultados" class="form-control" style=" height:50px;">
-                                    <option></option>
-                                    <option value="C">C</option>
-                                    <option value="NC">NC</option>
-                                    <option value="NA">NA</option>
-                                </select>
+                                <input disabled type="text" name="c_resultados" class="form-control" style="border: none" />
                             </td>
                         </tr>
                     }
@@ -1858,29 +2168,15 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select name="a_forma_indelevel" class="form-control" style=" height:50px;">
-                                        <option>@marcacao.a_forma_indelevel</option>
-                                        <option value="Sim">Sim</option>
-                                        <option value="Não">Não</option>
-                                        <option value="Na">---</option>
-                                    </select>
+                                    <input value="@marcacao.a_forma_indelevel" type="text" name="a_forma_indelevel" class="form-control" style="border: none" />
                                 </td>
                                 <td>
-                                    <select name="a_Evidencia" class="form-control" style=" height:50px;">
-                                        <option>@marcacao.a_Evidencia</option>
-                                        <option value="Sim">Sim</option>
-                                        <option value="Não">Não</option>
-                                        <option value="Na">---</option>
-                                    </select>
+                                    <input value="@marcacao.a_Evidencia" type="text" name="a_Evidencia" class="form-control" style="border: none" />
                                 </td>
                                 <td>
-                                    <select name="a_resultados" class="form-control" style=" height:50px;">
-                                        <option>@marcacao.a_resultados</option>
-                                        <option value="C">C</option>
-                                        <option value="NC">NC</option>
-                                        <option value="NA">NA</option>
-                                    </select>
+                                    <input value="@marcacao.a_resultados" disabled type="text" name="a_resultados" class="form-control" style="border: none; height:50px;" />
                                 </td>
+
                             </tr>
                             <tr>
                                 <td colspan="2"> b) Capacidade do copo</td>
@@ -1909,28 +2205,13 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select name="b_forma_indelevel" class="form-control" style=" height:50px;">
-                                        <option>@marcacao.b_forma_indelevel</option>
-                                        <option value="Sim">Sim</option>
-                                        <option value="Não">Não</option>
-                                        <option value="Na">---</option>
-                                    </select>
+                                    <input value="@marcacao.b_forma_indelevel" type="text" name="b_forma_indelevel" class="form-control" style="border: none;" />
                                 </td>
                                 <td>
-                                    <select name="b_Evidencia" class="form-control" style=" height:50px;">
-                                        <option>@marcacao.b_Evidencia</option>
-                                        <option value="Sim">Sim</option>
-                                        <option value="Não">Não</option>
-                                        <option value="Na">---</option>
-                                    </select>
+                                    <input value="@marcacao.b_Evidencia" type="text" name="b_Evidencia" class="form-control" style="border: none" />
                                 </td>
                                 <td>
-                                    <select name="b_resultados" class="form-control" style=" height:50px;">
-                                        <option>@marcacao.b_resultados</option>
-                                        <option value="C">C</option>
-                                        <option value="NC">NC</option>
-                                        <option value="NA">NA</option>
-                                    </select>
+                                    <input disabled value="@marcacao.b_resultados" type="text" name="b_resultados" class="form-control" style="border: none; height:50px;" />
                                 </td>
                             </tr>
                             <tr>
@@ -1960,35 +2241,64 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select name="c_forma_indelevel" class="form-control" style=" height:50px;">
-                                        <option>@marcacao.c_forma_indelevel</option>
-                                        <option value="Sim">Sim</option>
-                                        <option value="Não">Não</option>
-                                        <option value="Na">---</option>
-                                    </select>
+                                    <input value="@marcacao.c_forma_indelevel" type="text" name="c_forma_indelevel" class="form-control" style="border: none" />
                                 </td>
                                 <td>
-                                    <select name="c_Evidencia" class="form-control" style=" height:50px;">
-                                        <option>@marcacao.c_Evidencia</option>
-                                        <option value="Sim">Sim</option>
-                                        <option value="Não">Não</option>
-                                        <option value="Na">---</option>
-                                    </select>
+                                    <input value="@marcacao.c_Evidencia" type="text" name="c_Evidencia" class="form-control" style="border: none" />
                                 </td>
                                 <td>
-                                    <select name="c_resultados" class="form-control" style=" height:50px;">
-                                        <option>@marcacao.c_resultados</option>
-                                        <option value="C">C</option>
-                                        <option value="NC">NC</option>
-                                        <option value="NA">NA</option>
-                                    </select>
+                                    <input disabled value="@marcacao.c_resultados" type="text" name="c_resultados" class="form-control" style="border: none;height:50px;" />
                                 </td>
+
                             </tr>
 
                         }
                     }
                 </tbody>
             </table>
+            @if (Model.oMarcacao == null || Model.oMarcacao.Count == 0 )
+            {
+
+                <br />
+                <div class="row">
+                    <div class="col-md-3 position-relative">
+                        <label for="executador" id="executador">Executador:</label>
+                        <input readonly type="text" class="form-control" name="executador" id="executador" value="@ViewBag.NomeCompleto" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                        <input type="text" class="form-control" name="auxiliador" id="auxiliador" />
+                    </div>
+                    <div class="col-md-3 position-relative">
+                        <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                        <input type="text" class="form-control" name="resp_conf" id="resp_conf" />
+                    </div>
+                </div>
+                <br />
+            }
+            else
+            {
+                @foreach (var item in Model.oMarcacao)
+                {
+                    <br />
+                    <div class="row">
+                        <div class="col-md-3 position-relative">
+                            <label for="executador" id="executador">Executador:</label>
+                            <input readonly type="text" class="form-control" name="executador" id="executador" value="@item.executador" />
+                        </div>
+                        <div class="col-md-3 position-relative">
+                            <label for="auxiliador" id="auxiliador">Auxiliador:</label>
+                            <input readonly type="text" class="form-control" name="auxiliador" id="auxiliador" value="@item.auxiliador" />
+                        </div>
+                        <div class="col-md-3 position-relative">
+                            <label for="resp_conf" id="resp_conf">Responsavel :</label>
+                            <input readonly type="text" class="form-control" name="resp_conf" id="resp_conf" value="@item.resp_conf" />
+                        </div>
+                    </div>
+                    <br />
+                }
+            }
+
             @if (Model.oMateriais == null)
             {
                 <table class="table table-bordered border-secondary table table-sm">
@@ -2056,92 +2366,7 @@
 
         </form>
 
-        <br />
-
-        <!--Inico de instrumentos utilizados -->
-        <hr style="color:darkred" />
-        <p style="text-align : center"> <strong> Instrumentos Utilizados. </strong></p>
-        <hr style="color:darkred" />
-        <form method="post" asp-action="PesquisarInstrumentos" asp-controller="Coleta" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]>
-            <div class="container p-3">
-                <div class="d-flex align-items-end justify-content-between">
-                    <div class="mr-3 w-100">
-                        <p class="rotulo-instrumento">Tipo</p>
-                        <input type="text" disabled class="form-control" placeholder="IM/DE/EE">
-                    </div>
-                    <div class="mr-3 w-100">
-                        <p class="rotulo-instrumento">Código/Lote</p>
-                        <input type="text" name="Codigo" class="form-control" id="codigo">
-                    </div>
-                    <div>
-                        <p type="hidden" class="rotulo-instrumento"></p>
-                        <input type="text" hidden name="instrumetosExcluir" class="form-control" id="codigo">
-                    </div>
-                @* <div class="mr-2 w-25">
-                    <button type="button" class="btn btn-primary form-control pesquisar-instrumentos">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                    </svg>
-                    </button>
-                    </div>
-                    <div class="w-100 mr-2">
-                    <p class="rotulo-instrumento">Nome</p>
-                    <input type="text" name="descricao" id="descricao" class="form-control w-100">
-                    </div>
-                    <div class="mr-2 w-50">
-                    <p class="rotulo-instrumento">Certificado</p>
-                    <input type="text" name="certificado" id="certificado" class="form-control">
-                    </div>
-                    <div class="mr-2 w-50 d-flex align-items-end">
-                    <div>
-                    <p class="rotulo-instrumento">Validade</p>
-                    <input type="text" name="validade" id="validade" class="form-control">
-                    </div>
-                    <button style="margin:0px;" class="btn btn-primary h4 ml-2 adicionar_instrumentos">+</button>
-                    </div>*@
-                </div>
-
-                <table class="table table-bordered border-secondary table-instrumentos">
-                    <Br />
-                    <thead class="tablestyle">
-                        <tr>
-                            <td>Código/Lote</td>
-                            <td>Descrição</td>
-                            <td>Certificado</td>
-                            <td>Validade</td>
-
-                        </tr>
-                    </thead>
-                    <tbody id="tbody-instrumentos">
-                    @foreach (var instrumentos in Model.oInstrumentos)
-                    {
-                        @if (instrumentos.ativo == 1)
-                        {
-                                <tr>
-                                    <td>@instrumentos.codigo</td>
-                                    <td>@instrumentos.descricao</td>
-                                    <td>@instrumentos.certificado</td>
-                                    <td>@instrumentos.validade</td>
-                                </tr>
-                        }
-                    }
-                    </tbody>
-                </table>
-
-                <div class="teste">
-                    <button type="submit" value="SalvarInstrumentos" class="btn btn-outline-danger"> Salvar </button>
-                </div>
-        </form>
-
         <Br />
-        @if (Model.oInstrumentos.Count > 0)
-        {
-            <form asp-controller="Coleta" asp-action="ExcluirInstrumentos" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
-                <div>
-                    <button type="submit" value="ExcluirInstrumentos" class="btn btn-danger"> Excluir Codigo </button>
-                </div>
-            </form>
-        }
 
     </div>
 

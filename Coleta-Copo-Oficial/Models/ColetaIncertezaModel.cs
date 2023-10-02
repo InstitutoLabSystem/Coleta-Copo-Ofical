@@ -12,6 +12,7 @@ namespace Coleta_Copo_Oficial.Models
             public DateTime data_cadastro { get; set; }
             public string valor { get; set; }
             public string descricao { get; set; }
+           
         }
     }
 }

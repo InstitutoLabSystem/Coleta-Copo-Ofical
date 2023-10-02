@@ -19,10 +19,12 @@ namespace Copo_Coleta.Models
         public Compressao oCompressao { get; set; }
         public List<Amostra> oAmostra { get; set; }
         public Embalagem oEmbalagem { get; set; }
-        public List<Instrumentos> oInstrumentos { get; set; }
         public List<Marcacao> oMarcacao { get; set; }
         public Materiais oMateriais { get; set; }
         public CondicionamentoMinimo oCondicionamento { get; set; }
         public CondicMaximo oCondicionamentoMaximo { get; set; }
+        public List<instrumentosCond> oCondInstrumentos { get; set; }
+        public List<instrumentosMassa> oInstrumentosMassa { get; set; }
+        public List<instrumentosCompressao> oInstrumentosCompressao { get; set; }
     }
 }

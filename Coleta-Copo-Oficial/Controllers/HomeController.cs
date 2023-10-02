@@ -29,7 +29,9 @@ namespace Copo_Coleta.Controllers
         {
             //PEGANDO O NOME DA SESSAO DO USUARIO. E MOSTRANDO NO INDEX.
             var nomeUsuarioClaim = User.FindFirstValue(ClaimTypes.Name);
+            var nomeCompletoClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewBag.NomeUsuario = nomeUsuarioClaim;
+            ViewBag.NomeCompleto = nomeCompletoClaim;
             return View();
         }
         public IActionResult Privacy()

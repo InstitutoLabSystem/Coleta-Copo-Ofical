@@ -13,14 +13,20 @@ namespace Copo_Coleta.Models
             public int Id { get; set; }
 
             [Required(ErrorMessage = "Campo Obrigatorio.")]
+            [DataType(DataType.Date)]
             public DateTime data_de_início { get; set; }
+
             [Required(ErrorMessage = "Campo Obrigatorio.")]
+            [DataType(DataType.Date)]
             public DateTime data_de_termino { get; set; }
              
             public int editar {get; set; }
             public int os { get; set; }
             public string orcamento { get; set; }
             public int Rev { get; set; }
+            public string? executador { get; set;}
+            public string? auxiliador { get; set; }
+            public string? resp_conf { get; set; }
         }
 
         public class Descricao
@@ -39,6 +45,9 @@ namespace Copo_Coleta.Models
             public string quant_manga { get; set; }
       
             public string capacidade_manga { get; set; }
+            public string? executador { get; set; }
+            public string? auxiliador { get; set; }
+            public string? resp_conf { get; set; }
 
         }
 
@@ -61,6 +70,10 @@ namespace Copo_Coleta.Models
             public DateTime data_de_inicio { get; set; }
             [Required(ErrorMessage = "Campo Obrigatorio.")]
             public DateTime data_de_termino { get; set; }
+            public string? executador { get; set; }
+            public string? auxiliador { get; set; }
+            public string? resp_conf { get; set; }
+
 
 
         }
@@ -106,6 +119,9 @@ namespace Copo_Coleta.Models
             public DateTime data_de_inicio { get; set; }
             [Required(ErrorMessage = "Campo Obrigatorio.")]
             public DateTime data_de_termino { get; set; }
+            public string? executador { get; set; }
+            public string? auxiliador { get; set; }
+            public string? resp_conf { get; set; }
         }
 
         public class Tablemassa
@@ -130,6 +146,9 @@ namespace Copo_Coleta.Models
             public DateTime data_de_inicio { get; set; }
             [Required(ErrorMessage = "Campo Obrigatorio.")]
             public DateTime data_de_termino { get; set; }
+            public string? executador { get; set; }
+            public string? auxiliador { get; set; }
+            public string? resp_conf { get; set; }
 
         }
 
@@ -162,6 +181,9 @@ namespace Copo_Coleta.Models
             public DateTime data_de_inicio { get; set; }
             [Required(ErrorMessage = "Campo Obrigatorio.")]
             public DateTime data_de_termino { get; set; }
+            public string? executador { get; set; }
+            public string? auxiliador { get; set; }
+            public string? resp_conf { get; set; }
 
         }
 
@@ -211,25 +233,9 @@ namespace Copo_Coleta.Models
             public DateTime data_de_inicio { get; set; }
             [Required(ErrorMessage = "Campo Obrigatorio.")]
             public DateTime data_de_termino { get; set; }
-        }
-
-        public class Instrumentos
-        {
-            [Key]
-            public int Id { get; set; }
-            public int os { get; set; }
-            public int rev { get; set; }
-        
-            public string orcamento { get;  set; }
-      
-            public string codigo { get; set; }
-     
-            public string descricao { get; set; }
-     
-            public string certificado { get; set; }
-            public DateTime? validade { get; set; }
-  
-            public int ativo { get; set; }
+            public string? executador { get; set; }
+            public string? auxiliador { get; set; }
+            public string? resp_conf { get; set; }
         }
 
         public class CondicionamentoMinimo
@@ -285,9 +291,44 @@ namespace Copo_Coleta.Models
             public DateTime data_de_fin { get; set; }
             public string responsavel { get; set; }
             public string revisao { get; set; }
-
-
         }
 
+        public class instrumentosCond
+        {
+            public int Id { get; set; }
+            public int os { get; set; }
+            public int rev { get; set; }
+            public string orcamento { get; set; }
+            public string codigo { get; set; }
+            public string descricao { get; set; }
+            public string certificado { get; set; }
+            public DateTime? validade { get; set; }
+            public int ativo { get; set; }
+        }
+        public class instrumentosMassa
+        {
+            public int Id { get; set; }
+            public int os { get; set; }
+            public int rev { get; set; }
+            public string orcamento { get; set; }
+            public string codigo { get; set; }
+            public string descricao { get; set; }
+            public string certificado { get; set; }
+            public DateTime? validade { get; set; }
+            public int ativo { get; set; }
+        }
+        public class instrumentosCompressao
+        {
+            public int Id { get; set; }
+            public int os { get; set; }
+            public int rev { get; set; }
+            public string orcamento { get; set; }
+            public string codigo { get; set; }
+            public string descricao { get; set; }
+            public string certificado { get; set; }
+            public DateTime? validade { get; set; }
+            public int ativo { get; set; }
+        }
+        
     }
 }
