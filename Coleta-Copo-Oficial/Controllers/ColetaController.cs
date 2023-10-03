@@ -2079,8 +2079,8 @@ namespace Copo_Coleta.Controllers
                         //GUARDANDO VALOR DA TABE COND MAXIMA SE USUARIO EDITAR ALGUM VALOR..
                         editarDadosCondicionamentoMax.ter_data_acond_max = salvarCondMax.ini_dat_acond_max;
                         editarDadosCondicionamentoMax.ter_data_acond_max = salvarCondMax.ter_data_acond_max;
-                        editarDadosCondicionamentoMax.tem_min_encon_max = salvarCondMax.tem_min_encon_max + " ºC";
-                        editarDadosCondicionamentoMax.temp_max_encont_max = salvarCondMax.temp_max_encont_max + " ºC";
+                        editarDadosCondicionamentoMax.tem_min_encon_max = salvarCondMax.tem_min_encon_max;
+                        editarDadosCondicionamentoMax.temp_max_encont_max = salvarCondMax.temp_max_encont_max;
                         editarDadosCondicionamentoMax.ini_hora_acond_max = salvarCondMax.ini_hora_acond_max;
                         editarDadosCondicionamentoMax.term_hora_acond_max = salvarCondMax.term_hora_acond_max;
                         editarDadosCondicionamentoMax.umid_min_encon_max = salvarCondMax.umid_min_encon_max;
