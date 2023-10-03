@@ -10,14 +10,15 @@
         "projectUniqueName": "C:\\xampp\\htdocs\\Coleta-Copo-Ofical\\Coleta-Copo-Oficial\\Coleta-Copo-Oficial.csproj",
         "projectName": "Coleta-Copo-Oficial",
         "projectPath": "C:\\xampp\\htdocs\\Coleta-Copo-Ofical\\Coleta-Copo-Oficial\\Coleta-Copo-Oficial.csproj",
-        "packagesPath": "C:\\Users\\Molina\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\Victor Bruno\\.nuget\\packages\\",
         "outputPath": "C:\\xampp\\htdocs\\Coleta-Copo-Ofical\\Coleta-Copo-Oficial\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Molina\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Victor Bruno\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +27,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -101,7 +101,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

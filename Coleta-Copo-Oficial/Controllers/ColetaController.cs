@@ -347,55 +347,57 @@ namespace Copo_Coleta.Controllers
                     // verificando se existe dados para editar, 
                     if (Editardados != null)
                     {
+
+                        var quatro_dois_um_Atende = salvar.quatro_dois_um_Atende;
+                        var quatro_dois_dois_Atende = salvar.quatro_dois_dois_Atende;
+                        var quatro_dois_tres_Atende = salvar.quatro_dois_tres_Atende;
+
                         // verificando e alterando primeiro resultado
-                        if (salvar.quatro_dois_um_Atende == "Sim")
+                        if (quatro_dois_um_Atende == "Sim")
                         {
-                            salvar.quatro_dois_um_Resul = "C";
+                            Editardados.quatro_dois_um_Resul = "C";
                         }
-                        else if (salvar.quatro_dois_um_Atende == "Não")
+                        else if (quatro_dois_um_Atende == "Não")
                         {
-                            salvar.quatro_dois_um_Resul = "NC";
+                            Editardados.quatro_dois_um_Resul = "NC";
                         }
                         else
                         {
-                            salvar.quatro_dois_um_Resul = "Na";
+                            Editardados.quatro_dois_um_Resul = "Na";
                         }
 
                         // verificando e alterando segundo resultado
-                        if (salvar.quatro_dois_dois_Atende == "Sim")
+                        if (quatro_dois_dois_Atende == "Sim")
                         {
-                            salvar.quatro_dois_dois_Resul = "C";
+                            Editardados.quatro_dois_dois_Resul = "C";
                         }
-                        else if (salvar.quatro_dois_dois_Atende == "Não")
+                        else if (quatro_dois_dois_Atende == "Não")
                         {
-                            salvar.quatro_dois_dois_Resul = "NC";
+                            Editardados.quatro_dois_dois_Resul = "NC";
                         }
                         else
                         {
-                            salvar.quatro_dois_dois_Resul = "Na";
+                            Editardados.quatro_dois_dois_Resul = "Na";
                         }
 
                         // verificando e alterando terceiro resultado
-                        if (salvar.quatro_dois_tres_Atende == "Sim")
+                        if (quatro_dois_tres_Atende == "Sim")
                         {
-                            salvar.quatro_dois_tres_Resul = "C";
+                            Editardados.quatro_dois_tres_Resul = "C";
                         }
-                        else if (salvar.quatro_dois_tres_Atende == "Não")
+                        else if (quatro_dois_tres_Atende == "Não")
                         {
-                            salvar.quatro_dois_tres_Resul = "NC";
+                            Editardados.quatro_dois_tres_Resul = "NC";
                         }
                         else
                         {
-                            salvar.quatro_dois_tres_Resul = "Na";
+                            Editardados.quatro_dois_tres_Resul = "Na";
                         }
 
 
                         Editardados.quatro_dois_um_Atende = salvar.quatro_dois_um_Atende;
-                        Editardados.quatro_dois_um_Resul = salvar.quatro_dois_um_Resul;
                         Editardados.quatro_dois_dois_Atende = salvar.quatro_dois_dois_Atende;
-                        Editardados.quatro_dois_dois_Resul = salvar.quatro_dois_dois_Resul;
                         Editardados.quatro_dois_tres_Atende = salvar.quatro_dois_tres_Atende;
-                        Editardados.quatro_dois_tres_Resul = salvar.quatro_dois_tres_Resul;
                         Editardados.data_de_inicio = salvar.data_de_inicio;
                         Editardados.data_de_termino = salvar.data_de_termino;
 
@@ -432,12 +434,12 @@ namespace Copo_Coleta.Controllers
                             // verifcando valor recebido do checkbox do primeiro valor 
                             if (quatro_dois_um_Atende == "Sim")
                             {
-                                quatro_dois_um_Resul = "C";
+                                 quatro_dois_um_Resul = "C";
 
                             }
-                            else if (quatro_dois_um_Resul == "Não")
+                            else if (quatro_dois_um_Atende == "Não")
                             {
-                                quatro_dois_um_Resul = "NC";
+                              quatro_dois_um_Resul = "NC";
                             }
                             else
                             {
@@ -447,12 +449,12 @@ namespace Copo_Coleta.Controllers
                             //verificando do segundo valor o checkbox
                             if (quatro_dois_dois_Atende == "Sim")
                             {
-                                quatro_dois_dois_Resul = "c";
+                                quatro_dois_dois_Resul = "C";
 
                             }
-                            else if (quatro_dois_um_Resul == "Não")
+                            else if (quatro_dois_dois_Atende == "Não")
                             {
-                                quatro_dois_dois_Resul = "NC";
+                               quatro_dois_dois_Resul = "NC";
                             }
                             else
                             {
@@ -462,10 +464,10 @@ namespace Copo_Coleta.Controllers
                             // verificando do terceiro valor do checkbox
                             if (quatro_dois_tres_Atende == "Sim")
                             {
-                                quatro_dois_tres_Resul = "C";
+                               quatro_dois_tres_Resul = "C";
 
                             }
-                            else if (quatro_dois_tres_Resul == "Não")
+                            else if (quatro_dois_tres_Atende == "Não")
                             {
                                 quatro_dois_tres_Resul = "NC";
                             }
@@ -1113,7 +1115,7 @@ namespace Copo_Coleta.Controllers
                             fatcorrelacao = fatcorrelacao,
                             obtida = Resultfinal.ToString("0.000"),
                             especificada = massamin,
-                            incerteza = pegarValorIncerteza.valor,
+                            incerteza =  pegarValorIncerteza.valor,
                             rsi = rsi,
                             rci = rci,
                             data_de_inicio = data_de_inicio,
@@ -1348,7 +1350,7 @@ namespace Copo_Coleta.Controllers
                         {
                             massamin = "6,93";
                             fatcorrelacao = "0,0126";
-                            EditarTable.especificada = massamin;
+                            EditarTable.especificada = massamin ;
                             EditarTable.fatcorrelacao = fatcorrelacao;
                         }
                         if (capacidadeCopo >= 551 && capacidadeCopo != 770)
@@ -2077,8 +2079,8 @@ namespace Copo_Coleta.Controllers
                         //GUARDANDO VALOR DA TABE COND MAXIMA SE USUARIO EDITAR ALGUM VALOR..
                         editarDadosCondicionamentoMax.ter_data_acond_max = salvarCondMax.ini_dat_acond_max;
                         editarDadosCondicionamentoMax.ter_data_acond_max = salvarCondMax.ter_data_acond_max;
-                        editarDadosCondicionamentoMax.tem_min_encon_max = salvarCondMax.tem_min_encon_max;
-                        editarDadosCondicionamentoMax.temp_max_encont_max = salvarCondMax.temp_max_encont_max;
+                        editarDadosCondicionamentoMax.tem_min_encon_max = salvarCondMax.tem_min_encon_max + " ºC";
+                        editarDadosCondicionamentoMax.temp_max_encont_max = salvarCondMax.temp_max_encont_max + " ºC";
                         editarDadosCondicionamentoMax.ini_hora_acond_max = salvarCondMax.ini_hora_acond_max;
                         editarDadosCondicionamentoMax.term_hora_acond_max = salvarCondMax.term_hora_acond_max;
                         editarDadosCondicionamentoMax.umid_min_encon_max = salvarCondMax.umid_min_encon_max;

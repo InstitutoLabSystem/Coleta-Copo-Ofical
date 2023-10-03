@@ -40,7 +40,7 @@
     <hr style="color:darkred; border:20px; " />
 
     <div class="Tabela">
-        <form asp-controller="Coleta" asp-action="SalvarData" method="post" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
+        <form asp-controller="Coleta" class="meuFormulario" id="form1" asp-action="SalvarData" method="post" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
             <div class="Tabela">
                 <table class="table table-bordered border-secondary">
                     <thead class="tablestyle">
@@ -136,11 +136,11 @@
                 <div class="d-grid gap-2">
                     @if (Model.oDatas == null)
                     {
-                        <button type="submit" value="SalvarData" class="btn btn-outline-danger">Salvar</button>
+                        <button type="submit" value="SalvarData"  onclick="setLastSubmittedFormId('form1')" class="btn btn-outline-danger">Salvar</button>
                     }
                     else
                     {
-                        <button type="submit" value="SalvarData" class="btn btn-outline-success">Editar</button>
+                        <button type="submit" value="SalvarData"  onclick="setLastSubmittedFormId('form1')" class="btn btn-outline-success">Editar</button>
                     }
 
                 </div>
@@ -151,7 +151,7 @@
         <p style="text-align : center"> <strong> Condicionamento das amostras </strong></p>
         <hr style="color:darkred" />
 
-        <form method="post" asp-controller="Coleta" asp-action="condicionamentoAmostra" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
+        <form method="post" class="meuFormulario" id="form2" asp-controller="Coleta" asp-action="condicionamentoAmostra" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
             @if (Model.oCondicionamento == null)
             {
                 <table class="table table-bordered border-secondary table table-sm">
@@ -168,7 +168,7 @@
                         <tr>
                             <td style="background-color:#800000; color:white;" colspan="2">Data do acondicionamento:</td>
                             <td style="background-color:#800000; color:white;" colspan="2">hora do acondicionamento:</td>
-                            <td style="background-color:#800000; color:white;" colspan="2">Temperatura encontrada:</td>
+                            <td style="background-color:#800000; color:white;" colspan="2">Temperatura encontrada (ºC): </td>
                             <td style="background-color:#800000; color:white;" colspan="2">Umidade encontrada:</td>
                             <td rowspan="3"><input class="form-control" name="im_utilizado" style="height: 150px; border:none;" /></td>
                             <td rowspan="3"><input class="form-control" name="responsavel" style="height: 150px; border:none;" /></td>
@@ -294,7 +294,7 @@
                 </table>
 
                    <div class="d-grid gap-2">
-                    <button type="submit" value="condicionamentoAmostra" class="btn btn-outline-danger"> Salvar </button>
+                    <button type="submit" value="condicionamentoAmostra" onclick="setLastSubmittedFormId('form2')" class="btn btn-outline-danger"> Salvar </button>
                 </div>
             }
             else
@@ -343,16 +343,13 @@
                 </table>
 
                 <div class="d-grid gap-2">
-                    <button type="submit" value="condicionamentoAmostra" class="btn btn-outline-success">Editar</button>
+                    <button type="submit" value="condicionamentoAmostra"  onclick="setLastSubmittedFormId('form2')" class="btn btn-outline-success">Editar</button>
                 </div>
             }
 
-            <div class="d-grid gap-2">
-                <button type="submit" value="condicionamentoAmostra" class="btn btn-outline-success">Salvar </button>
-            </div>
         </form>
         <br />
-        <form method="post" asp-action="InstrumentosCondicionamento" asp-controller="Coleta" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]>
+        <form method="post" class="meuFormulario" id="form3" asp-action="InstrumentosCondicionamento" asp-controller="Coleta" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]>
             <div class="container p-3">
                 <div class="d-flex align-items-end justify-content-between">
                     <div class="mr-3 w-100">
@@ -397,14 +394,14 @@
                 </table>
 
                 <div class="teste">
-                    <button type="submit" value="InstrumentosCondicionamento" class="btn btn-outline-danger"> Adicionar Instrumentos.  </button>
+                    <button type="submit" value="InstrumentosCondicionamento" onclick="setLastSubmittedFormId('form3')" class="btn btn-outline-danger"> Adicionar Instrumentos.  </button>
                 </div>
         </form>
         @if (Model.oCondInstrumentos.Count > 0)
         {
-            <form asp-controller="Coleta" asp-action="ExcInstrumentosCondicionamento" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
+            <form asp-controller="Coleta" class="meuFormulario" id="form4" asp-action="ExcInstrumentosCondicionamento" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
                 <div>
-                    <button type="submit" value="ExcInstrumentosCondicionamento" class="btn btn-danger"> Excluir Codigo </button>
+                    <button type="submit" onclick="setLastSubmittedFormId('form4')" value="ExcInstrumentosCondicionamento" class="btn btn-danger"> Excluir Codigo </button>
                 </div>
             </form>
         }
@@ -416,7 +413,7 @@
 
 
 
-        <form asp-controller="Coleta" asp-action="SalvarAspectosVisuais" method="post" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
+        <form asp-controller="Coleta" class="meuFormulario" id="form5" asp-action="SalvarAspectosVisuais" method="post" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
 
             <table class="table table-bordered border-secondary">
                 <thead class="tablestyle">
@@ -550,7 +547,7 @@
                 </div>
                 <br />
                 <div class="d-grid gap-2">
-                    <button type="submit" value="SalvarAspectosVisuais" class="btn btn-outline-danger"> Salvar </button>
+                    <button type="submit" value="SalvarAspectosVisuais" onclick="setLastSubmittedFormId('form5')" class="btn btn-outline-danger"> Salvar </button>
                 </div>
             }
             else
@@ -633,7 +630,7 @@
                                 </select>
                             </td>
                             <td>
-                                <input type="text" Disabled name="quatro_dois_tres_Resul" class="form-control" value="@Model.oAspectosvisuais.quatro_dois_dois_Resul" style="border: none; font-weight:bold" />
+                                <input type="text" Disabled name="quatro_dois_tres_Resul" class="form-control" value="@Model.oAspectosvisuais.quatro_dois_tres_Resul" style="border: none; font-weight:bold" />
                             </td>
 
                         </tr>
@@ -658,7 +655,7 @@
                 </div>
                 <br />
                 <div class="d-grid gap-2">
-                    <button type="submit" value="SalvarAspectosVisuais" class="btn btn-outline-success"> Editar </button>
+                    <button type="submit" value="SalvarAspectosVisuais" onclick="setLastSubmittedFormId('form5')" class="btn btn-outline-success"> Editar </button>
                 </div>
             }
 
@@ -667,7 +664,7 @@
         <!-- Inicio 4.3 Massa -->
 
 
-        <form asp-controller="Coleta" asp-action="SalvarMassa" method="post" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
+        <form asp-controller="Coleta" class="meuFormulario" id="form6" asp-action="SalvarMassa" method="post" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
             <hr style="color:darkred" />
             <p style="text-align : center"> <strong> 4.3 Massa </strong></p>
             <hr style="color:darkred" />
@@ -703,19 +700,19 @@
 
             <table class="table table-bordered border-secondary ">
                 <tr class="tablestyle">
-                    <th rowspan="2">Capacicade do copo: </th>
+                    <th rowspan="2">Capacicade do copo (ml): </th>
                     <th rowspan="2">Quantidade de manga(s):</th>
                     <th rowspan="2">Capacidade da manga:</th>
                     <th rowspan="2">Fator de correlação:</th>
                     <th colspan="2">Média dos valores:</th>
-                    <th rowspan="2">Incerteza de medição:</th>
+                    <th rowspan="2">Incerteza de medição ± (g):</th>
                     <th rowspan="2">RSI</th>
                     <th rowspan="2">RCI</th>
 
                 </tr>
                 <tr class="tablestyle">
-                    <th>Obtida</th>
-                    <th>Especificada</th>
+                    <th>Obtida (g)</th>
+                    <th>Especificada (g)</th>
                 </tr>
                 <tr>
                     @if (Model.oDescricao == null)
@@ -1452,21 +1449,21 @@
             @if (Model.oMassa.Count == 0 || Model.oMassa == null)
             {
                 <div class="d-grid gap-2">
-                    <button type="submit" value="SalvarMassa" class="btn btn-outline-danger"> Salvar </button>
+                    <button type="submit" value="SalvarMassa" onclick="setLastSubmittedFormId('form6')" class="btn btn-outline-danger"> Salvar </button>
                 </div>
             }
             else
             {
 
                 <div class="d-grid gap-2">
-                    <button type="submit" value="SalvarMassa" class="btn btn-outline-success"> Editar </button>
+                    <button type="submit" value="SalvarMassa" onclick="setLastSubmittedFormId('form6')" class="btn btn-outline-success"> Editar </button>
                 </div>
 
             }
 
         </form>
         <br />
-        <form method="post" asp-action="InstrumentosMassa" asp-controller="Coleta" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]>
+        <form method="post" class="meuFormulario" id="form7" asp-action="InstrumentosMassa" asp-controller="Coleta" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]>
             <div class="container p-3">
                 <div class="d-flex align-items-end justify-content-between">
                     <div class="mr-3 w-100">
@@ -1511,21 +1508,21 @@
                 </table>
 
                 <div class="teste">
-                    <button type="submit" value="InstrumentosMassa" class="btn btn-outline-danger"> Adicionar Instrumentos.  </button>
+                    <button type="submit" value="InstrumentosMassa" onclick="setLastSubmittedFormId('form7')" class="btn btn-outline-danger"> Adicionar Instrumentos.  </button>
                 </div>
         </form>
         @if (Model.oCondInstrumentos.Count > 0)
         {
-            <form asp-controller="Coleta" asp-action="ExcInstrumentosMassa" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
+            <form asp-controller="Coleta" class="meuFormulario" id="form8"asp-action="ExcInstrumentosMassa" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
                 <div>
-                    <button type="submit" value="ExcInstrumentosMassa" class="btn btn-danger"> Excluir Codigo </button>
+                    <button type="submit" value="ExcInstrumentosMassa" onclick="setLastSubmittedFormId('form8')" class="btn btn-danger"> Excluir Codigo </button>
                 </div>
             </form>
         }
 
         <!-- Final 4.3 Massa -->
         <!-- Inicio coleta 4.4 Resistência à compressão lateral-->
-        <form method="post" asp-controller="Coleta" asp-action="EnsaioDeCompressaoAndAmostras" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
+        <form method="post" asp-controller="Coleta"class="meuFormulario" id="form9"  asp-action="EnsaioDeCompressaoAndAmostras" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
             <hr style="color:darkred" />
             <p style="text-align : center"> <strong> 4.4 Resistência à compressão lateral </strong></p>
             <hr style="color:darkred" />
@@ -1558,16 +1555,16 @@
 
             <table class="table table-bordered border-secondary table table-sm">
                 <tr class="tablestyle ">
-                    <th rowspan="2">Capacicade do copo </th>
+                    <th rowspan="2">Capacicade total do copo (ml) </th>
                     <th rowspan="2"> Capacidade especificada</th>
                     <th colspan="2">Valor mínimo</th>
-                    <th rowspan="2">Incerteza da medição</th>
+                    <th rowspan="2">Incerteza da medição ± (N) </th>
                     <th rowspan="2">RSI</th>
                     <th rowspan="2">RCI</th>
                 </tr>
                 <tr class="tablestyle">
-                    <th>Obtido</th>
-                    <th>Especificada</th>
+                    <th>Obtido (N) </th>
+                    <th>Especificada (N)</th>
                 </tr>
                 <tr>
                     @if (Model.oDescricao == null)
@@ -1687,18 +1684,18 @@
             @if (Model.oAmostra == null || Model.oAmostra.Count == 0)
             {
                 <div class="d-grid gap-2">
-                    <button type="submit" value="EnsaioDeCompressaoAndAmostras" class="btn btn-outline-success">salvar</button>
+                    <button type="submit" value="EnsaioDeCompressaoAndAmostras" onclick="setLastSubmittedFormId('form9')" class="btn btn-outline-danger">salvar</button>
                 </div>
             }
             else
             {
                 <div class="d-grid gap-2">
-                    <button type="submit" value="EnsaioDeCompressaoAndAmostras" class="btn btn-outline-success">Editar</button>
+                    <button type="submit" value="EnsaioDeCompressaoAndAmostras" onclick="setLastSubmittedFormId('form9')" class="btn btn-outline-success">Editar</button>
                 </div>
             }
         </form>
         <br />
-        <form method="post" asp-action="InstrumentosCompressao" asp-controller="Coleta" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]>
+        <form method="post" asp-action="InstrumentosCompressao" class="meuFormulario" id="form10" asp-controller="Coleta" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]>
             <div class="container p-3">
                 <div class="d-flex align-items-end justify-content-between">
                     <div class="mr-3 w-100">
@@ -1743,14 +1740,14 @@
                 </table>
 
                 <div class="teste">
-                    <button type="submit" value="InstrumentosCompressao" class="btn btn-outline-danger"> Adicionar Instrumentos.  </button>
+                    <button type="submit" value="InstrumentosCompressao" onclick="setLastSubmittedFormId('form10')" class="btn btn-outline-danger"> Adicionar Instrumentos.  </button>
                 </div>
         </form>
         @if (Model.oCondInstrumentos.Count > 0)
         {
-            <form asp-controller="Coleta" asp-action="ExcInstrumentosCompressao" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
+            <form asp-controller="Coleta" class="meuFormulario" id="form11" asp-action="ExcInstrumentosCompressao" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
                 <div>
-                    <button type="submit" value="ExcInstrumentosCompressao" class="btn btn-danger"> Excluir Codigo </button>
+                    <button type="submit" value="ExcInstrumentosCompressao" onclick="setLastSubmittedFormId('form11')" class="btn btn-danger"> Excluir Codigo </button>
                 </div>
             </form>
         }
@@ -1764,7 +1761,7 @@
 
         <p> <strong> Os copos devem ser comercializados em mangas invioláveis, ou ainda a granel, protegidos com sacos plásticos. Na embalagem devem ser identificadas a capacidade total e a quantidade de copos e informação(ões) para rastreabilidade.  </strong> </p>
 
-        <form method="post" asp-controller="Coleta" asp-action="SalvarEmbalagem" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
+        <form method="post" asp-controller="Coleta" class="meuFormulario" id="form12" asp-action="SalvarEmbalagem" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
 
             <table class="table table-bordered border-secondary">
                 <thead class="tablestyle">
@@ -1962,13 +1959,13 @@
             @if (Model.oEmbalagem == null)
             {
                 <div class="d-grid gap-2">
-                    <button type="submit" value="SalvarEmbalagem" class="btn btn-outline-danger">Salvar</button>
+                    <button type="submit" value="SalvarEmbalagem" onclick="setLastSubmittedFormId('form12')" class="btn btn-outline-danger">Salvar</button>
                 </div>
             }
             else
             {
                 <div class="d-grid gap-2">
-                    <button type="submit" value="SalvarEmbalagem" class="btn btn-outline-success">Editar</button>
+                    <button type="submit" value="SalvarEmbalagem" onclick="setLastSubmittedFormId('form12')" class="btn btn-outline-success">Editar</button>
                 </div>
             }
 
@@ -1979,7 +1976,7 @@
         <hr style="color:darkred" />
 
 
-        <form method="post" asp-controller="Coleta" asp-action="SalvarMarcacao" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
+        <form method="post" class="meuFormulario" id="form13" asp-controller="Coleta" asp-action="SalvarMarcacao" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
 
             <table class="table table-bordered border-secondary">
                 <thead class="tablestyle">
@@ -2328,7 +2325,7 @@
                 <textarea name="observacoes" class="form-control" rows="3" style="border:solid; border-color:black; border-width:1px;"></textarea>
                 <br />
                 <div class="d-grid gap-2">
-                    <button type="submit" value="SalvarMarcacao" class="btn btn-outline-danger"> Salvar </button>
+                    <button type="submit" value="SalvarMarcacao" onclick="setLastSubmittedFormId('form13')" class="btn btn-outline-danger"> Salvar </button>
                 </div>
             }
             else
@@ -2359,7 +2356,7 @@
                 <textarea name="observacoes" class="form-control" rows="3" style="border:solid; border-color:black; border-width:1px;" value="@Model.oMateriais.observacoes">@Model.oMateriais.observacoes</textarea>
                 <br />
                 <div class="d-grid gap-2">
-                    <button type="submit" value="SalvarMarcacao" class="btn btn-outline-success"> Editar </button>
+                    <button type="submit" value="SalvarMarcacao"  onclick="setLastSubmittedFormId('form13')" class="btn btn-outline-success"> Editar </button>
                 </div>
 
             }
@@ -2385,7 +2382,7 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel"> Informações de Finalização</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form asp-controller="Coleta" asp-action="FinalizarColeta" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
+                <form asp-controller="Coleta" class="meuFormulario" id="form14" asp-action="FinalizarColeta" asp-route-os="@ViewData["os"]" asp-route-orcamento="@ViewData["orcamento"]" asp-route-rev="@ViewData["Rev"]">
                     <div class="modal-body">
 
                         <label> Data de finalização </label>
@@ -2401,8 +2398,8 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                        <button type="submit" value="FinalizarColeta" class="btn btn-primary">Finalizar</button>
+                        <button type="button" class="btn btn-secondary" onclick="setLastSubmittedFormId('form14')" data-bs-dismiss="modal">Fechar</button>
+                        <button type="submit" value="FinalizarColeta" onclick="setLastSubmittedFormId('form14')" class="btn btn-primary">Finalizar</button>
                     </div>
                 </form>
 
@@ -2421,6 +2418,27 @@
             alert('@Html.Raw(TempData["Mensagem"])');
         </script>
     }
+
+    <script type="text/javascript">
+       //Esta função é chamada quando você clica no botão "Enviar" de um formulário. 
+       // Ela recebe a ID do formulário submetido e a armazena na sessionStorage usando a chave "lastSubmittedFormId".
+        function setLastSubmittedFormId(formId) {
+           //Aqui, estamos usando o sessionStorage para armazenar a ID do último formulário submetido.
+            sessionStorage.setItem('lastSubmittedFormId', formId);
+        }
+
+        // Rola a página para o último formulário submetido
+        var lastSubmittedFormId = sessionStorage.getItem('lastSubmittedFormId');
+        if (lastSubmittedFormId) {
+            var formElement = document.getElementById(lastSubmittedFormId);
+            if (formElement) {
+                formElement.scrollIntoView();
+            }
+        }
+    </script>
+
+
+
 }
 
 
