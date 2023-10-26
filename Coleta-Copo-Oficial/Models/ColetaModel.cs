@@ -43,11 +43,15 @@ namespace Copo_Coleta.Models
             public string capacidade_copo { get; set; }
     
             public string quant_manga { get; set; }
-      
+            public string? fator_correlacao { get; set; }
+            public string? especificada { get; set; }
+            public string? incerteza { get; set; }
             public string capacidade_manga { get; set; }
             public string? executador { get; set; }
             public string? auxiliador { get; set; }
             public string? resp_conf { get; set; }
+           
+
 
         }
 

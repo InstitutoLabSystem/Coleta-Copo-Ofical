@@ -684,6 +684,7 @@
                             <td><input type="date" name="data_de_termino" class="form-control" style="border: none"/></td>
                         }
                         else
+
                         {
                             <td><input type="text" value="@Model.oTablemassa.data_de_inicio.ToString("dd/MM/yyyy")" name="data_de_inicio" class="form-control" style="border: none" /> </td>
                             <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oTablemassa.data_de_termino.ToString("dd/MM/yyyy")" style="border: none" /></td>
@@ -720,28 +721,41 @@
                         <td><input type="text" readonly name="4.3_cap_copo" class="form-control" style="border: none" /></td>
                         <td><input type="text" readonly name="4.3_qtd_manga" class="form-control" style="border: none" /></td>
                         <td><input type="text" readonly name="4.3_cap_manga" class="form-control" style="border: none" /></td>
+                        <td><input type="text" name="fatcorrelacao" class="form-control" style="border: none" readonly /></td>
                     }
                     else
                     {
                         <td><input type="text" value="@Model.oDescricao.capacidade_copo" readonly name="4.3_cap_copo" class="form-control" style="border: none; font-weight:bold" /></td>
                         <td><input type="text" readonly name="4.3_qtd_manga" value="@Model.oDescricao.quant_manga" class="form-control" style="border: none; font-weight:bold" /></td>
                         <td><input type="text" readonly name="4.3_cap_manga" value="@Model.oDescricao.capacidade_manga" class="form-control" style="border: none; font-weight:bold" /></td>
+                        <td><input type="text" readonly name="fator_correlacao" value="@Model.oDescricao.fator_correlacao" class="form-control" style="border: none; font-weight:bold" /></td>
                     }
 
                     @if (Model.oTablemassa == null)
                     {
-                        <td><input type="text" name="fatcorrelacao" class="form-control" style="border: none" readonly /></td>
+
                         <td><input type="text" readonly name="4.3_media_obt" class="form-control" style="border: none" readonly /></td>
+                    }
+                    else{
+                        <td><input type="text" readonly name="4.3_media_obt" class="form-control" value="@Model.oTablemassa.obtida" style="border: none; font-weight:bold" /></td>
+                        
+                        }@if (Model.oDescricao == null) 
+                    {
                         <td><input type="text" readonly name="especificada" class="form-control" style="border: none" readonly /></td>
+                        
+                    }
+                    else{
+                        <td><input type="text" readonly name="especificada" class="form-control" style="border: none; font-weight:bold" value="@Model.oDescricao.especificada" /></td>
+       
+                        } @if (Model.oTablemassa == null)
+                    {
                         <td><input type="text" readonly name="incerteza" class="form-control" style="border: none" /></td>
                         <td><input type="text" readonly name="4.3_rsi" class="form-control" style="border: none" readonly /></td>
                         <td><input type="text" readonly name="4.3_qtd_rci" class="form-control" style="border: none" readonly /></td>
                     }
                     else
                     {
-                        <td><input type="text" name="fatcorrelacao" class="form-control" value="@Model.oTablemassa.fatcorrelacao" style="border: none; font-weight:bold" readonly /></td>
-                        <td><input type="text" readonly name="4.3_media_obt" class="form-control" value="@Model.oTablemassa.obtida" style="border: none; font-weight:bold" /></td>
-                        <td><input type="text" readonly name="especificada" class="form-control" style="border: none; font-weight:bold" value="@Model.oTablemassa.especificada" /></td>
+                
                         <td><input type="text" readonly name="incerteza" class="form-control" style="border: none; font-weight:bold" value="@Model.oTablemassa.incerteza" /></td>
                         <td><input type="text" readonly name="4.3_rsi" class="form-control" style="border: none; font-weight:bold" readonly value="@Model.oTablemassa.rsi" /></td>
                         <td><input type="text" readonly name="4.3_qtd_rci" class="form-control" style="border: none; font-weight:bold" readonly value="@Model.oTablemassa.rci" /></td>
