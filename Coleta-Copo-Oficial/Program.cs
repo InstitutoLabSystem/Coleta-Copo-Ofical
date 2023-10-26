@@ -16,20 +16,6 @@ namespace Copo_Coleta
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            //fazendo teste de modo pt-br
-            var cultureInfo = new CultureInfo("pt-BR");
-            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
-            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
-
-            builder.Services.AddControllersWithViews()
-            .AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.PropertyNamingPolicy = null;
-                options.JsonSerializerOptions.WriteIndented = true;
-               
-            });
-            //termina aqui
-
             builder.Services.AddDbContext<BancoContext>
               (options => options.UseMySql(
                   "server=novolab.c82dqw5tullb.sa-east-1.rds.amazonaws.com;user id=sistema;password=7847awse;database=labdados",
@@ -54,6 +40,20 @@ namespace Copo_Coleta
                     option.LoginPath = "/Acess/Login";
                     option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
                 });
+
+            //passando de ponto para virgula no sistema, forma padrao.
+            var cultureInfo = new CultureInfo("pt-BR");
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
+            builder.Services.AddControllersWithViews()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                options.JsonSerializerOptions.WriteIndented = true;
+
+            });
+            //termina aqui.
 
             var app = builder.Build();
 
