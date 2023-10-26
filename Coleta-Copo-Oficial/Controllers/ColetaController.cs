@@ -1608,7 +1608,7 @@ namespace Copo_Coleta.Controllers
                                 int contador = 0;
                                 int contadorRci = 0;
 
-                                if (amostrasExistente[i].rsi == "NC")
+                                if (amostrasExistente[j].rsi == "NC")
                                 {
                                     contador++;
                                 }

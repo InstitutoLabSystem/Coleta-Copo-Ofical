@@ -67,9 +67,9 @@ namespace Copo_Coleta.Models
             public string? quatro_dois_tres_Resul { get; set; }
 
             [Required(ErrorMessage = "Campo Obrigatorio.")]
-            public DateTime data_de_inicio { get; set; }
+            public DateOnly data_de_inicio { get; set; }
             [Required(ErrorMessage = "Campo Obrigatorio.")]
-            public DateTime data_de_termino { get; set; }
+            public DateOnly data_de_termino { get; set; }
             public string? executador { get; set; }
             public string? auxiliador { get; set; }
             public string? resp_conf { get; set; }
@@ -116,9 +116,9 @@ namespace Copo_Coleta.Models
             public string? rsi { get; set; }
             public string? rci { get; set; }
             [Required(ErrorMessage = "Campo Obrigatorio.")]
-            public DateTime data_de_inicio { get; set; }
+            public DateOnly data_de_inicio { get; set; }
             [Required(ErrorMessage = "Campo Obrigatorio.")]
-            public DateTime data_de_termino { get; set; }
+            public DateOnly data_de_termino { get; set; }
             public string? executador { get; set; }
             public string? auxiliador { get; set; }
             public string? resp_conf { get; set; }
