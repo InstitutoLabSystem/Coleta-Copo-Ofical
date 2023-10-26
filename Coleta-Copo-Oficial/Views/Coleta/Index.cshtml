@@ -58,8 +58,8 @@
                             }
                             else
                             {
-                                <td><input type="text" value="@Model.oDatas.data_de_início.ToString("dd/MM/yyyy")" name="data_de_início" class="form-control" style="border: none" /> </td>
-                                <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oDatas.data_de_termino.ToString("dd/MM/yyyy")" style="border: none" /></td>
+                                <td><input type="datetime" value="@Model.oDatas.data_de_início" name="data_de_início" class="form-control" style="border: none" /> </td>
+                                <td><input type="datetime" name="data_de_termino" class="form-control" value="@Model.oDatas.data_de_termino" style="border: none" /></td>
                             }
                         </tr>
                     </tbody>
@@ -431,8 +431,8 @@
                         }
                         else
                         {
-                            <td><input type="text" value="@Model.oAspectosvisuais.data_de_inicio.ToString("dd/MM/yyyy")" name="data_de_inicio" class="form-control" style="border: none" /> </td>
-                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oAspectosvisuais.data_de_termino.ToString("dd/MM/yyyy")" style="border: none" /></td>
+                            <td><input type="datetime" value="@Model.oAspectosvisuais.data_de_inicio" name="data_de_inicio" class="form-control" style="border: none" /> </td>
+                            <td><input type="datetime" name="data_de_termino" class="form-control" value="@Model.oAspectosvisuais.data_de_termino" style="border: none" /></td>
                         }
                     </tr>
                 </tbody>
@@ -1552,13 +1552,13 @@
                     <tr>
                         @if (Model.oCompressao == null)
                         {
-                            <td style="text-align:center;"><input type="date" name="data_de_inicio" class="form-control" style="border: none"/></td>
-                            <td><input type="date" name="data_de_termino" class="form-control" style="border: none"/></td>
+                            <td style="text-align:center;"><input type="date" name="data_de_inicio" class="form-control" style="border: none" /></td>
+                            <td><input type="date" name="data_de_termino" class="form-control" style="border: none" /></td>
                         }
                         else
                         {
-                            <td><input type="text" value="@Model.oCompressao.data_de_inicio.ToString("dd/MM/yyyy")" name="data_de_inicio" class="form-control" style="border: none" /> </td>
-                            <td><input type="text" name="data_de_termino" class="form-control" value="@Model.oCompressao.data_de_termino.ToString("dd/MM/yyyy")" style="border: none"/></td>
+                            <td><input type="datetime" value="@Model.oCompressao.data_de_inicio" name="data_de_inicio" class="form-control" style="border: none" /> </td>
+                            <td><input type="datetime" name="data_de_termino" class="form-control" value="@Model.oCompressao.data_de_termino" style="border: none" /></td>
                         }
                     </tr>
                 </tbody>
@@ -1583,18 +1583,18 @@
                 <tr>
                     @if (Model.oDescricao == null)
                     {
-                        <td><input readonly type="text" class="form-control" style="border: none" /></td>
+                        <td><input readonly type="text" id="capacidade_copo" class="form-control" style="border: none" /></td>
                     }
                     else
                     {
-                        <td><input disabled type="text" class="form-control" style="border: none; font-weight:bold" value="@Model.oDescricao.capacidade_copo" /></td>
+                        <td><input disabled type="text" class="form-control" style="border: none; font-weight:bold" id="capacidade_copo" value="@Model.oDescricao.capacidade_copo" /></td>
                     }
 
                     @if (Model.oCompressao == null)
                     {
                         <td><input disabled type="text" class="form-control" style="border: none;font-weight:bold" /></td>
                         <td><input disabled type="text" name="4.3_valor_obt" class="form-control" style="border: none" /></td>
-                        <td><input disabled type="text" name="4.3_espe" class="form-control" style="border: none" /></td>
+                        <td><input disabled type="text" id="4.3_espe" name="4.3_espe" class="form-control" style="border: none" /></td>
                         <td><input disabled type="text" name="Incerteza" class="form-control" style="border: none" /></td>
                         <td><input disabled name="4.3_RSI" class="form-control" style="border: none" /></td>
                         <td><input disabled name="4.RCI" class="form-control" style="border: none" /></td>
@@ -2267,7 +2267,7 @@
                     }
                 </tbody>
             </table>
-            @if (Model.oMarcacao == null || Model.oMarcacao.Count == 0 )
+            @if (Model.oMarcacao == null || Model.oMarcacao.Count == 0)
             {
 
                 <br />
@@ -2360,7 +2360,7 @@
                     <tbody>
                         <tr>
                             <td colspan="3"> <input type="text" name="info" class="form-control" style="border: none" / value="@Model.oMateriais.info"></td>
-                            <td><input type="text" name="lote" class="form-control" style="border: none" / value="@Model.oMateriais.lote"></td>
+                            <td><input type="text" name="lote" class="form-control" style="border: none" value="@Model.oMateriais.lote"></td>
                             <td><input type="text" name="validade" class="form-control" style="border: none" value="@Model.oMateriais.validade" /></td>
                         </tr>
                     </tbody>
@@ -2453,6 +2453,26 @@
 
 
 
+    <script>
+        window.onload = function () {
+            var capacidade_copo = document.getElementById("capacidade_copo").value;
+            var valor_especificado = document.getElementById("4.3_espe");
+
+            if (capacidade_copo !== null && capacidade_copo !== "") {
+                if (capacidade_copo >= 0 && capacidade_copo <= 149) {
+                    valor_especificado.value = "1,6";
+                } else if (capacidade_copo >= 150 && capacidade_copo <= 300) {
+                    valor_especificado.value = "0,8";
+                } else if (capacidade_copo >= 301 && capacidade_copo <= 330) {
+                    valor_especificado.value = "1,1";
+                } else if (capacidade_copo >= 331 && capacidade_copo <= 440) {
+                    valor_especificado.value = "1,2";
+                } else {
+                    valor_especificado.value = "1,4";
+                }
+                console.log(capacidade_copo);
+            }
+
+        }
+    </script>
 }
-
-
