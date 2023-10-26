@@ -1672,6 +1672,7 @@ namespace Copo_Coleta.Controllers
                         List<Amostra> amostras = new List<Amostra>();
 
                         //criando variavel para pegar menor valor de resistencia.
+                        
                         double menor_valor_resistencia = double.MaxValue;
 
                         //percorrendo a amostra.
