@@ -1,10 +1,12 @@
 using Coleta_Copo_Oficial.Data;
 using Copo_Coleta.Data;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Microsoft.Identity.Client;
+using System.Globalization;
 
 namespace Copo_Coleta
 {
@@ -13,6 +15,20 @@ namespace Copo_Coleta
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            //fazendo teste de modo pt-br
+            var cultureInfo = new CultureInfo("pt-BR");
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
+            builder.Services.AddControllersWithViews()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                options.JsonSerializerOptions.WriteIndented = true;
+               
+            });
+            //termina aqui
 
             builder.Services.AddDbContext<BancoContext>
               (options => options.UseMySql(
