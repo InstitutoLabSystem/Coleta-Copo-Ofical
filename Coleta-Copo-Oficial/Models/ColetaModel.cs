@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Permissions;
+using System;
 
 namespace Copo_Coleta.Models
 {
@@ -14,11 +15,11 @@ namespace Copo_Coleta.Models
 
             [Required(ErrorMessage = "Campo Obrigatorio.")]
             [DataType(DataType.Date)]
-            public DateTime data_de_início { get; set; }
+            public DateOnly data_de_início { get; set; }
 
             [Required(ErrorMessage = "Campo Obrigatorio.")]
             [DataType(DataType.Date)]
-            public DateTime data_de_termino { get; set; }
+            public DateOnly data_de_termino { get; set; }
              
             public int editar {get; set; }
             public int os { get; set; }
@@ -114,7 +115,7 @@ namespace Copo_Coleta.Models
             public int rev { get; set; }
             public string? Capacidade { get; set; }
             public string? Capacidade_especificada { get; set; }
-            public string? Valor_min_obtido { get; set; }
+            public double? Valor_min_obtido { get; set; }
             public string? Valor_min_especificado { get; set; }
             public string? Incerteza { get; set; }
             public string? rsi { get; set; }

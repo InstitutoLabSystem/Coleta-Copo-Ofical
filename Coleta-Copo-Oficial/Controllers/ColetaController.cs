@@ -234,7 +234,7 @@ namespace Copo_Coleta.Controllers
                     string res_conf = descricao.resp_conf;
 
                     //verificando se os campos estao vazios.
-                    if (data_de_início == DateTime.MinValue || data_de_termino == DateTime.MinValue || qtd_recebida == null || qtd_ensaiada == null || capacidade_copo == null || quant_manga == null || capacidade_manga == null)
+                    if (qtd_recebida == null || qtd_ensaiada == null || capacidade_copo == null || quant_manga == null || capacidade_manga == null)
                     {
                         TempData["Mensagem"] = "Preencha todos os campos para salvar";
                         return RedirectToAction(nameof(Index), new { os, orcamento, Rev });
@@ -1752,7 +1752,7 @@ namespace Copo_Coleta.Controllers
                             Capacidade = capacidade_convertida.ToString(),
                             Capacidade_especificada = capacidade_especificada,
                             Valor_min_especificado = valor_min_especificado,
-                            Valor_min_obtido = menor_valor_resistencia.ToString(),
+                            Valor_min_obtido = menor_valor_resistencia,
                             Incerteza = pegarValorIncerteza.valor,
                             data_de_inicio = data_de_inicio,
                             data_de_termino = data_de_termino,
@@ -1873,7 +1873,7 @@ namespace Copo_Coleta.Controllers
                         var data_de_termino = dadosCompressao.data_de_termino;
 
                         //editando dados da tabela compressao.
-                        editatDescricao.Valor_min_obtido = menor_valor_resistencia.ToString();
+                        editatDescricao.Valor_min_obtido = menor_valor_resistencia;
                         var incerteza = editatDescricao.Incerteza;
                         editatDescricao.Incerteza = incerteza;
 
