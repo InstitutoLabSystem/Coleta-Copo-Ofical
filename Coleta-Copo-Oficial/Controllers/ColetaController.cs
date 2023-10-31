@@ -1773,7 +1773,7 @@ namespace Copo_Coleta.Controllers
                         // chamando minha tabela pegando a os, para salvar rsi e rci na coluna.
                         var compressaoExistente = _context.copos_compressao
                                                .Where(a => a.os == os && a.rev == rev)
-                                               .ToList();
+                                               .FirstOrDefault();
 
                         //fazendo um for para salvar nc ou c para cada resistencia.na coluna rsi e rci
                         for (int i = 0; i < amostrasExistente.Count; i++)
@@ -1807,7 +1807,7 @@ namespace Copo_Coleta.Controllers
                         // percorrendo a tabela compressao para passar na tabela, se esta "c" ou "nc".
                         int contador = 0;
                         int contadorRci = 0;
-                        for (int j = 0; j < compressaoExistente.Count; j++)
+                        for (int j = 0; j < amostrasExistente.Count; j++)
                         {
 
                             if (amostrasExistente[j].rsi == "NC")
@@ -1817,11 +1817,11 @@ namespace Copo_Coleta.Controllers
 
                             if (contador >= 1)
                             {
-                                compressaoExistente[j].rsi = "NC";
+                                compressaoExistente.rsi = "NC";
                             }
                             else
                             {
-                                compressaoExistente[j].rsi = "C";
+                                compressaoExistente.rsi = "C";
                             }
 
                             //verificando quantidade de nc do rc.
@@ -1832,11 +1832,11 @@ namespace Copo_Coleta.Controllers
 
                             if (contadorRci >= 1)
                             {
-                                compressaoExistente[j].rci = "NC";
+                                compressaoExistente.rci = "NC";
                             }
                             else
                             {
-                                compressaoExistente[j].rci = "C";
+                                compressaoExistente.rci = "C";
                             }
                         }
 
@@ -1923,11 +1923,13 @@ namespace Copo_Coleta.Controllers
                             }
                         }
 
-                        // percorrendo a tabela compressao para editar na tabela, se esta "c" ou "nc".
                         int contador = 0;
                         int contadorRci = 0;
-                        for (int j = 0; j < editarRci.Count; j++)
+
+                        // percorrendo a tabela compressao para editar na tabela, se esta "c" ou "nc".
+                        for (int j = 0; j < editarAmostraExistente.Count; j++)
                         {
+                            
                             if (editarAmostraExistente[j].rsi == "NC")
                             {
                                 contador++;
@@ -1935,11 +1937,11 @@ namespace Copo_Coleta.Controllers
 
                             if (contador > 1)
                             {
-                                editarRci[j].rsi = "NC";
+                                editarCompressaoExistente.rsi = "NC";
                             }
                             else
                             {
-                                editarRci[j].rsi = "C";
+                                editarCompressaoExistente.rsi = "C";
                             }
 
                             //verificando quantidade de nc do rc.
@@ -1950,11 +1952,11 @@ namespace Copo_Coleta.Controllers
 
                             if (contadorRci > 1)
                             {
-                                editarRci[j].rci = "NC";
+                                editarCompressaoExistente.rci = "NC";
                             }
                             else
                             {
-                                editarRci[j].rci = "C";
+                                editarCompressaoExistente.rci = "C";
                             }
                         }
                         await _context.SaveChangesAsync();
