@@ -1672,7 +1672,7 @@ namespace Copo_Coleta.Controllers
                         List<Amostra> amostras = new List<Amostra>();
 
                         //criando variavel para pegar menor valor de resistencia.
-                        
+
                         double menor_valor_resistencia = double.MaxValue;
 
                         //percorrendo a amostra.
@@ -1803,42 +1803,40 @@ namespace Copo_Coleta.Controllers
                             {
                                 amostrasExistente[i].rci = "C";
                             }
+                        }
+                        // percorrendo a tabela compressao para passar na tabela, se esta "c" ou "nc".
+                        int contador = 0;
+                        int contadorRci = 0;
+                        for (int j = 0; j < compressaoExistente.Count; j++)
+                        {
 
-
-                            // percorrendo a tabela compressao para passar na tabela, se esta "c" ou "nc".
-                            for (int j = 0; j < compressaoExistente.Count; j++)
+                            if (amostrasExistente[j].rsi == "NC")
                             {
-                                int contador = 0;
-                                int contadorRci = 0;
+                                contador++;
+                            }
 
-                                if (amostrasExistente[i].rsi == "NC")
-                                {
-                                    contador++;
-                                }
+                            if (contador >= 1)
+                            {
+                                compressaoExistente[j].rsi = "NC";
+                            }
+                            else
+                            {
+                                compressaoExistente[j].rsi = "C";
+                            }
 
-                                if (contador >= 1)
-                                {
-                                    compressaoExistente[j].rsi = "NC";
-                                }
-                                else
-                                {
-                                    compressaoExistente[j].rsi = "C";
-                                }
+                            //verificando quantidade de nc do rc.
+                            if (amostrasExistente[j].rci == "NC")
+                            {
+                                contadorRci++;
+                            }
 
-                                //verificando quantidade de nc do rc.
-                                if (amostrasExistente[i].rci == "NC")
-                                {
-                                    contadorRci++;
-                                }
-
-                                if (contadorRci >= 1)
-                                {
-                                    compressaoExistente[j].rci = "NC";
-                                }
-                                else
-                                {
-                                    compressaoExistente[j].rci = "C";
-                                }
+                            if (contadorRci >= 1)
+                            {
+                                compressaoExistente[j].rci = "NC";
+                            }
+                            else
+                            {
+                                compressaoExistente[j].rci = "C";
                             }
                         }
 
@@ -1877,10 +1875,6 @@ namespace Copo_Coleta.Controllers
                         editatDescricao.Valor_min_obtido = menor_valor_resistencia;
                         var incerteza = editatDescricao.Incerteza;
                         editatDescricao.Incerteza = incerteza;
-
-
-
-
 
                         // verificando a amostra para atualizar o valor de resistencia, para fazer o calculo de rsi e rci.
                         var editarAmostraExistente = _context.copos_amostra
@@ -1927,41 +1921,40 @@ namespace Copo_Coleta.Controllers
                             {
                                 editarAmostraExistente[i].rci = "C";
                             }
+                        }
 
-                            // percorrendo a tabela compressao para editar na tabela, se esta "c" ou "nc".
-                            for (int j = 0; j < editarRci.Count; j++)
+                        // percorrendo a tabela compressao para editar na tabela, se esta "c" ou "nc".
+                        int contador = 0;
+                        int contadorRci = 0;
+                        for (int j = 0; j < editarRci.Count; j++)
+                        {
+                            if (editarAmostraExistente[j].rsi == "NC")
                             {
-                                int contador = 0;
-                                int contadorRci = 0;
+                                contador++;
+                            }
 
-                                if (editarAmostraExistente[i].rsi == "NC")
-                                {
-                                    contador++;
-                                }
+                            if (contador > 1)
+                            {
+                                editarRci[j].rsi = "NC";
+                            }
+                            else
+                            {
+                                editarRci[j].rsi = "C";
+                            }
 
-                                if (contador >= 1)
-                                {
-                                    editarRci[j].rsi = "NC";
-                                }
-                                else
-                                {
-                                    editarRci[j].rsi = "C";
-                                }
+                            //verificando quantidade de nc do rc.
+                            if (editarAmostraExistente[j].rci == "NC")
+                            {
+                                contadorRci++;
+                            }
 
-                                //verificando quantidade de nc do rc.
-                                if (editarAmostraExistente[i].rci == "NC")
-                                {
-                                    contadorRci++;
-                                }
-
-                                if (contadorRci >= 1)
-                                {
-                                    editarRci[j].rci = "NC";
-                                }
-                                else
-                                {
-                                    editarRci[j].rci = "C";
-                                }
+                            if (contadorRci > 1)
+                            {
+                                editarRci[j].rci = "NC";
+                            }
+                            else
+                            {
+                                editarRci[j].rci = "C";
                             }
                         }
                         await _context.SaveChangesAsync();
